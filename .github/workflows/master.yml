@@ -132,4 +132,4 @@ jobs:
             git checkout ${GITHUB_REF##*/} --force
             git pull
             echo ${{ secrets.GITHUB }} | docker login ghcr.io -u yarvod --password-stdin
-            env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy -c docker-compose.prod.yml --with-registry-auth stage
+            env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy -c docker-compose.prod.yml --with-registry-auth prod
