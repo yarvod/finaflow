@@ -121,15 +121,15 @@ jobs:
       name: finaflow-env
     steps:
       - name: Restart services
-          uses: appleboy/ssh-action@v0.1.8
-          with:
-            host: ${{ secrets.SSH_HOST }}
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.SSH_KEY }}
-            script: |
-              cd /home/finaflow/finaflow/
-              git fetch --all
-              git checkout ${GITHUB_REF##*/} --force
-              git pull
-              echo ${{ secrets.GITHUB }} | docker login ghcr.io -u yarvod --password-stdin
-              env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy -c docker-compose.stage.yml --with-registry-auth stage
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/finaflow/finaflow/
+            git fetch --all
+            git checkout ${GITHUB_REF##*/} --force
+            git pull
+            echo ${{ secrets.GITHUB }} | docker login ghcr.io -u yarvod --password-stdin
+            env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy -c docker-compose.stage.yml --with-registry-auth stage
