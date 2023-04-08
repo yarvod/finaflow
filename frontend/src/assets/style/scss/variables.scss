@@ -1,0 +1,139 @@
+/*  Fonts */
+
+$CR: "Circe", sans-serif;
+$CEB: "Circe-ExtraBold";
+$CB: "Circe-Bold";
+$CL: "Circe-Light";
+$CEL: "Circe-ExtraLight";
+$NEB: "Neuron-ExtraBold";
+$NDB: "Neuron-DemiBold";
+$NL: "Neuron-Light";
+$NR: "Neuron-Regular";
+
+$base-font: "Roboto", sans-serif;
+$base-font-size: 12px;
+$body-color: #000;
+
+/* Breakpoints */
+$small-xs: 375px;
+$small: 720px;
+$sTablet: 768px;
+$lTablet: 1150px;
+$large: 1360px;
+$desktop: 721px;
+$desktop-xl: 1920px;
+
+/* Sizes */
+
+$headerHeight: 56px;
+$containerWidth: 1280px;
+$containerPadding: 20px;
+
+/* colors */
+
+/* colors Base */
+
+$Base: #DEEAF5;
+$Base0: #ABD5F4;
+$Base1: #0069b4;
+$Base50: #f6f8fc;
+$Base100: #f0f3fa;
+$Base200: #ebeef5;
+$Base300: #e3e7ef;
+$Base400: #cbd0de;
+$Base500: #aab0c1;
+$Base600: #8089a2;
+$Base700: #5c657e;
+$Base800: #343b4c;
+$Base900: #1f222a;
+
+$black: #000;
+$Gray: #838a9d;
+$Gray700: #43495a;
+$Gray600: #636b83;
+$Gray500: #666666;
+$Gray400: #aab0c1;
+$Gray300: #cbd0de;
+$Gray200: #e3e7ef;
+$Gray100: #f6f8fc;
+$Gray0: #f0f3fa;
+$white: #fff;
+
+$Base700: #5c657e;
+
+/* colors Primary */
+
+$Emerald700: #005662;
+$Emerald600: #228082;
+$Emerald: #2cafa4;
+//$Emerald: violet;
+$Emerald400: #4bb6ac;
+$Emerald300: #6ec0b8;
+$Emerald200: #9dd2cc;
+$Emerald100: #bfe7e4;
+$Rubin: #e61420;
+$Rubin300: #f34d35;
+
+/* colors Secondary */
+
+$Secondary0: #effefc;
+$Secondary100: #d4f0ed;
+$Secondary200: #aae2db;
+$Secondary500: #2ab6a5;
+$Secondary600: #219184;
+
+/* colors Primary-Red */
+
+$Red700: #8b2025;
+$Red600: #ba2b31;
+$Red: #e8363d;
+$Red400: #ed5e64;
+$Red300: #f1868b;
+$Red200: #f6afb1;
+$Red100: #fad7d8;
+
+/* colors Primary-Jade */
+
+$Jade700: #196d63;
+$Jade600: #219184;
+$Jade: #2ab6a5;
+$Jade400: #54c4b7;
+$Jade300: #7fd3c9;
+$Jade200: #aae2db;
+$Jade100: #d4f0ed;
+$Jade50: #effefc;
+
+/* colors Buisness */
+$Business: #009fe3;
+$Non-groceries: #f7a366;
+$Education: #8854d0;
+$Services: #f78988;
+$Design: #dd5d64;
+$Groceries: #5ccc8b;
+
+$Cafe: #ffdf73;
+//$Services: #00cec9;
+$Medicine: #ba020c;
+$Sport: #295cc1;
+$Catering: #4994fc;
+$Market: #73ace5;
+//$Cafe: #ffc914;
+
+/* colors Social */
+
+$Transport: #778ca3;
+//$Education: #f78988;
+$Sport2: #fcbe27;
+$Walk: #fff2d6;
+$Religion: #8c2a0c;
+$Park: #b2ba11;
+$attractions: #4994fc;
+
+$com_red: #eb372e;
+$com_gray: #292d38;
+
+/* adds */
+$childrenSet: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+
+/* sizes */
+$header_mob_height: 60px;

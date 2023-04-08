@@ -1,0 +1,51 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+stats.sh
+
+# Dependency directories
+node_modules/
+
+*/dist
+
+*/static
+*/media
+
+# Optional npm cache directory
+.npm
+
+### Python template
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+*package-lock.json
+
+postgres/init/init-user-db.sh
+*.DS_Store
+.vscode/
+
+!media/**/
+
+*.pyc
+*~
+__pycache__
+venv
+.idea
+*db.sqlite3
+dump.json
+.DS_Store
+test.py
+PLAN.txt
+cmds.txt
+db.json
+mytoken.txt
+address.txt
+*.env
+
+*config.js
+!*vue.config.js
+!*babel.config.js
+

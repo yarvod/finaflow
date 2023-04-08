@@ -1,0 +1,236 @@
+/* Media queries mixins */
+
+@mixin respond-to($media) {
+    @if $media == mobile-sm {
+        @media only screen and (max-width: $small-xs - 1) {
+            @content;
+        }
+    } @else if $media == mobile {
+        @media only screen and (max-width: $small) {
+            @content;
+        }
+    } @else if $media == mobile-xl {
+        @media only screen and (min-width: $small-xs) {
+            @content;
+        }
+    } @else if $media == mobile-large {
+        @media only screen and (min-width: $small-xs) and (max-width: $sTablet - 1) {
+            @content;
+        }
+    } @else if $media == desktop {
+        @media only screen and (min-width: $desktop) {
+            @content;
+        }
+    } @else if $media == desktop-xl {
+        @media only screen and (min-width: $desktop-xl) {
+            @content;
+        }
+    } @else if $media == containerWidth {
+        @media only screen and (max-width: $containerWidth) {
+            @content;
+        }
+    } @else if $media == MS {
+        @media only screen and (min-width: $small + 1) and (max-width: $large - 1) {
+            @content;
+        }
+    } @else if $media == LS {
+        @media only screen and (min-width: $large) {
+            @content;
+        }
+    } @else if $media == lTablet {
+        @media only screen and (max-width: $lTablet) {
+            @content;
+        }
+    } @else if $media == sTablet {
+        @media only screen and (max-width: $sTablet) {
+            @content;
+        }
+    } @else if $media == osTablet {
+        @media only screen and (max-width: $sTablet) and (min-width: $small + 1) {
+            @content;
+        }
+    } @else if $media == olTablet {
+        @media only screen and (max-width: $lTablet) and (min-width: $sTablet + 1) {
+            @content;
+        }
+    } @else if $media == tablets {
+        @media only screen and (max-width: $lTablet) and (min-width: $small + 1) {
+            @content;
+        }
+    } @else if $media == print {
+        @media print {
+            @content;
+        }
+    } @else if $media == large {
+        @media only screen and (max-width: $large) {
+            @content;
+        }
+    }
+}
+
+/* Adds mixins */
+
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+
+    &:before {
+        content: "";
+        display: block;
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+}
+
+@mixin font($alias, $name, $weight) {
+    @font-face {
+        font-family: $alias;
+        src: url("~~assets/fonts/" + $name + ".woff") format("woff");
+        font-weight: $weight;
+        font-style: normal;
+        font-display: swap;
+    }
+}
+
+@mixin hover {
+    @media (hover), (min-width: 0) {
+        @content;
+    }
+}
+
+@function breakpoint-max($name, $bp) {
+    $next: breakpoint-next($name, $bp);
+
+    @return if($next, breakpoint-min($next, $bp) - .02, null);
+}
+
+@function breakpoint-min($name, $bp: $breakpoints) {
+    $min: map-get($bp, $name);
+
+    @return if($min != 0, $min, null);
+}
+
+@function breakpoint-next($name, $bp, $breakpoint-names: map-keys($bp)) {
+    $n: index($breakpoint-names, $name);
+
+    @return if($n != null and $n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+@mixin transition-blocks($args) {
+    @if $args == 0 {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+        transition: all .3s ease;
+    } @else {
+        opacity: 1;
+        transform: translateY(0) translateX(0);
+        transition: all .3s ease $args;
+    }
+}
+
+@mixin after-shadow-background {
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(#000, .3);
+        opacity: 1;
+        transition: all .3s ease .1s;
+    }
+}
+
+@mixin after-shadow-gradient {
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        //background: linear-gradient(0, rgba(0, 0, 3, 0) -5.25%, rgba(0, 0, 3, .8) 125.41%);
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        transition: all .3s ease .1s;
+    }
+}
+
+@mixin redesign-text-p1 {
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 1.48;
+}
+
+@mixin redesign-text-p2 {
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 1.56;
+}
+
+@mixin redesign-text-strong1 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+@mixin redesign-text-strong2 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 120%;
+}
+
+@mixin redesign-load-more {
+    background-color: $Jade;
+    font-family: $CR;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $white;
+
+    &:hover {
+        background-color: $Jaded600;
+    }
+
+    &:active {
+        background-color: $Jade700;
+    }
+
+    @include respond-to(mobile) {
+        font-size: 20px;
+    }
+}
+
+@mixin primary-button {
+    box-sizing: border-box;
+    padding: 16px 30px;
+    border-radius: 8px;
+    border: none;
+    background-color: $Red;
+    font-family: $CR;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    color: $white;
+    transition: all .3s ease;
+    box-shadow: 0 0 1px rgba(0, 0, 0, .04), 0 2px 6px rgba(220, 57, 51, .12), 0 10px 20px rgba(220, 57, 51, .18);
+
+    @include respond-to(desktop) {
+        &:hover {
+            background-color: $Red600;
+            transition: all .3s ease;
+            box-shadow: none;
+        }
+
+        &:active {
+            background-color: $Red700;
+            box-shadow: none;
+        }
+    }
+}
+
+@mixin gray-border {
+    box-sizing: border-box;
+    border: 1px solid $Gray200;
+}

@@ -1,0 +1,126 @@
+<template>
+  <base-layout>
+    <template #body>
+      <ion-card>
+        <ion-card-header class="head">
+          <ion-card-title>Профиль</ion-card-title>
+          <div>
+            <ion-button
+                @click="$router.push({name: 'account_edit'})"
+            >
+              Изменить
+            </ion-button>
+          </div>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-list>
+            <ion-item>
+              <div class="col">
+                <b>Имя: </b> <span>{{ user.first_name }}</span>
+              </div>
+              <ion-button
+                  v-if="!user.first_name"
+                  @click="$router.push({name: 'account_edit'})"
+              >
+                Добавить
+              </ion-button>
+            </ion-item>
+            <ion-item>
+              <div class="col">
+                <b>Фамилия: </b> <span>{{ user.last_name }}</span>
+              </div>
+              <ion-button
+                  class="col"
+                  v-if="!user.last_name"
+                  @click="$router.push({name: 'account_edit'})"
+              >
+                Добавить
+              </ion-button>
+            </ion-item>
+            <ion-item>
+              <div class="col">
+                <b>Почта: </b> <span>{{ user.email }}</span>
+              </div>
+            </ion-item>
+            <ion-item>
+              <div class="col">
+                <b>Телефон: </b> <span>{{ user.phone_number }}</span>
+              </div>
+              <ion-button
+                  class="col"
+                  v-if="!user.phone_number"
+                  @click="$router.push({name: 'account_edit'})"
+              >
+                Добавить
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+        <ion-button
+            class="ion-margin-horizontal"
+            @click="LogOut"
+            color="danger"
+        >
+          Выйти
+        </ion-button>
+      </ion-card>
+    </template>
+  </base-layout>
+</template>
+
+
+<script>
+import {mapGetters} from "vuex";
+import BaseLayout from "@/components/BaseLayout.vue";
+import Loader from "@/components/common/Loader.vue";
+import {IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonList} from "@ionic/vue";
+
+export default {
+  name: "AccountInfo",
+  components: {
+    Loader,
+    IonButton,
+    BaseLayout,
+    IonList,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonItem,
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapGetters(['user', 'isMobile'])
+  },
+  methods: {
+    async LogOut() {
+      this.$store.commit('setLoadingUser', true);
+      await this.$store.dispatch('LogOut')
+        .then(() => {
+          this.$router.push({name: 'login'})
+        })
+    }
+  },
+  async mounted() {
+    await this.$store.dispatch('getMe')
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+span {
+  word-break: break-word;
+}
+
+</style>

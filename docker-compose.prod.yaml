@@ -1,0 +1,127 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+  static:
+  redis:
+  media:
+
+services:
+  postgres:
+    image: ghcr.io/yarvod/finaflow/finaflow-postgres:latest
+    deploy:
+      restart_policy:
+        window: 10s
+        condition: on-failure
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - web
+
+  backend:
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      update_config:
+        parallelism: 1
+        delay: 5s
+        failure_action: rollback
+        order: start-first
+    healthcheck:
+      test: curl -sS http://0.0.0.0:8000/healthcheck || echo 1
+      interval: 30s
+      timeout: 3s
+      retries: 12
+    env_file:
+      - .env
+    volumes:
+      - ./backend/:/app/
+      - static:/app/static
+      - media:/app/media
+    depends_on:
+      - postgres
+      - redis
+    command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_django"]
+    networks:
+      - web
+
+  celery:
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    deploy:
+      restart_policy:
+        condition: on-failure
+    env_file:
+      - .env
+    volumes:
+      - ./backend/:/app/
+    depends_on:
+      - backend
+      - postgres
+      - redis
+    command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_celery"]
+    networks:
+      - web
+
+  redis:
+    image: ghcr.io/yarvod/finaflow/finaflow-redis:latest
+    deploy:
+      restart_policy:
+        window: 5s
+        condition: on-failure
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+    networks:
+      - web
+
+  web:
+    image: ghcr.io/yarvod/finaflow/finaflow-web:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      update_config:
+        parallelism: 1
+        delay: 20s
+        failure_action: rollback
+        order: start-first
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s -o /dev/null -I -w '%{http_code}' http://0.0.0.0:9991/ | grep '200' || exit 1" ]
+      interval: 10s
+      timeout: 30s
+      retries: 10
+      start_period: 10s
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - static:/static
+      - media:/media
+      - ${SSL_CERTIFICATE}:/etc/nginx/certs/cert.pem:ro
+      - ${SSL_CERTIFICATE_KEY}:/etc/nginx/certs/key.pem:ro
+    depends_on:
+      - backend
+    networks:
+      - web
+
+networks:
+  web:
+    driver: overlay
+    attachable: true

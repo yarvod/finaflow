@@ -1,0 +1,15 @@
+[
+  {
+    "model": "users.user",
+    "id": "5000",
+    "fields": {
+      "first_name": "John",
+      "last_name": "Duck",
+      "username": "johnny06",
+      "password": "pbkdf2_sha256$260000$38pjNFtuUh6DkErRVRsrNg$QGkLcd/3CTiRsc6bc+f+M2gyCSmEdSoW2FkPe7TrAHE=",
+      "email": "testuser@phystech-job.ru",
+      "is_active": 1,
+      "receive_notifications": true
+    }
+  }
+]

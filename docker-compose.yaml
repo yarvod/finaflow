@@ -1,0 +1,87 @@
+version: '3.8'
+
+volumes:
+  postgres_data:
+  static:
+  redis:
+  media:
+
+services:
+  postgres:
+    container_name: finaflow-postgres
+    image: ghcr.io/yarvod/finaflow/finaflow-postgres:latest
+    build:
+      context: postgres
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    restart: always
+
+  backend:
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    build:
+      context: backend
+    container_name: finaflow-backend
+    env_file:
+      - .env
+    volumes:
+      - ./backend/:/app/
+      - static:/app/static
+      - media:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_django"]
+
+  celery:
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    build:
+      context: backend
+    container_name: finaflow-celery
+    volumes:
+      - ./backend/:/app/
+    depends_on:
+      - postgres
+      - redis
+      - backend
+    env_file:
+      - .env
+    restart: always
+    command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_celery"]
+
+  redis:
+    image: ghcr.io/yarvod/finaflow/finaflow-redis:latest
+    container_name: finaflow-redis
+    build:
+      context: ./redis
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+    restart: always
+
+  web:
+    image: ghcr.io/yarvod/finaflow/finaflow-web:latest
+    container_name: finaflow-web
+    restart: unless-stopped
+    env_file:
+      - .env
+    build:
+      context: frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - static:/static
+      - media:/media
+      - ${SSL_CERTIFICATE}:/etc/nginx/certs/cert.pem:ro
+      - ${SSL_CERTIFICATE_KEY}:/etc/nginx/certs/key.pem:ro
+    depends_on:
+      - backend
