@@ -1,12 +1,4 @@
 <template>
-  <RecoveryModal
-      v-show="show_modal_recovery"
-      @modal_state="show_modal_recovery = $event"
-  />
-  <LoginModal
-      v-show="show_modal_login"
-      @modal_state="show_modal_login = $event"
-  />
   <base-layout>
     <template #body>
       <div class="center">
@@ -34,27 +26,17 @@
               class="ion-margin-top"
               color="primary"
               expand="block"
-              @click="show_modal_login = !show_modal_login"
+              @click="submitLogin()"
           >
             Войти
           </ion-button>
         </form>
-        <ion-button
-            class="ion-margin-top"
-            fill="clear"
-            expand="block"
-            @click="show_modal_recovery = !show_modal_recovery"
-        >
-          Восстановить доступ
-        </ion-button>
       </div>
     </template>
   </base-layout>
 </template>
 
 <script>
-import RecoveryModal from "@/components/Login/RecoveryModal";
-import LoginModal from "@/components/Login/LoginModal";
 import {mapGetters} from "vuex";
 import {IonButton, IonInput, IonItem, IonLabel, IonNote} from "@ionic/vue";
 import BaseLayout from "@/components/BaseLayout";
@@ -64,8 +46,6 @@ export default {
   name: "Login",
   components: {
     BaseLayout,
-    RecoveryModal,
-    LoginModal,
     IonInput,
     IonLabel,
     IonItem,
