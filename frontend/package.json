@@ -25,7 +25,6 @@
     "ionicons": "^6.0.3",
     "leader-line-vue": "^2.1.1",
     "moment": "^2.29.1",
-    "v-network-graph": "^0.8.1",
     "vue": "^3.2.21",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.0.12",

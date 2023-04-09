@@ -2,50 +2,15 @@
   <BaseLayout>
     <template #body>
       <div class="head">
-        <h4>Распределение финансирования ТОС</h4>
-        <!--      <div class="rightSide">-->
-        <!--        <ColorBoxes/>-->
-        <!--      </div>-->
+        <h4>Все операции</h4>
       </div>
-      <SLoader v-if="loadingTASList"/>
+      <SLoader v-if="loadingFinancesList"/>
       <div v-else class="tableWrapper">
-        <table>
-          <thead>
-          <tr>
-            <th>ТОС</th>
-            <th>2003-2006</th>
-            <th>2007-2030</th>
-            <th>Готовность</th>
-            <th>Доля импорта (стоимость)</th>
-            <th>Доля импорта (продукты)</th>
-            <th>УГТ</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr
-              v-for="tas in tasList"
-              @click="$router.push({name: 'tas_detail', params: {tasId: tas.id}})"
-          >
-            <td>{{ tas.name }}</td>
-            <td>
-              <ion-progress-bar :value="base.progress1"></ion-progress-bar>
-            </td>
-            <td>
-              <ion-progress-bar :value="base.progress2"></ion-progress-bar>
-            </td>
-            <td>{{ base.date }}</td>
-            <td>
-              <ion-progress-bar :value="base.import_price"></ion-progress-bar>
-            </td>
-            <td>
-              <ion-progress-bar :value="base.import_prod"></ion-progress-bar>
-            </td>
-            <td>
-              {{ tas.trl }}
-            </td>
-          </tr>
-          </tbody>
-        </table>
+        <OperationItem
+            v-for="operation in operationsList"
+            :key="operation.id"
+            :operation="operation"
+        />
       </div>
     </template>
   </BaseLayout>
@@ -57,40 +22,31 @@ import SLoader from "@/components/ui/SLoader.vue";
 import graph_service from "@/api/graph_service";
 import BaseLayout from "@/components/BaseLayout.vue";
 import {IonProgressBar} from "@ionic/vue";
+import finance_service from "../api/finance_service";
+import OperationItem from "../components/operations/OperationItem";
 
 export default {
-  name: "TASList",
+  name: "OperationsList",
   components: {
     BaseLayout,
     ColorBoxes,
     SLoader,
     IonProgressBar,
+    OperationItem,
   },
   data() {
     return {
-      tasList: [],
-      loadingTASList: false,
-      base: {
-        name: "ТОС-1",
-        progress1: 0.3,
-        progress2: 0.3,
-        date: 2034,
-        import_price: 0.5,
-        price_color: "#C0D24C",
-        import_prod: 0.5,
-        prod_color: "#309C34",
-        trl: 50,
-        trl_color: "#4CDA52",
-      },
+      operationsList: [],
+      loadingFinancesList: false,
     }
   },
   async mounted() {
-    this.loadingTASList = true;
-    await graph_service.getTASList()
+    this.loadingFinancesList = true;
+    await finance_service.getOperationsList()
         .then(resp => {
           if (resp && resp.status === 200 && resp.data) {
-            this.tasList = resp.data;
-            this.loadingTASList = false;
+            this.operationsList = resp.data;
+            this.loadingFinancesList = false;
           }
         })
   },

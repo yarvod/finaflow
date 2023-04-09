@@ -4,7 +4,6 @@ import router from './router';
 // @ts-ignore
 import store from './store';
 
-import "v-network-graph/lib/style.css";
 import '@ionic/vue/css/core.css';
 import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';
@@ -22,7 +21,6 @@ import './theme/default.css';
 
 import BaseLayout from "@/components/BaseLayout.vue";
 import {Icon} from '@iconify/vue';
-import {VNetworkGraph} from "v-network-graph";
 import {IonicVue} from '@ionic/vue';
 
 const app = createApp(App)
@@ -32,7 +30,6 @@ const app = createApp(App)
 
 app.component('BaseLayout', BaseLayout);
 app.component('Icon', Icon);
-app.component('VNetworkGraph', VNetworkGraph);
 
 router.isReady().then(() => {
     app.mount('#app');

@@ -4,7 +4,7 @@ import {createRouter, createWebHistory} from "vue-router";
 const routes = [
     {
         path: '/',
-        component: () => import('@/views/TASList.vue'),
+        component: () => import('@/views/OperationsList.vue'),
         name: 'home',
         props: true,
         meta: {
