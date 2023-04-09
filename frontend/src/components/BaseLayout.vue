@@ -14,7 +14,7 @@
         <ion-list>
           <ion-item button @click="$router.push({name: 'home'})">
             <ion-label>
-              Главная
+              Список операций
             </ion-label>
           </ion-item>
           <ion-item button @click="$router.push({name: 'account'})">
@@ -34,7 +34,6 @@
             <ion-title>{{ pageTitle }}</ion-title>
             <ion-menu-button
                 v-if="isAuthenticated"
-                color="dark"
             ></ion-menu-button>
           </div>
         </ion-toolbar>
@@ -117,6 +116,10 @@ ion-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+ion-menu-button {
+  color: $white;
 }
 
 </style>

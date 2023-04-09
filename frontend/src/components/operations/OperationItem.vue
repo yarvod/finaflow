@@ -49,7 +49,7 @@ export default {
 .card {
   border: $Gray300 1px solid;
   border-radius: 5px;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
   margin-top: 10px;
 }
