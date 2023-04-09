@@ -7,8 +7,12 @@ from users.models import User
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        c1, _ = Category.objects.update_or_create(slug="food", defaults=dict(title="Еда, продукты"))
-        c2, _ = Category.objects.update_or_create(slug="cafe", defaults=dict(title="Кафе, рестораны"))
+        c1, _ = Category.objects.update_or_create(
+            slug="food", defaults=dict(title="Еда, продукты")
+        )
+        c2, _ = Category.objects.update_or_create(
+            slug="cafe", defaults=dict(title="Кафе, рестораны")
+        )
         u1 = User.objects.filter(email="ivan@site.ru").first()
         if not u1:
             u1 = User.objects.create_user(
@@ -19,7 +23,9 @@ class Command(BaseCommand):
                 password="1111",
             )
             u1.save()
-        c3, _ = Category.objects.update_or_create(slug="education", defaults=dict(title="Обучение", user=u1))
+        c3, _ = Category.objects.update_or_create(
+            slug="education", defaults=dict(title="Обучение", user=u1)
+        )
         o1, _ = Operation.objects.update_or_create(
             user=u1,
             title="Шаурма",
@@ -27,7 +33,7 @@ class Command(BaseCommand):
                 type=OperationType.EXPENDITURE,
                 category=c1,
                 money=200.2,
-            )
+            ),
         )
 
         u2 = User.objects.filter(email="alex@site.ru").first()

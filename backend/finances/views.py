@@ -2,22 +2,11 @@ from django.db.models import Q
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from common.serializers import (
+from finances.serializers import (
     OperationSerializer,
     CategorySerializer,
-    SourceOfIncomeSerializer,
 )
 from finances.models import Operation, Category
-
-
-class SourceOfIncomeViewSet(ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-
-    def get_queryset(self):
-        return Category.objects.filter(user=self.request.user)
-
-    def get_serializer_class(self):
-        return SourceOfIncomeSerializer
 
 
 class CategoryViewSet(ModelViewSet):

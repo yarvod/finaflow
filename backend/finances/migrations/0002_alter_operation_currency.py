@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('finances', '0001_initial'),
+        ("finances", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='operation',
-            name='currency',
-            field=models.IntegerField(choices=[(1, 'руб'), (2, 'usd'), (3, 'eur')], default=1, verbose_name='Валюта'),
+            model_name="operation",
+            name="currency",
+            field=models.IntegerField(
+                choices=[(1, "руб"), (2, "usd"), (3, "eur")],
+                default=1,
+                verbose_name="Валюта",
+            ),
         ),
     ]

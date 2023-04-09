@@ -1,19 +1,23 @@
 from django.contrib import admin
 
-from finances.models import Operation, Category, SourceOfIncome
-
-
-@admin.register(SourceOfIncome)
-class SourceOfIncomeAdmin(admin.ModelAdmin):
-    list_display = ("title",)
+from finances.models import Operation, Category
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug",)
+    list_display = (
+        "title",
+        "slug",
+        "type",
+        "parent",
+    )
+    list_filter = ("type",)
 
 
 @admin.register(Operation)
 class OperationAdmin(admin.ModelAdmin):
-    list_display = ("title", "type", "category", "money", "date")
-    list_filter = ("type", "category",)
+    list_display = ("type", "category", "money", "date", "comment")
+    list_filter = (
+        "type",
+        "category",
+    )

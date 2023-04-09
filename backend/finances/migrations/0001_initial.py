@@ -8,7 +8,6 @@ import uuid
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,47 +16,132 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('title', models.CharField(max_length=155, verbose_name='Название')),
-                ('slug', models.SlugField(verbose_name='Слаг')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        unique=True,
+                    ),
+                ),
+                ("title", models.CharField(max_length=155, verbose_name="Название")),
+                ("slug", models.SlugField(verbose_name="Слаг")),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
             },
         ),
         migrations.CreateModel(
-            name='SourceOfIncome',
+            name="SourceOfIncome",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('title', models.CharField(max_length=155, verbose_name='Название')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        unique=True,
+                    ),
+                ),
+                ("title", models.CharField(max_length=155, verbose_name="Название")),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Источник дохода',
-                'verbose_name_plural': 'Источники дохода',
+                "verbose_name": "Источник дохода",
+                "verbose_name_plural": "Источники дохода",
             },
         ),
         migrations.CreateModel(
-            name='Operation',
+            name="Operation",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
-                ('type', models.IntegerField(choices=[(1, 'Расход'), (2, 'Доход')], default=1, verbose_name='Тип операции')),
-                ('title', models.CharField(max_length=155, verbose_name='Название')),
-                ('money', models.FloatField(default=0, verbose_name='Сумма денег')),
-                ('currency', models.IntegerField(choices=[(1, 'руб'), (2, 'usd'), (3, 'eur')], default=1)),
-                ('date', models.DateField(default=django.utils.timezone.now, verbose_name='Дата')),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='finances.category', verbose_name='Категория')),
-                ('source_of_income', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='finances.sourceofincome', verbose_name='Источник дохода')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        unique=True,
+                    ),
+                ),
+                (
+                    "type",
+                    models.IntegerField(
+                        choices=[(1, "Расход"), (2, "Доход")],
+                        default=1,
+                        verbose_name="Тип операции",
+                    ),
+                ),
+                ("title", models.CharField(max_length=155, verbose_name="Название")),
+                ("money", models.FloatField(default=0, verbose_name="Сумма денег")),
+                (
+                    "currency",
+                    models.IntegerField(
+                        choices=[(1, "руб"), (2, "usd"), (3, "eur")], default=1
+                    ),
+                ),
+                (
+                    "date",
+                    models.DateField(
+                        default=django.utils.timezone.now, verbose_name="Дата"
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="finances.category",
+                        verbose_name="Категория",
+                    ),
+                ),
+                (
+                    "source_of_income",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="finances.sourceofincome",
+                        verbose_name="Источник дохода",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Операция',
-                'verbose_name_plural': 'Операции',
-                'ordering': ['-date'],
+                "verbose_name": "Операция",
+                "verbose_name_plural": "Операции",
+                "ordering": ["-date"],
             },
         ),
     ]
