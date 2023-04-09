@@ -5,7 +5,7 @@
         <h4>Все операции</h4>
       </div>
       <SLoader v-if="loadingFinancesList"/>
-      <div v-else class="tableWrapper">
+      <div v-else>
         <OperationItem
             v-for="operation in operationsList"
             :key="operation.id"

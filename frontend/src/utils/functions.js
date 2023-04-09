@@ -11,3 +11,15 @@ export function parseURL (search) {
 export function checkEmail(email) {
     return email.match(/^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
 }
+
+export function moneyFilter(value) {
+    if (value) {
+        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    }
+}
+
+export function dateFilter(value) {
+  if (value) {
+    return moment(String(value)).format('D MMM YYYY')
+  }
+}
