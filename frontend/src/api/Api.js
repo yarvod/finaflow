@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from "@/router";
 import store from "@/store";
 
-export const backendAPIURL = '/api/'
+export const backendAPIURL = 'https://localhost/api/'
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 

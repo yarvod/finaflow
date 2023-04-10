@@ -8,10 +8,10 @@ from users.models import User
 class Command(BaseCommand):
     def handle(self, *args, **options):
         c1, _ = Category.objects.update_or_create(
-            slug="food", defaults=dict(title="Еда, продукты")
+            title="Еда, продукты",
         )
         c2, _ = Category.objects.update_or_create(
-            slug="cafe", defaults=dict(title="Кафе, рестораны")
+            title="Кафе, рестораны"
         )
         u1 = User.objects.filter(email="ivan@site.ru").first()
         if not u1:
@@ -24,7 +24,7 @@ class Command(BaseCommand):
             )
             u1.save()
         c3, _ = Category.objects.update_or_create(
-            slug="education", defaults=dict(title="Обучение", user=u1)
+            title="Обучение", user=u1
         )
         o1, _ = Operation.objects.update_or_create(
             user=u1,

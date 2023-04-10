@@ -10,7 +10,6 @@ class CategorySerializer(serializers.ModelSerializer):
     type = serializers.IntegerField(default=Currency.RUB)
     parent = serializers.SerializerMethodField()
     title = serializers.CharField()
-    slug = serializers.SlugField()
 
     class Meta:
         model = Category
@@ -20,7 +19,6 @@ class CategorySerializer(serializers.ModelSerializer):
             "type",
             "parent",
             "title",
-            "slug",
         )
 
     def get_parent(self, obj):

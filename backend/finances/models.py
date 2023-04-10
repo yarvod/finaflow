@@ -32,7 +32,6 @@ class Category(models.Model):
         verbose_name="Родитель",
     )
     title = models.CharField(max_length=155, verbose_name="Название")
-    slug = models.SlugField(verbose_name="Слаг")
 
     class Meta:
         verbose_name = "Категория"

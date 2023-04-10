@@ -1,0 +1,26 @@
+[
+  {
+    "model": "users.user",
+    "pk": "cabb8455-e994-43e6-993b-176781c494e1",
+    "fields": {
+      "first_name": "Ivan",
+      "last_name": "Ivanov",
+      "username": "ivan",
+      "password": "pbkdf2_sha256$260000$a5EpbDSFZxmvDpF11LlPdg$1xOzdnB7eUsjxIfiBlKvt3IQP3f+BsrX7+awbvNaVwo=",
+      "email": "ivan@site.ru",
+      "is_active": 1
+    }
+  },
+    {
+    "model": "users.user",
+    "pk": "85e68fec-2cfb-4f2d-bb85-04e67ebe6d04",
+    "fields": {
+      "first_name": "Sasha",
+      "last_name": "Alexandrov",
+      "username": "sasha",
+      "password": "pbkdf2_sha256$260000$a5EpbDSFZxmvDpF11LlPdg$1xOzdnB7eUsjxIfiBlKvt3IQP3f+BsrX7+awbvNaVwo=",
+      "email": "sasha@site.ru",
+      "is_active": 1
+    }
+  }
+]

@@ -7,7 +7,6 @@ from finances.models import Operation, Category
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         "title",
-        "slug",
         "type",
         "parent",
     )

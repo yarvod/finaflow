@@ -1,0 +1,74 @@
+[
+  {
+    "model": "finances.operation",
+    "pk": "f0c984be-150b-4e3d-b36c-9840b8d012b3",
+    "fields": {
+      "comment": "Еда",
+      "user": "cabb8455-e994-43e6-993b-176781c494e1",
+      "category": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b1",
+      "type": 1,
+      "money": 500,
+      "date": "2023-04-10"
+    }
+  },
+    {
+    "model": "finances.operation",
+    "pk": "f0c984be-150b-4e3d-b36c-9840b8d012b4",
+    "fields": {
+      "comment": "Еда",
+      "user": "cabb8455-e994-43e6-993b-176781c494e1",
+      "category": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c2",
+      "type": 1,
+      "money": 500,
+      "date": "2023-04-10"
+    }
+  },
+    {
+    "model": "finances.operation",
+    "pk": "f0c984be-150b-4e3d-b36c-9840b8d012b5",
+    "fields": {
+      "comment": "Едаqerh",
+      "user": "cabb8455-e994-43e6-993b-176781c494e1",
+      "category": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c3",
+      "type": 1,
+      "money": 500,
+      "date": "2023-04-10"
+    }
+  },
+      {
+    "model": "finances.operation",
+    "pk": "f0c984be-150b-4e3d-b36c-9840b8d012b6",
+    "fields": {
+      "comment": "Едаqehqerh",
+      "user": "cabb8455-e994-43e6-993b-176781c494e1",
+      "category": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c3",
+      "type": 1,
+      "money": 500,
+      "date": "2023-04-10"
+    }
+  },
+      {
+    "model": "finances.operation",
+    "pk": "f0c984be-150b-4e3d-b36c-9840b8d012b7",
+    "fields": {
+      "comment": "Едаwrth",
+      "user": "cabb8455-e994-43e6-993b-176781c494e1",
+      "category": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c3",
+      "type": 1,
+      "money": 500,
+      "date": "2023-04-10"
+    }
+  },
+      {
+    "model": "finances.operation",
+    "pk": "f0c984be-150b-4e3d-b36c-9840b8d012b8",
+    "fields": {
+      "comment": "Едаer",
+      "user": "cabb8455-e994-43e6-993b-176781c494e1",
+      "category": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c3",
+      "type": 1,
+      "money": 500,
+      "date": "2023-04-10"
+    }
+  }
+]

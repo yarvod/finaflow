@@ -1,9 +1,9 @@
 <template>
-  <BaseLayout>
-    <template #body>
-      <div class="head">
+  <BaseLayout head>
+    <template #head>
         <h4>Все операции</h4>
-      </div>
+    </template>
+    <template #body>
       <SLoader v-if="loadingFinancesList"/>
       <div v-else>
         <OperationItem
@@ -19,7 +19,6 @@
 <script>
 import ColorBoxes from "@/components/common/ColorBoxes.vue";
 import SLoader from "@/components/ui/SLoader.vue";
-import graph_service from "@/api/graph_service";
 import BaseLayout from "@/components/BaseLayout.vue";
 import {IonProgressBar} from "@ionic/vue";
 import finance_service from "../api/finance_service";
