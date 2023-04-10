@@ -4,6 +4,11 @@
       <div class="leftSide">
         <div class="title">
           {{ get_categories_titles() }}
+          <ion-chip
+            :color="get_type_color()"
+          >
+            {{ get_type() }}
+          </ion-chip>
         </div>
         <div
           class="comment"
@@ -21,10 +26,14 @@
 </template>
 
 <script>
-import {CURRENCY_CHOICES} from "@/utils/constants";
+import {CURRENCY_CHOICES, TYPE_CHOICES} from "@/utils/constants";
+import {IonChip} from "@ionic/vue";
 
 export default {
   name: "OperationItem",
+  components: {
+    IonChip,
+  },
   props: {
     operation: {
       required: true,
@@ -48,6 +57,15 @@ export default {
         return {'--color': '#ed5e64'}
       }
       return {'--color': '#5ccc8b'}
+    },
+    get_type() {
+      return TYPE_CHOICES[this.operation.type]
+    },
+    get_type_color() {
+      if (this.operation.type === 1) {
+        return "danger"
+      }
+      return "success"
     }
   },
 }
@@ -87,6 +105,10 @@ export default {
   font-family: $base-font;
   font-size: 12px;
   color: $Gray400;
+}
+
+ion-chip {
+  cursor: default;
 }
 
 .money {

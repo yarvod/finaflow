@@ -3,3 +3,8 @@ export const CURRENCY_CHOICES = {
     2: "usd",
     3: "eur",
 }
+
+export const TYPE_CHOICES = {
+    1: "Расход",
+    2: "Доход" ,
+}
