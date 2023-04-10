@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.header">
     <div :class="$style.leftSide">
-      <router-link :to="{name: 'home'}">
+      <router-link :to="{name: 'operations'}">
         <img
             :src="path"
             alt=""

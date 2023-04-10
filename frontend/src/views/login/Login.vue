@@ -84,7 +84,7 @@ export default {
       await this.$store.dispatch('LogIn', formData)
           .then(response => {
             if (response && response.status === 200) {
-              this.$router.push({name: 'home'})  //FIXME: переход на желаему страницу
+              this.$router.push({name: 'operations'})  //FIXME: переход на желаему страницу
             } else {
               this.$router.replace({name: 'login'})
             }

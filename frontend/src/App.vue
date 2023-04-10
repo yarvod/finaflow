@@ -1,12 +1,7 @@
 <template>
   <ion-app>
     <ion-loading :is-open="loading_user" message="Загрузка..."/>
-<!--    <router-view v-slot="{ Component }">-->
-<!--    <transition name="fade" mode="out-in" appear>-->
-<!--      <component :is="Component" />-->
-<!--    </transition>-->
-<!--  </router-view>-->
-    <router-view/>
+    <ion-router-outlet></ion-router-outlet>
   </ion-app>
 </template>
 
@@ -37,6 +32,7 @@ export default {
 .fade-leave-active {
   transition: opacity 0.2s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;

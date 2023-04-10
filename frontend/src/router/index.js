@@ -1,63 +1,96 @@
-import {createRouter, createWebHistory} from "vue-router";
+import {createRouter, createWebHistory} from '@ionic/vue-router';
+import Navigation from "@/components/Navigation.vue";
 
 
 const routes = [
-    {
-        path: '/',
+  {
+    path: '/',
+    redirect: '/operations',
+  },
+  {
+    path: '/',
+    component: Navigation,
+    children: [
+      {
+        path: '',
+        redirect: '/operations',
+        props: true,
+        meta: {
+          requiresAuth: true
+        },
+      },
+      {
+        name: 'operations',
+        path: 'operations',
         component: () => import('@/views/OperationsList.vue'),
-        name: 'home',
         props: true,
         meta: {
-            requiresAuth: true
+          requiresAuth: true
         },
-    },
-    {
-        path: '/results/',
-        component: () => import('@/views/PredictResults/PredictResults.vue'),
-        name: 'predict_results',
+      },
+      {
+        path: 'analytics',
+        component: () => import('@/views/Analytics.vue'),
         props: true,
         meta: {
-            requiresAuth: true
+          requiresAuth: true
         },
-    },
-    {
-        path: '/tas/:tasId/',
-        component: () => import('@/views/TASDetail/TASDetail.vue'),
-        name: 'tas_detail',
+      },
+      {
+        path: 'categories',
+        component: () => import('@/views/CategoriesList.vue'),
         props: true,
         meta: {
-            requiresAuth: true
+          requiresAuth: true
         },
-    },
-    {
-        path: '/login',
-        component: () => import('@/views/login/Login.vue'),
-        name: 'login',
-        props: true
-    },
-    {
-        path: '/account',
+      },
+      {
+        path: 'account',
         component: () => import('@/views/account/AccountInfo.vue'),
-        name: 'account',
+        props: true,
         meta: {
-            requiresAuth: true
+          requiresAuth: true
         },
-        props: true
-    },
-    {
-        path: '/account_edit',
+      },
+      {
+        path: 'account_edit',
         component: () => import('@/views/account/AccountEdit.vue'),
-        name: 'account_edit',
+        props: true,
         meta: {
-            requiresAuth: true
-        }
+          requiresAuth: true
+        },
+      },
+    ],
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/login/Login.vue'),
+    name: 'login',
+    props: true
+  },
+  {
+    path: '/account',
+    component: () => import('@/views/account/AccountInfo.vue'),
+    name: 'account',
+    meta: {
+      requiresAuth: true
     },
-    // {
-    //     path: '/account/password-reset/:uid/:token',
-    //     component: () => import('@/views/login/PasswordReset'),
-    //     name: 'password_reset',
-    //     props: true,
-    // },
+    props: true
+  },
+  {
+    path: '/account_edit',
+    component: () => import('@/views/account/AccountEdit.vue'),
+    name: 'account_edit',
+    meta: {
+      requiresAuth: true
+    }
+  },
+  // {
+  //     path: '/account/password-reset/:uid/:token',
+  //     component: () => import('@/views/login/PasswordReset'),
+  //     name: 'password_reset',
+  //     props: true,
+  // },
 ]
 
 const router = createRouter({
