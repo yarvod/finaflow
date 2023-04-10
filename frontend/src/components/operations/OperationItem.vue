@@ -40,7 +40,7 @@ export default {
       type: Object,
     }
   },
-  data () {
+  data() {
     return {
       currency_choices: CURRENCY_CHOICES,
     }
@@ -78,6 +78,19 @@ export default {
   padding: 10px;
   width: 100%;
   margin-top: 10px;
+  @include respond-to(desktop) {
+    transition: all .3s ease;
+  }
+
+  &:hover {
+    @include respond-to(desktop) {
+      cursor: pointer;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(31, 34, 42, .05), 0 2px 6px rgba(31, 34, 42, .02), 0 0 1px rgba(31, 34, 42, .02);
+      @media (prefers-color-scheme: dark) {
+      }
+    }
+  }
 }
 
 .contentWrapper {
