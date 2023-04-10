@@ -2,7 +2,15 @@
   <div class="card">
     <div class="contentWrapper">
       <div class="leftSide">
-        {{ get_categories_titles() }}
+        <div class="title">
+          {{ get_categories_titles() }}
+        </div>
+        <div
+          class="comment"
+          v-if="operation.comment"
+        >
+          {{ operation.comment }}
+        </div>
       </div>
       <div class="rightSide">
         <span class="money" :style="get_money_color()">{{ (operation.money).toLocaleString('ru') }}</span>
@@ -67,6 +75,18 @@ export default {
 
 .rightSide {
 
+}
+
+.title {
+  font-family: $base-font;
+  font-size: 15px;
+}
+
+.comment {
+  margin: 5px;
+  font-family: $base-font;
+  font-size: 12px;
+  color: $Gray400;
 }
 
 .money {
