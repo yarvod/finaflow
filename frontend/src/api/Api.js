@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from "@/router";
 import store from "@/store";
 
-export const backendAPIURL = 'https://localhost/api/'
+export const backendAPIURL = '/api/'
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
@@ -35,7 +35,7 @@ export default (file = false) => {
           .catch((err) => {
             localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('user');
-            router.push({name: 'home'});
+            router.push({name: 'operations'});
             store.commit('setUser', {})
           });
         if (response && response.status === 200) {
