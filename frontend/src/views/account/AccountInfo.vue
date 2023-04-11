@@ -6,7 +6,7 @@
           <ion-card-title>Профиль</ion-card-title>
           <div>
             <ion-button
-                @click="$router.push({name: 'account_edit'})"
+               router-link="/account_edit"
             >
               Изменить
             </ion-button>
