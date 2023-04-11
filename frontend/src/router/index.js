@@ -95,6 +95,11 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+  if (to.name === 'login') {
+    if (localStorage.getItem('isAuthenticated')) {
+      router.push({name: 'operations'})
+    }
+  }
 })
 
 // router.beforeEach((to, from, next) => {
