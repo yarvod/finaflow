@@ -2,7 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar slot="bottom" selected-tab="operations">
+      <ion-tab-bar slot="bottom">
         <ion-tab-button tab="operations" href="/operations">
           <ion-icon :icon="listOutline"/>
           <ion-label>Список</ion-label>

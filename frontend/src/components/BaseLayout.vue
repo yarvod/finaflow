@@ -1,30 +1,28 @@
 <template>
-  <component>
-    <ion-page>
-      <ion-header
-        :translucent="false"
-      >
-        <ion-toolbar class="main-head">
-          <div class="container flex">
-            <ion-title>{{ pageTitle }}</ion-title>
+  <ion-page>
+    <ion-header
+      :translucent="false"
+    >
+      <ion-toolbar class="main-head">
+        <div class="container flex">
+          <ion-title>{{ pageTitle }}</ion-title>
+        </div>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+      <ion-header v-if="head">
+        <ion-toolbar>
+          <div class="container">
+            <slot name="head"></slot>
           </div>
         </ion-toolbar>
       </ion-header>
-
-      <ion-content :fullscreen="true">
-        <ion-header v-if="head">
-          <ion-toolbar>
-            <div class="container">
-              <slot name="head"></slot>
-            </div>
-          </ion-toolbar>
-        </ion-header>
-        <div class="container">
-          <slot name="body"></slot>
-        </div>
-      </ion-content>
-    </ion-page>
-  </component>
+      <div class="container">
+        <slot name="body"></slot>
+      </div>
+    </ion-content>
+  </ion-page>
 </template>
 
 <script>

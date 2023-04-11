@@ -83,7 +83,8 @@ export default {
   computed: {
     ...mapGetters(['user']),
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch('getMe')
     this.form = {...this.user};
   },
   methods: {

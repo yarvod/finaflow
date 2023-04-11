@@ -53,6 +53,7 @@ const routes = [
         },
       },
       {
+        name: 'account_edit',
         path: 'account_edit',
         component: () => import('@/views/account/AccountEdit.vue'),
         props: true,
@@ -67,23 +68,6 @@ const routes = [
     component: () => import('@/views/login/Login.vue'),
     name: 'login',
     props: true
-  },
-  {
-    path: '/account',
-    component: () => import('@/views/account/AccountInfo.vue'),
-    name: 'account',
-    meta: {
-      requiresAuth: true
-    },
-    props: true
-  },
-  {
-    path: '/account_edit',
-    component: () => import('@/views/account/AccountEdit.vue'),
-    name: 'account_edit',
-    meta: {
-      requiresAuth: true
-    }
   },
   // {
   //     path: '/account/password-reset/:uid/:token',
