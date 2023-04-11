@@ -35,7 +35,7 @@ class OperationSerializer(serializers.ModelSerializer):
     money = serializers.FloatField()
     currency = serializers.IntegerField()
     category = CategorySerializer()
-    date = serializers.DateField()
+    date = serializers.DateTimeField()
     categories_titles = serializers.SerializerMethodField()
 
     class Meta:

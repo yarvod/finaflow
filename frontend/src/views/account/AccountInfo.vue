@@ -7,6 +7,7 @@
           <div>
             <ion-button
                router-link="/account_edit"
+               router-direction="forward"
             >
               Изменить
             </ion-button>

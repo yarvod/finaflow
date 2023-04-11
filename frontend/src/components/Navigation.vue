@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page ref="page">
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
@@ -13,7 +13,7 @@
           <ion-label>Аналитика</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="add-operation">
+        <ion-tab-button tab="add-operation" @click="openModal">
           <ion-icon :icon="addCircleOutline"/>
           <ion-label>Добавить</ion-label>
         </ion-tab-button>
@@ -33,8 +33,18 @@
 </template>
 
 <script>
-import {IonIcon, IonLabel, IonPage, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from "@ionic/vue";
+import {
+  IonIcon,
+  IonLabel,
+  IonPage,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  modalController
+} from "@ionic/vue";
 import {addCircleOutline, analyticsOutline, listOutline, personOutline, shapesOutline} from "ionicons/icons";
+import OperationModal from "@/components/operations/OperationModal";
 
 export default {
   name: "Navigation",
@@ -55,6 +65,20 @@ export default {
       shapesOutline: shapesOutline,
       personOutline: personOutline,
     }
+  },
+  mounted() {
+    this.presentingElement = this.$refs.page.$el;
+  },
+  methods: {
+    async openModal() {
+      const modal = await modalController.create({
+        component: OperationModal,
+        presentingElement: this.presentingElement,
+        canDismiss: true,
+      });
+      modal.present();
+      const {data, role} = await modal.onWillDismiss();
+    },
   },
 }
 </script>
