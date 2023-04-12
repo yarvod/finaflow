@@ -11,13 +11,14 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-item>
+    <ion-item ref="money">
       <ion-label position="stacked">Сумма</ion-label>
       <ion-input
         type="number"
         v-model="form.money"
         placeholder="500"
       ></ion-input>
+      <ion-note slot="error">Введите сумму!</ion-note>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Дата</ion-label>
@@ -66,6 +67,7 @@ import {
 import TreeSelect from 'vue3-treeselect';
 import 'vue3-treeselect/dist/vue3-treeselect.css';
 import finance_service from "@/api/finance_service";
+import {checkEmail} from "@/utils/functions";
 
 export default {
   name: "OperationModal",
@@ -94,10 +96,11 @@ export default {
       form: {
         type: 1,
         money: null,
-        date: null,
+        date: new Date().toISOString(),
         category: null,
         comment: "",
       },
+      is_valid: false,
       categories: [],
     }
   },
@@ -114,12 +117,27 @@ export default {
       return modalController.dismiss(null, 'cancel');
     },
     async confirm() {
-      await finance_service.createOperation(this.form)
+      this.is_valid = this.validateMoney()
+      if (this.is_valid) {
+        await finance_service.createOperation(this.form)
         .then(resp => {
           if (resp && resp.status === 201) {
             return modalController.dismiss(null, 'confirm');
           }
         })
+      }
+    },
+    validateMoney() {
+      this.$refs.money.$el.classList.remove('ion-valid');
+      this.$refs.money.$el.classList.remove('ion-invalid');
+
+      if (!this.form.money) {
+        this.$refs.money.$el.classList.add('ion-invalid');
+        return false
+      } else {
+        this.$refs.money.$el.classList.add('ion-valid');
+        return true
+      }
     },
   },
 }
