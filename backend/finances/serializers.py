@@ -1,10 +1,36 @@
+from django.utils.timezone import now
 from rest_framework import serializers
 
-from common.constants import Currency
+from common.constants import Currency, OperationType
 from finances.models import Operation, Category
 
 
-class CategorySerializer(serializers.ModelSerializer):
+class CategorySmallGetSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+    label = serializers.CharField(source="title")
+    children = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Category
+        fields = (
+            "id",
+            "label",
+            "children"
+        )
+
+    def get_children(self, obj):
+        if obj.children:
+            return self.__class__(obj.children, many=True).data
+        return None
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if not data["children"]:
+            data.pop("children")
+        return data
+
+
+class CategoryGetSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     user = serializers.UUIDField(source="user_id", read_only=True)
     type = serializers.IntegerField(default=Currency.RUB)
@@ -27,14 +53,14 @@ class CategorySerializer(serializers.ModelSerializer):
         return None
 
 
-class OperationSerializer(serializers.ModelSerializer):
+class OperationListSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     user = serializers.UUIDField(source="user_id", read_only=True)
-    type = serializers.IntegerField(default=Currency.RUB)
+    type = serializers.IntegerField()
     comment = serializers.CharField()
     money = serializers.FloatField()
     currency = serializers.IntegerField()
-    category = CategorySerializer()
+    category = CategoryGetSerializer()
     date = serializers.DateTimeField()
     categories_titles = serializers.SerializerMethodField()
 
@@ -56,3 +82,23 @@ class OperationSerializer(serializers.ModelSerializer):
         if obj.category:
             return obj.category.get_categories_chain_titles()
         return None
+
+
+class OperationWriteSerializer(serializers.ModelSerializer):
+    type = serializers.IntegerField(default=OperationType.EXPENDITURE, required=False)
+    comment = serializers.CharField(default="", allow_null=True, allow_blank=True)
+    money = serializers.FloatField(default=0)
+    currency = serializers.IntegerField(default=Currency.RUB, required=False)
+    category = serializers.SlugRelatedField(slug_field="id", queryset=Category.objects.all(), allow_null=True)
+    date = serializers.DateTimeField()
+
+    class Meta:
+        model = Operation
+        fields = (
+            "type",
+            "comment",
+            "money",
+            "currency",
+            "category",
+            "date",
+        )

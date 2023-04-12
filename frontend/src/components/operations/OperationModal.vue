@@ -23,8 +23,15 @@
       <ion-label position="stacked">Дата</ion-label>
       <ion-datetime-button v-model="form.date" datetime="date"></ion-datetime-button>
       <ion-modal :keep-contents-mounted="true">
-        <ion-datetime v-model="form.date" id="date"></ion-datetime>
+        <ion-datetime v-model="form.date" id="date" presentation="date-time" :prefer-wheel="true"></ion-datetime>
       </ion-modal>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Комментарий</ion-label>
+      <ion-textarea
+        v-model="form.comment"
+        placeholder="Комментарий"
+      ></ion-textarea>
     </ion-item>
     <div class="item-custom">
       <ion-label position="stacked">Категория</ion-label>
@@ -38,13 +45,6 @@
         class="tree-select"
       />
     </div>
-    <ion-item>
-      <ion-label position="stacked">Комментарий</ion-label>
-      <ion-textarea
-        v-model="form.comment"
-        placeholder="Комментарий"
-      ></ion-textarea>
-    </ion-item>
   </ion-content>
 </template>
 
@@ -65,6 +65,7 @@ import {
 } from "@ionic/vue";
 import TreeSelect from 'vue3-treeselect';
 import 'vue3-treeselect/dist/vue3-treeselect.css';
+import finance_service from "@/api/finance_service";
 
 export default {
   name: "OperationModal",
@@ -91,43 +92,34 @@ export default {
   data() {
     return {
       form: {
-        money: 100,
-        date: '2023-04-10T00:00',
+        type: 1,
+        money: null,
+        date: null,
         category: null,
         comment: "",
       },
-      categories: [
-        {
-          id: 'a',
-          label: 'a',
-          children: [
-            {
-              id: 'aa',
-              label: 'aa',
-            },
-            {
-              id: 'ab',
-              label: 'ab',
-            }
-          ],
-        },
-        {
-          id: 'b',
-          label: 'b',
-        },
-        {
-          id: 'c',
-          label: 'c',
-        }
-      ],
+      categories: [],
     }
+  },
+  async mounted() {
+    await finance_service.getCategoriesList({params: {type: this.form.type}})
+      .then(resp => {
+        if (resp && resp.status === 200) {
+          this.categories = resp?.data
+        }
+      })
   },
   methods: {
     cancel() {
       return modalController.dismiss(null, 'cancel');
     },
-    confirm() {
-      return modalController.dismiss(this.name, 'confirm');
+    async confirm() {
+      await finance_service.createOperation(this.form)
+        .then(resp => {
+          if (resp && resp.status === 201) {
+            return modalController.dismiss(null, 'confirm');
+          }
+        })
     },
   },
 }
@@ -136,6 +128,7 @@ export default {
 <style lang="scss" scoped>
 
 ion-datetime-button {
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 
@@ -144,9 +137,8 @@ ion-datetime-button {
 }
 
 .item-custom {
-  margin-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 10px 20px;
+  background-color: var(--ion-item-background)
 }
 
 </style>
