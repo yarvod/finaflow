@@ -42,6 +42,7 @@
         :multiple="false"
         :open-on-click="true"
         :close-on-select="true"
+        :noResultsText="'Не найдено :('"
         placeholder="Категория"
         class="tree-select"
       />
@@ -152,6 +153,7 @@ ion-datetime-button {
 
 .tree-select {
   margin-top: 5px;
+  color: var(--ion-item-background);
 }
 
 .item-custom {
