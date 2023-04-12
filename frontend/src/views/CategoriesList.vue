@@ -3,6 +3,9 @@
     <template #head>
       <h4>Категории</h4>
     </template>
+    <template #body>
+      <h5>В разработке...</h5>
+    </template>
   </BaseLayout>
 </template>
 
