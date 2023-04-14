@@ -32,6 +32,7 @@
           </ion-button>
         </form>
         <GoogleLogin/>
+        <YandexLogin/>
       </div>
     </template>
   </base-layout>
@@ -43,6 +44,7 @@ import {IonButton, IonInput, IonItem, IonLabel, IonNote} from "@ionic/vue";
 import BaseLayout from "@/components/BaseLayout";
 import {checkEmail} from "@/utils/functions";
 import GoogleLogin from "@/components/login/GoogleLogin";
+import YandexLogin from "@/components/login/YandexLogin";
 
 export default {
   name: "Login",
@@ -54,6 +56,7 @@ export default {
     IonButton,
     IonNote,
     GoogleLogin,
+    YandexLogin,
   },
   data() {
     return {

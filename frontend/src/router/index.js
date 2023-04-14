@@ -76,6 +76,13 @@ const routes = [
     props: true,
     query: true,
   },
+  {
+    path: '/login/yandex',
+    component: () => import('@/views/login/YandexLogin.vue'),
+    name: 'yandex-login',
+    props: true,
+    query: true,
+  },
 ]
 
 const router = createRouter({

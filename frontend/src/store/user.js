@@ -31,7 +31,7 @@ const mutations = {
 
 
 const actions = {
-  async LogOut (context) {
+  async LogOut(context) {
     const response = await user_service.LogOut();
     if (response && response.status === 205) {
       context.commit('ResetUserStore', {});
@@ -39,7 +39,7 @@ const actions = {
       localStorage.removeItem('user');
     }
   },
-  async getMe (context) {
+  async getMe(context) {
     const response = await user_service.getMe();
     if (response && response.data) {
       context.commit('setUser', {user: response.data, isAuthenticated: true})
@@ -47,14 +47,14 @@ const actions = {
     }
     return response
   },
-  async updateMe (context, data) {
+  async updateMe(context, data) {
     const response = await user_service.updateMe(data);
     if (response && response.data) {
       await context.dispatch('getMe')
     }
     return response
   },
-  async LogIn (context, data) {
+  async LogIn(context, data) {
     const login_resp = await user_service.LogIn(data)
     if (login_resp && login_resp.status === 200) {
       await this.dispatch('getMe');
@@ -62,7 +62,7 @@ const actions = {
     }
     return login_resp
   },
-  async LogInGoogle (context, data) {
+  async LogInGoogle(context, data) {
     const login_resp = await user_service.LogInGoogle(data)
     if (login_resp && login_resp.status === 200) {
       await this.dispatch('getMe');
@@ -70,11 +70,13 @@ const actions = {
     }
     return login_resp.status
   },
-  async LogInYandex (context, data) {
+  async LogInYandex(context, data) {
     const login_resp = await user_service.LogInYandex(data)
     if (login_resp && login_resp.status === 200) {
-      await this.dispatch('getMe');
-      localStorage.isAuthenticated = true;
+      await this.dispatch('getMe')
+          .then(resp => {
+            localStorage.isAuthenticated = true;
+          })
     }
     return login_resp.status
   }
