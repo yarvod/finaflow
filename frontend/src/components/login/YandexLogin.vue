@@ -1,8 +1,12 @@
 <template>
   <ion-button
     :href="getYandexUrl()"
+    expand="block"
   >
-    <ion-img :src="logo"></ion-img>
+    <ion-icon
+      slot="start"
+      :src="logo"
+    ></ion-icon>
     <div class="yandex-text">
       Войти с Яндекс ID
     </div>
@@ -11,7 +15,7 @@
 
 <script>
 import {getYandexUrl} from "@/utils/getYandexUrl.js"
-import {IonButton, IonImg} from "@ionic/vue";
+import {IonButton, IonIcon} from "@ionic/vue";
 import yandex_logo from "@/assets/img/yandex_logo.svg";
 
 const from_url = 'login/';
@@ -25,7 +29,7 @@ export default {
   },
   components: {
     IonButton,
-    IonImg,
+    IonIcon,
   },
   methods: {
     getYandexUrl() {
@@ -38,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 
 ion-button {
-  --background: #1a1a1a;
+  --background: #1e1e1e;
   --background-hover: #464545FF;
 }
 
