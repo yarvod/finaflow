@@ -20,10 +20,12 @@ export default {
     await this.$store.dispatch('LogInYandex', {code: this.$route.query.code})
       .then(async status => {
           if (status === 200) {
-            await this.dispatch('getMe')
+            await this.$store.dispatch('getMe')
               .then(resp => {
-                localStorage.isAuthenticated = true;
-                this.$router.replace({name: 'operations'})
+                if (resp && resp.status === 200) {
+                  localStorage.isAuthenticated = true;
+                  this.$router.replace({name: 'operations'})
+                }
               })
           } else {
             this.$router.replace({name: 'login'})
