@@ -48,6 +48,7 @@ ion-button {
   --border-color: 1px #e3e7ef solid;
   --background-hover: #cbd0de;
   --background: #f6f8fc;
+  --background-activated: #cbd0de;
 }
 
 .google-text {

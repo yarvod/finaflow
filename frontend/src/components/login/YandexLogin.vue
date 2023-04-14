@@ -44,6 +44,7 @@ export default {
 ion-button {
   --background: #1e1e1e;
   --background-hover: #464545FF;
+  --background-activated: #464545FF;
 }
 
 .yandex-text {
