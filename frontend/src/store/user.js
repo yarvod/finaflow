@@ -64,22 +64,10 @@ const actions = {
   },
   async LogInGoogle(context, data) {
     const login_resp = await user_service.LogInGoogle(data)
-    if (login_resp && login_resp.status === 200) {
-      await this.dispatch('getMe')
-          .then(resp => {
-            localStorage.isAuthenticated = true;
-          })
-    }
     return login_resp.status
   },
   async LogInYandex(context, data) {
     const login_resp = await user_service.LogInYandex(data)
-    if (login_resp && login_resp.status === 200) {
-      await this.dispatch('getMe')
-          .then(resp => {
-            localStorage.isAuthenticated = true;
-          })
-    }
     return login_resp.status
   }
 }

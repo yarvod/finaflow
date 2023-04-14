@@ -18,9 +18,13 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('LogInGoogle', {code: this.$route.query.code})
-      .then((status) => {
+      .then(async status => {
           if (status === 200) {
-            this.$router.replace({name: 'operations'})
+            await this.dispatch('getMe')
+              .then(resp => {
+                localStorage.isAuthenticated = true;
+                this.$router.replace({name: 'operations'})
+              })
           } else {
             this.$router.replace({name: 'login'})
           }
