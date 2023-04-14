@@ -20,6 +20,7 @@ const mutations = {
   },
   ResetCategories(state, payload) {
     state.categories = [];
+    state.loading_categories = false;
   },
 }
 

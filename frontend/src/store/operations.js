@@ -20,6 +20,7 @@ const mutations = {
   },
   ResetOperations(state, payload) {
     state.operations = [];
+    state.loading_operations = false;
   },
 }
 

@@ -99,6 +99,7 @@ export default {
       this.$store.commit('setLoadingUser', true);
       await this.$store.dispatch('LogOut')
         .then(() => {
+          this.$store.dispatch('ResetStore')
           this.$router.push({name: 'login'})
         })
     }

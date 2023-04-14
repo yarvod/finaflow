@@ -34,7 +34,6 @@ const actions = {
   async LogOut(context) {
     const response = await user_service.LogOut();
     if (response && response.status === 205) {
-      context.commit('ResetUserStore', {});
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('user');
     }

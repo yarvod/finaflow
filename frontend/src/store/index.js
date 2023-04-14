@@ -11,6 +11,9 @@ const store = createStore({
   mutations: {},
   actions: {
     ResetStore (context, payload) {
+      context.commit('ResetUserStore');
+      context.commit('ResetOperations');
+      context.commit('ResetCategories');
     }
   },
   modules: {
