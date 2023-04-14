@@ -24,11 +24,11 @@ export default {
               .then(resp => {
                 if (resp && resp.status === 200) {
                   localStorage.isAuthenticated = true;
-                  this.$router.replace({name: 'operations'})
+                  this.$router.push({name: 'operations'})
                 }
               })
           } else {
-            this.$router.replace({name: 'login'})
+            this.$router.push({name: 'login'})
           }
         }
       )
