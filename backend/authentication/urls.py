@@ -15,8 +15,8 @@ from .views import (
 
 urlpatterns = [
     path("login/", EmailPasswordLoginView.as_view(), name="login"),
-    # path('login/social/google', GoogleLoginView.as_view(), name='google-login'),
-    # path('login/social/yandex', YandexLoginView.as_view(), name='yandex-login'),
+    path('login/social/google', GoogleLoginView.as_view(), name='google-login'),
+    path('login/social/yandex', YandexLoginView.as_view(), name='yandex-login'),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("token/refresh/", CookieTokenRefreshView.as_view(), name="refresh"),
     path("register/", RegisterView.as_view(), name="register"),
