@@ -9,8 +9,9 @@ class CustomUserManager(UserManager):
         email = kwargs.pop("email")
         password = kwargs.pop("password")
         is_active = kwargs.pop("is_active", True)
+        kwargs.pop("username", email)
 
-        user = self.model(email=email, is_active=is_active, **kwargs)
+        user = self.model(email=email, username=email, is_active=is_active, **kwargs)
         user.set_password(password)
 
         user.save(using=self._db)
