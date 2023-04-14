@@ -4,13 +4,23 @@
       <ion-buttons slot="start">
         <ion-button color="medium" @click="cancel">Закрыть</ion-button>
       </ion-buttons>
-      <ion-title>Запись</ion-title>
       <ion-buttons slot="end">
         <ion-button @click="confirm" :strong="true">Добавить</ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+    <ion-segment
+      @IonChange="changeType($event)"
+      v-model="form.type"
+    >
+      <ion-segment-button :value="1">
+        <ion-label>Расход</ion-label>
+      </ion-segment-button>
+      <ion-segment-button :value="2">
+        <ion-label>Доход</ion-label>
+      </ion-segment-button>
+    </ion-segment>
     <ion-item ref="money">
       <ion-label position="stacked">Сумма</ion-label>
       <ion-input
@@ -63,12 +73,13 @@ import {
   modalController,
   IonDatetime,
   IonDatetimeButton,
-  IonTextarea,
+  IonTextarea, IonSegment, IonSegmentButton,
 } from "@ionic/vue";
 import TreeSelect from 'vue3-treeselect';
 import 'vue3-treeselect/dist/vue3-treeselect.css';
 import finance_service from "@/api/finance_service";
 import {checkEmail} from "@/utils/functions";
+import {mapGetters} from "vuex";
 
 export default {
   name: "OperationModal",
@@ -85,6 +96,8 @@ export default {
     IonDatetimeButton,
     IonTextarea,
     TreeSelect,
+    IonSegment,
+    IonSegmentButton,
   },
   props: {
     operation: {
@@ -102,18 +115,19 @@ export default {
         comment: "",
       },
       is_valid: false,
-      categories: [],
     }
   },
+  computed: {
+    ...mapGetters(['categories']),
+  },
   async mounted() {
-    await finance_service.getCategoriesList({params: {type: this.form.type}})
-      .then(resp => {
-        if (resp && resp.status === 200) {
-          this.categories = resp?.data
-        }
-      })
+    await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
   },
   methods: {
+    async changeType(e) {
+      this.form.category = null;
+      await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
+    },
     cancel() {
       return modalController.dismiss(null, 'cancel');
     },
@@ -121,12 +135,12 @@ export default {
       this.is_valid = this.validateMoney()
       if (this.is_valid) {
         await this.$store.dispatch('createOperation', {data: this.form})
-        .then(async status => {
-          if (status === 201) {
-            await this.$store.dispatch('getOperations');
-            return modalController.dismiss(null, 'confirm');
-          }
-        })
+          .then(async status => {
+            if (status === 201) {
+              await this.$store.dispatch('getOperations');
+              return modalController.dismiss(null, 'confirm');
+            }
+          })
       }
     },
     validateMoney() {
@@ -146,6 +160,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+ion-segment {
+  margin-bottom: 5px;
+}
 
 ion-datetime-button {
   margin-top: 10px;

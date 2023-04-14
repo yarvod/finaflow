@@ -18,6 +18,18 @@ export default {
     return await Api().delete(`/finances/operation/${operation.id}/`)
   },
   async getCategoriesList(params) {
-    return await Api().get(`/finances/category/`, params)
+    return await Api().get(`/finances/category/`, {params: params})
+  },
+  async getCategory(categoryId) {
+    return await Api().get(`/finances/category/${categoryId}/`)
+  },
+  async createCategory(data) {
+    return await Api().post(`/finances/category/`, data)
+  },
+  async updateCategory(category) {
+    return await Api().put(`/finances/operation/${category.id}/`, category)
+  },
+  async deleteCategory(category) {
+    return await Api().delete(`/finances/operation/${category.id}/`)
   },
 }

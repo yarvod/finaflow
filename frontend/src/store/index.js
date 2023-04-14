@@ -3,6 +3,7 @@ import user from "./user";
 import mobile from "./mobile";
 import graph from "./graph";
 import operations from "./operations";
+import categories from "./categories";
 
 
 const store = createStore({
@@ -18,6 +19,7 @@ const store = createStore({
     mobile,
     graph,
     operations,
+    categories,
   },
 })
 
