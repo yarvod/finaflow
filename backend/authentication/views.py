@@ -1,6 +1,6 @@
 import logging
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client, OAuth2Error
 from allauth.socialaccount.providers.yandex.views import YandexAuth2Adapter
 from dj_rest_auth.registration.serializers import SocialLoginSerializer
 from dj_rest_auth.registration.views import SocialLoginView
@@ -182,8 +182,8 @@ class CustomSocialLoginView(SocialLoginView):
         self.serializer = self.get_serializer(data=self.request.data)
         try:
             self.serializer.is_valid(raise_exception=True)
-        except BadRequest:
-            return Response(data="Account Inactive", status=400)
+        except (BadRequest, OAuth2Error) as e:
+            return Response(data=f"{e}", status=400)
         self.login()
         return self.get_response()
 
