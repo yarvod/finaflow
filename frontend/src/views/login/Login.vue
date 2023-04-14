@@ -30,9 +30,11 @@
           >
             Войти
           </ion-button>
-          <GoogleLogin/>
-          <YandexLogin/>
         </form>
+        <div class="oauth">
+          <GoogleLogin class="google"/>
+          <YandexLogin class="yandex"/>
+        </div>
       </div>
     </template>
   </base-layout>
@@ -123,6 +125,18 @@ export default {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.oauth {
+  margin-top: 20px;
+}
+
+.yandex {
+  margin-top: 10px;
+}
+
+.google {
+  margin-top: 10px;
 }
 
 </style>
