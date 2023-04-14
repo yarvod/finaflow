@@ -7,32 +7,32 @@
           <ion-item ref="email">
             <ion-label position="floating">Почта</ion-label>
             <ion-input
-                type="email"
-                v-model="login_email"
-                @ionInput="validateEmail"
-                placeholder="Введите почту"
+              type="email"
+              v-model="login_email"
+              @ionInput="validateEmail"
+              placeholder="Введите почту"
             ></ion-input>
             <ion-note slot="error">Некорректная почта</ion-note>
           </ion-item>
           <ion-item class="ion-margin-top">
             <ion-label position="floating">Пароль</ion-label>
             <ion-input
-                v-model="login_password"
-                placeholder="Введите пароль"
-                type="password"
+              v-model="login_password"
+              placeholder="Введите пароль"
+              type="password"
             ></ion-input>
           </ion-item>
           <ion-button
-              class="ion-margin-top"
-              color="primary"
-              expand="block"
-              @click="submitLogin()"
+            class="ion-margin-top"
+            color="primary"
+            expand="block"
+            @click="submitLogin()"
           >
             Войти
           </ion-button>
+          <GoogleLogin/>
+          <YandexLogin/>
         </form>
-        <GoogleLogin/>
-        <YandexLogin/>
       </div>
     </template>
   </base-layout>
@@ -79,8 +79,8 @@ export default {
       if (value === '') return;
 
       checkEmail(value)
-          ? this.$refs.email.$el.classList.add('ion-valid')
-          : this.$refs.email.$el.classList.add('ion-invalid');
+        ? this.$refs.email.$el.classList.add('ion-valid')
+        : this.$refs.email.$el.classList.add('ion-invalid');
     },
     async submitLogin() {
       const formData = {
@@ -88,21 +88,21 @@ export default {
         password: this.login_password.replace(/\s/g, '')
       }
       await this.$store.dispatch('LogIn', formData)
-          .then(response => {
-            if (response && response.status === 200) {
-              this.$router.push({name: 'operations'})  //FIXME: переход на желаему страницу
-            } else {
-              this.$router.replace({name: 'login'})
-            }
-            this.onReset()
-          })
-          .catch(error => {
-            if (error.response && error.response.data['non_field_errors']) {
-              alert(error.response.data['non_field_errors'][0])
-            } else {
-              alert('Что-то пошло не так, проверьте правильность пароля')
-            }
-          })
+        .then(response => {
+          if (response && response.status === 200) {
+            this.$router.push({name: 'operations'})  //FIXME: переход на желаему страницу
+          } else {
+            this.$router.replace({name: 'login'})
+          }
+          this.onReset()
+        })
+        .catch(error => {
+          if (error.response && error.response.data['non_field_errors']) {
+            alert(error.response.data['non_field_errors'][0])
+          } else {
+            alert('Что-то пошло не так, проверьте правильность пароля')
+          }
+        })
     },
     onReset() {
       this.login_email = '';

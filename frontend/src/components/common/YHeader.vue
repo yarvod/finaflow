@@ -1,12 +1,6 @@
 <template>
   <div :class="$style.header">
     <div :class="$style.leftSide">
-      <router-link :to="{name: 'operations'}">
-        <img
-            :src="path"
-            alt=""
-        />
-      </router-link>
       <p v-if="!isMobile">
         Система научно-технического прогнозирования
       </p>
@@ -39,7 +33,6 @@
 <script>
 
 import {mapGetters} from "vuex";
-import path_logo from "@/assets/img/mipt_rus_text_inv.png"
 import YButton from "@/components/ui/YButton";
 import { Icon } from '@iconify/vue';
 
@@ -54,7 +47,6 @@ export default {
       username: '',
       password: '',
       errors: [],
-      path: path_logo,
     }
   },
   computed: {
