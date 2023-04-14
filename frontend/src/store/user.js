@@ -68,7 +68,7 @@ const actions = {
       await this.dispatch('getMe');
       localStorage.isAuthenticated = true;
     }
-    return login_resp
+    return login_resp.status
   },
   async LogInYandex (context, data) {
     const login_resp = await user_service.LogInYandex(data)
@@ -76,7 +76,7 @@ const actions = {
       await this.dispatch('getMe');
       localStorage.isAuthenticated = true;
     }
-    return login_resp
+    return login_resp.status
   }
 }
 

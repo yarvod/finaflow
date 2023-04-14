@@ -31,6 +31,7 @@
             Войти
           </ion-button>
         </form>
+        <GoogleLogin/>
       </div>
     </template>
   </base-layout>
@@ -41,6 +42,7 @@ import {mapGetters} from "vuex";
 import {IonButton, IonInput, IonItem, IonLabel, IonNote} from "@ionic/vue";
 import BaseLayout from "@/components/BaseLayout";
 import {checkEmail} from "@/utils/functions";
+import GoogleLogin from "@/components/login/GoogleLogin";
 
 export default {
   name: "Login",
@@ -51,6 +53,7 @@ export default {
     IonItem,
     IonButton,
     IonNote,
+    GoogleLogin,
   },
   data() {
     return {

@@ -69,12 +69,13 @@ const routes = [
     name: 'login',
     props: true
   },
-  // {
-  //     path: '/account/password-reset/:uid/:token',
-  //     component: () => import('@/views/login/PasswordReset'),
-  //     name: 'password_reset',
-  //     props: true,
-  // },
+  {
+    path: '/login/google',
+    component: () => import('@/views/login/GoogleLogin.vue'),
+    name: 'google-login',
+    props: true,
+    query: true,
+  },
 ]
 
 const router = createRouter({
