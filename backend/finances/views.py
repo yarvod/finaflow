@@ -6,7 +6,8 @@ import django_filters.rest_framework as filters
 from finances.filters import CategoryFilterSet
 from finances.serializers import (
     OperationListSerializer,
-    CategorySmallGetSerializer, OperationWriteSerializer,
+    CategorySmallGetSerializer,
+    OperationWriteSerializer,
 )
 from finances.models import Operation, Category
 
@@ -17,7 +18,9 @@ class CategoryViewSet(ModelViewSet):
     filter_class = CategoryFilterSet
 
     def get_queryset(self):
-        return Category.objects.filter(Q(user=self.request.user) | Q(user__isnull=True)).filter(parent__isnull=True)
+        return Category.objects.filter(
+            Q(user=self.request.user) | Q(user__isnull=True)
+        ).filter(parent__isnull=True)
 
     def get_serializer_class(self):
         return CategorySmallGetSerializer

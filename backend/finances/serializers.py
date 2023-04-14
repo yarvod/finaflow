@@ -12,11 +12,7 @@ class CategorySmallGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = (
-            "id",
-            "label",
-            "children"
-        )
+        fields = ("id", "label", "children")
 
     def get_children(self, obj):
         if obj.children:
@@ -89,7 +85,9 @@ class OperationWriteSerializer(serializers.ModelSerializer):
     comment = serializers.CharField(default="", allow_null=True, allow_blank=True)
     money = serializers.FloatField(default=0)
     currency = serializers.IntegerField(default=Currency.RUB, required=False)
-    category = serializers.SlugRelatedField(slug_field="id", queryset=Category.objects.all(), allow_null=True)
+    category = serializers.SlugRelatedField(
+        slug_field="id", queryset=Category.objects.all(), allow_null=True
+    )
     date = serializers.DateTimeField()
 
     class Meta:

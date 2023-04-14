@@ -4,7 +4,7 @@ from finances.models import Category
 
 
 class CategoryFilterSet(filters.FilterSet):
-    type = filters.NumberFilter(field_name='type', label='Тип')
+    type = filters.NumberFilter(field_name="type", label="Тип")
 
     class Meta:
         model = Category

@@ -10,9 +10,7 @@ class Command(BaseCommand):
         c1, _ = Category.objects.update_or_create(
             title="Еда, продукты",
         )
-        c2, _ = Category.objects.update_or_create(
-            title="Кафе, рестораны"
-        )
+        c2, _ = Category.objects.update_or_create(title="Кафе, рестораны")
         u1 = User.objects.filter(email="ivan@site.ru").first()
         if not u1:
             u1 = User.objects.create_user(
@@ -23,9 +21,7 @@ class Command(BaseCommand):
                 password="1111",
             )
             u1.save()
-        c3, _ = Category.objects.update_or_create(
-            title="Обучение", user=u1
-        )
+        c3, _ = Category.objects.update_or_create(title="Обучение", user=u1)
         o1, _ = Operation.objects.update_or_create(
             user=u1,
             title="Шаурма",

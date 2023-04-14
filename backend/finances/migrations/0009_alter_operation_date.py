@@ -5,15 +5,16 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('finances', '0008_remove_category_slug'),
+        ("finances", "0008_remove_category_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='operation',
-            name='date',
-            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='Дата'),
+            model_name="operation",
+            name="date",
+            field=models.DateTimeField(
+                default=django.utils.timezone.now, verbose_name="Дата"
+            ),
         ),
     ]

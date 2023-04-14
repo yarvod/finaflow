@@ -5,15 +5,21 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('finances', '0006_auto_20230410_0052'),
+        ("finances", "0006_auto_20230410_0052"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='category',
-            name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='finances.category', verbose_name='Родитель'),
+            model_name="category",
+            name="parent",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="children",
+                to="finances.category",
+                verbose_name="Родитель",
+            ),
         ),
     ]
