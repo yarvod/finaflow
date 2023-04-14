@@ -74,13 +74,11 @@
 <script>
 import {mapGetters} from "vuex";
 import BaseLayout from "@/components/BaseLayout.vue";
-import Loader from "@/components/common/Loader.vue";
 import {IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonList} from "@ionic/vue";
 
 export default {
   name: "AccountInfo",
   components: {
-    Loader,
     IonButton,
     BaseLayout,
     IonList,
