@@ -6,10 +6,10 @@ from .models import User
 class UserREADSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ["password"]
+        exclude = ["password", "username"]
 
 
 class UserWRITESerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ["password"]
+        exclude = ["password", "username"]
