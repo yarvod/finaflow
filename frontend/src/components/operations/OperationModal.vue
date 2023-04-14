@@ -120,9 +120,10 @@ export default {
     async confirm() {
       this.is_valid = this.validateMoney()
       if (this.is_valid) {
-        await finance_service.createOperation(this.form)
-        .then(resp => {
-          if (resp && resp.status === 201) {
+        await this.$store.dispatch('createOperation', {data: this.form})
+        .then(async status => {
+          if (status === 201) {
+            await this.$store.dispatch('getOperations');
             return modalController.dismiss(null, 'confirm');
           }
         })

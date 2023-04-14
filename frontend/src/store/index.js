@@ -2,6 +2,7 @@ import {createStore} from "vuex";
 import user from "./user";
 import mobile from "./mobile";
 import graph from "./graph";
+import operations from "./operations";
 
 
 const store = createStore({
@@ -16,6 +17,7 @@ const store = createStore({
     user,
     mobile,
     graph,
+    operations,
   },
 })
 

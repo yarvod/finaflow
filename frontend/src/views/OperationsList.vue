@@ -4,10 +4,10 @@
         <h4>Все операции</h4>
     </template>
     <template #body>
-      <SLoader v-if="loadingFinancesList"/>
-      <div v-else>
+      <SLoader v-if="loading_operations"/>
+      <div v-else-if="operations.length">
         <OperationItem
-            v-for="operation in operationsList"
+            v-for="operation in operations"
             :key="operation.id"
             :operation="operation"
         />
@@ -17,37 +17,26 @@
 </template>
 
 <script>
-import ColorBoxes from "@/components/common/ColorBoxes.vue";
 import SLoader from "@/components/ui/SLoader.vue";
 import BaseLayout from "@/components/BaseLayout.vue";
-import {IonProgressBar} from "@ionic/vue";
-import finance_service from "../api/finance_service";
+import {IonProgressBar, IonSpinner} from "@ionic/vue";
 import OperationItem from "../components/operations/OperationItem";
+import {mapGetters} from "vuex";
 
 export default {
   name: "OperationsList",
   components: {
     BaseLayout,
-    ColorBoxes,
     SLoader,
     IonProgressBar,
     OperationItem,
+    IonSpinner,
   },
-  data() {
-    return {
-      operationsList: [],
-      loadingFinancesList: false,
-    }
+  computed: {
+    ...mapGetters(['operations', 'loading_operations'])
   },
   async mounted() {
-    this.loadingFinancesList = true;
-    await finance_service.getOperationsList()
-        .then(resp => {
-          if (resp && resp.status === 200 && resp.data) {
-            this.operationsList = resp.data;
-            this.loadingFinancesList = false;
-          }
-        })
+    await this.$store.dispatch('getOperations');
   },
 }
 </script>
