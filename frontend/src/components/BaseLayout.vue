@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-header
-      :translucent="true"
+      :translucent="false"
     >
       <ion-toolbar
         class="container flex"
