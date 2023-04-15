@@ -1,17 +1,31 @@
 <template>
   <BaseLayout head>
     <template #head>
-        <ion-card-title>Все операции</ion-card-title>
+      <ion-card-title>Все операции</ion-card-title>
     </template>
     <template #body>
       <SLoader v-if="loading_operations"/>
       <div v-else-if="operations.length">
-        <OperationItem
-            v-for="operation in operations"
-            :key="operation.id"
-            :operation="operation"
-        />
+        <transition name="fade" mode="out-in" appear>
+          <div>
+            <OperationItem
+              v-for="operation in operations"
+              :key="operation.id"
+              :operation="operation"
+            />
+          </div>
+        </transition>
       </div>
+      <EmptyOperations v-else>
+        <template #action>
+          <ion-button
+            @click="openModal"
+            color="success"
+          >
+            Добавить!
+          </ion-button>
+        </template>
+      </EmptyOperations>
     </template>
   </BaseLayout>
 </template>
@@ -19,9 +33,11 @@
 <script>
 import SLoader from "@/components/ui/SLoader.vue";
 import BaseLayout from "@/components/BaseLayout.vue";
-import {IonCardTitle, IonProgressBar, IonSpinner} from "@ionic/vue";
-import OperationItem from "../components/operations/OperationItem";
+import {IonButton, IonCardTitle, IonProgressBar, IonSpinner, modalController} from "@ionic/vue";
+import OperationItem from "../components/operations/OperationItem.vue";
 import {mapGetters} from "vuex";
+import EmptyOperations from "@/components/operations/EmptyOperations.vue";
+import OperationModal from "@/components/operations/OperationModal";
 
 export default {
   name: "OperationsList",
@@ -32,12 +48,25 @@ export default {
     OperationItem,
     IonSpinner,
     IonCardTitle,
+    EmptyOperations,
+    IonButton,
   },
   computed: {
     ...mapGetters(['operations', 'loading_operations'])
   },
   async ionViewWillEnter() {
     await this.$store.dispatch('getOperations');
+  },
+  methods: {
+    async openModal() {
+      const modal = await modalController.create({
+        component: OperationModal,
+        presentingElement: this.presentingElement,
+        canDismiss: true,
+      });
+      modal.present();
+      const {data, role} = await modal.onWillDismiss();
+    },
   },
 }
 </script>
