@@ -16,7 +16,7 @@ export default {
   computed: {
     ...mapGetters(['user'])
   },
-  async ionViewWillEnter() {
+  async mounted() {
     await this.$store.dispatch('LogInGoogle', {code: this.$route.query.code})
       .then(async status => {
           if (status === 200) {
