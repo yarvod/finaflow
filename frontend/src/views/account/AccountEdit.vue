@@ -83,7 +83,7 @@ export default {
   computed: {
     ...mapGetters(['user']),
   },
-  async mounted() {
+  async ionViewWillEnter() {
     await this.$store.dispatch('getMe')
     this.form = {...this.user};
   },

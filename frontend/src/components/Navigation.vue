@@ -66,7 +66,7 @@ export default {
       personOutline: personOutline,
     }
   },
-  mounted() {
+  ionViewWillEnter() {
     this.presentingElement = this.$refs.page.$el;
   },
   methods: {

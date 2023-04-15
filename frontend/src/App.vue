@@ -20,11 +20,10 @@ export default defineComponent({
   computed: {
     ...mapGetters(['loading_user'])
   },
-  async beforeMount() {
+  async ionViewWillEnter() {
     this.$store.dispatch('checkMobile');
     this.$store.commit('setLoadingUser', true);
     await this.$store.dispatch('getMe');
-    await this.$store.dispatch('getOperations');
   },
 })
 </script>

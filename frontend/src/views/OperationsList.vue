@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapGetters(['operations', 'loading_operations'])
   },
-  async mounted() {
+  async ionViewWillEnter() {
     await this.$store.dispatch('getOperations');
   },
 }

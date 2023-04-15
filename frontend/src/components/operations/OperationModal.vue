@@ -120,7 +120,7 @@ export default {
   computed: {
     ...mapGetters(['categories']),
   },
-  async mounted() {
+  async ionViewWillEnter() {
     await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
   },
   methods: {

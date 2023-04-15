@@ -16,7 +16,7 @@ export default {
   computed: {
     ...mapGetters(['user'])
   },
-  async mounted() {
+  async ionViewWillEnter() {
     await this.$store.dispatch('LogInYandex', {code: this.$route.query.code})
       .then(async status => {
           if (status === 200) {

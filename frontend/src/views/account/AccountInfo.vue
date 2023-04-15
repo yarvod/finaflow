@@ -104,7 +104,7 @@ export default {
         })
     }
   },
-  async mounted() {
+  async ionViewWillEnter() {
     await this.$store.dispatch('getMe')
   }
 }
