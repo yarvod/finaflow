@@ -2,25 +2,37 @@
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-button color="medium" @click="cancel">Закрыть</ion-button>
+        <ion-button
+          color="medium"
+          @click="cancel"
+        >
+          Закрыть
+        </ion-button>
       </ion-buttons>
       <ion-buttons slot="end">
-        <ion-button @click="confirm" :strong="true">Добавить</ion-button>
+        <ion-button
+          :strong="true"
+          color="danger"
+          @click="removeOperation"
+        >
+          Удалить
+        </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-segment
-      @IonChange="changeType($event)"
-      v-model="form.type"
-    >
-      <ion-segment-button :value="1">
-        <ion-label>Расход</ion-label>
-      </ion-segment-button>
-      <ion-segment-button :value="2">
-        <ion-label>Доход</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+    <ion-item ref="type">
+      <ion-label position="stacked">Тип</ion-label>
+      <ion-select
+        :value="form.type"
+        @ionChange="form.type = $event.detail.value"
+        interface="popover"
+        placeholder="Выберете тип"
+      >
+        <IonSelectOption :value="1">Расход</IonSelectOption>
+        <IonSelectOption :value="2">Доход</IonSelectOption>
+      </ion-select>
+    </ion-item>
     <ion-item ref="money">
       <ion-label position="stacked">Сумма</ion-label>
       <ion-input
@@ -39,7 +51,7 @@
           id="date"
           presentation="date-time"
           :prefer-wheel="true"
-           mode="ios"
+          mode="ios"
         ></ion-datetime>
       </ion-modal>
     </ion-item>
@@ -53,6 +65,7 @@
     <div class="item-custom">
       <ion-label position="stacked">Категория</ion-label>
       <tree-select
+        v-if="this.form.category"
         v-model="form.category"
         :options="categories"
         :multiple="false"
@@ -64,6 +77,13 @@
         placeholder="Категория"
       />
     </div>
+    <ion-button
+      color="primary"
+      expand="block"
+      @click="saveOperation"
+    >
+      Сохранить
+    </ion-button>
   </ion-content>
 </template>
 
@@ -80,14 +100,15 @@ import {
   modalController,
   IonDatetime,
   IonDatetimeButton,
-  IonTextarea, IonSegment, IonSegmentButton,
+  IonTextarea,
+  IonSelect, IonSelectOption,
 } from "@ionic/vue";
 import TreeSelect from 'vue3-treeselect';
 import 'vue3-treeselect/dist/vue3-treeselect.css';
 import {mapGetters} from "vuex";
 
 export default {
-  name: "OperationModal",
+  name: "OperationEditModal",
   components: {
     IonHeader,
     IonToolbar,
@@ -101,8 +122,8 @@ export default {
     IonDatetimeButton,
     IonTextarea,
     TreeSelect,
-    IonSegment,
-    IonSegmentButton,
+    IonSelect,
+    IonSelectOption,
   },
   props: {
     operation: {
@@ -112,13 +133,7 @@ export default {
   },
   data() {
     return {
-      form: {
-        type: 1,
-        money: null,
-        date: new Date().toISOString(),
-        category: null,
-        comment: "",
-      },
+      form: {},
       is_valid: false,
     }
   },
@@ -126,6 +141,14 @@ export default {
     ...mapGetters(['categories']),
   },
   async mounted() {
+    this.form = {
+      id: this.operation.id,
+      type: this.operation.type,
+      category: this.operation.category.id,
+      money: this.operation.money,
+      comment: this.operation.comment,
+      date: this.operation.date,
+    }
     await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
   },
   methods: {
@@ -134,17 +157,24 @@ export default {
       await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
     },
     cancel() {
-      this.form = {};
       return modalController.dismiss(null, 'cancel');
     },
-    async confirm() {
+    removeOperation() {
+      this.$store.dispatch('deleteOperation', {data: this.operation})
+        .then(async status => {
+          if (status === 204) {
+            await this.$store.dispatch('getOperations');
+            return modalController.dismiss(null, 'cancel');
+          }
+        })
+    },
+    async saveOperation() {
       this.is_valid = this.validateMoney()
       if (this.is_valid) {
-        await this.$store.dispatch('createOperation', {data: this.form})
+        await this.$store.dispatch('updateOperation', {data: this.form})
           .then(async status => {
-            if (status === 201) {
+            if (status === 200) {
               await this.$store.dispatch('getOperations');
-              this.form = {};
               return modalController.dismiss(null, 'confirm');
             }
           })

@@ -1,5 +1,5 @@
 <template>
-  <div class="operation-card">
+  <div class="operation-card" @click="openModal">
     <div class="contentWrapper">
       <div class="leftSide">
         <ion-card-subtitle>{{formatDate()}}</ion-card-subtitle>
@@ -23,8 +23,10 @@
 
 <script>
 import {CURRENCY_CHOICES, TYPE_CHOICES} from "@/utils/constants";
-import {IonCardSubtitle, IonCardTitle, IonChip} from "@ionic/vue";
+import {IonCardSubtitle, IonCardTitle, IonChip, modalController} from "@ionic/vue";
 import {dateFilter} from "@/utils/functions";
+import OperationModal from "@/components/operations/OperationModal";
+import OperationEditModal from "@/components/operations/OperationEditModal";
 
 export default {
   name: "OperationItem",
@@ -59,7 +61,17 @@ export default {
     },
     formatDate() {
       return dateFilter(this.operation.date)
-    }
+    },
+    async openModal() {
+      const modal = await modalController.create({
+        component: OperationEditModal,
+        presentingElement: this.presentingElement,
+        canDismiss: true,
+        componentProps: {operation: this.operation}
+      });
+      modal.present();
+      const {data, role} = await modal.onWillDismiss();
+    },
   },
 }
 </script>

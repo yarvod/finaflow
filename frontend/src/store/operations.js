@@ -45,6 +45,7 @@ const actions = {
   },
   async deleteOperation(context, payload) {
     const response = await finance_service.deleteOperation(payload.data);
+    return response?.status
   }
 }
 
