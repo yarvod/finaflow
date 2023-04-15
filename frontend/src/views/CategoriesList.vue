@@ -1,7 +1,7 @@
 <template>
   <BaseLayout head>
     <template #head>
-      <h4>Категории</h4>
+      <ion-card-title>Категории</ion-card-title>
     </template>
     <template #body>
       <h5>В разработке...</h5>
@@ -11,11 +11,13 @@
 
 <script>
 import BaseLayout from "@/components/BaseLayout";
+import {IonCardTitle} from "@ionic/vue";
 
 export default {
   name: "CategoriesList",
   components: {
     BaseLayout,
+    IonCardTitle,
   }
 }
 </script>

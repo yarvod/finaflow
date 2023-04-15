@@ -3,18 +3,20 @@
     <ion-header
       :translucent="true"
     >
-      <ion-toolbar class="container flex">
-        <ion-title>{{ pageTitle }}</ion-title>
+      <ion-toolbar
+        class="container flex"
+      >
+        <slot name="main-header">
+          <ion-title>{{ pageTitle }}</ion-title>
+        </slot>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
       <ion-header v-if="head">
-        <ion-toolbar>
-          <div class="container">
-            <slot name="head"></slot>
-          </div>
-        </ion-toolbar>
+        <div class="container ion-margin-top">
+          <slot name="head"></slot>
+        </div>
       </ion-header>
       <div class="container">
         <slot name="body"></slot>
@@ -62,7 +64,7 @@ export default defineComponent({
   props: {
     pageTitle: {
       type: String,
-      default: 'finaflow',
+      default: 'FinaFlow',
     },
     head: {
       type: Boolean,

@@ -1,7 +1,7 @@
 <template>
   <BaseLayout head>
     <template #head>
-        <h4>Все операции</h4>
+        <ion-card-title>Все операции</ion-card-title>
     </template>
     <template #body>
       <SLoader v-if="loading_operations"/>
@@ -19,7 +19,7 @@
 <script>
 import SLoader from "@/components/ui/SLoader.vue";
 import BaseLayout from "@/components/BaseLayout.vue";
-import {IonProgressBar, IonSpinner} from "@ionic/vue";
+import {IonCardTitle, IonProgressBar, IonSpinner} from "@ionic/vue";
 import OperationItem from "../components/operations/OperationItem";
 import {mapGetters} from "vuex";
 
@@ -31,6 +31,7 @@ export default {
     IonProgressBar,
     OperationItem,
     IonSpinner,
+    IonCardTitle,
   },
   computed: {
     ...mapGetters(['operations', 'loading_operations'])
