@@ -8,8 +8,10 @@
 <script>
 import {IonApp, IonLoading, IonRouterOutlet} from "@ionic/vue";
 import {mapGetters} from "vuex";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
+  name: 'App',
   components: {
     IonApp,
     IonRouterOutlet,
@@ -22,8 +24,9 @@ export default {
     this.$store.dispatch('checkMobile');
     this.$store.commit('setLoadingUser', true);
     await this.$store.dispatch('getMe');
+    await this.$store.dispatch('getOperations');
   },
-}
+})
 </script>
 
 <style lang="scss">

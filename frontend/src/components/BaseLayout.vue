@@ -1,12 +1,10 @@
 <template>
   <ion-page>
     <ion-header
-      :translucent="false"
+      :translucent="true"
     >
-      <ion-toolbar class="main-head">
-        <div class="container flex">
-          <ion-title>{{ pageTitle }}</ion-title>
-        </div>
+      <ion-toolbar class="container flex">
+        <ion-title>{{ pageTitle }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -42,8 +40,9 @@ import {
   IonIcon,
 } from '@ionic/vue';
 import {mapGetters} from "vuex";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
   name: "BaseLayout",
   components: {
     IonContent,
@@ -73,7 +72,7 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated']),
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

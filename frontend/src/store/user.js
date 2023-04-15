@@ -40,9 +40,10 @@ const actions = {
   },
   async getMe(context) {
     const response = await user_service.getMe();
-    if (response && response.data) {
+    if (response && response.status === 200 && response.data) {
       context.commit('setUser', {user: response.data, isAuthenticated: true})
-      localStorage.setItem('user', JSON.stringify(response.data))
+      localStorage.setItem('user', JSON.stringify(response.data));
+      localStorage.setItem('isAuthenticated', JSON.stringify(true));
     }
     return response
   },

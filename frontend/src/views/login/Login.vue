@@ -42,7 +42,7 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {IonButton, IonInput, IonItem, IonLabel, IonNote} from "@ionic/vue";
+import {IonButton, IonInput, IonItem, IonLabel, IonNote, useIonRouter} from "@ionic/vue";
 import BaseLayout from "@/components/BaseLayout";
 import {checkEmail} from "@/utils/functions";
 import GoogleLogin from "@/components/login/GoogleLogin";
@@ -66,6 +66,7 @@ export default {
       login_password: '',
       show_modal_recovery: false,
       show_modal_login: false,
+      router: useIonRouter(),
     }
   },
   computed: {
@@ -92,9 +93,9 @@ export default {
       await this.$store.dispatch('LogIn', formData)
         .then(response => {
           if (response && response.status === 200) {
-            this.$router.push({name: 'operations'})  //FIXME: переход на желаему страницу
+            this.router.push('/')  //FIXME: переход на желаему страницу
           } else {
-            this.$router.replace({name: 'login'})
+            this.router.push({name: 'login'})
           }
           this.onReset()
         })
