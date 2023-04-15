@@ -126,7 +126,7 @@ export default {
   computed: {
     ...mapGetters(['categories']),
   },
-  async ionViewWillEnter() {
+  async mounted() {
     await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
   },
   methods: {
@@ -135,6 +135,7 @@ export default {
       await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
     },
     cancel() {
+      this.form = {};
       return modalController.dismiss(null, 'cancel');
     },
     async confirm() {
@@ -144,6 +145,7 @@ export default {
           .then(async status => {
             if (status === 201) {
               await this.$store.dispatch('getOperations');
+              this.form = {};
               return modalController.dismiss(null, 'confirm');
             }
           })
