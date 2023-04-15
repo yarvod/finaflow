@@ -79,8 +79,8 @@ export default {
 <style lang="scss" scoped>
 
 .main-head {
-  --color: white;
-  --background: var(--base1);
+  //--color: white;
+  //--background: var(--base1);
 }
 
 .flex {
