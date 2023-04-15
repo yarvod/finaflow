@@ -4,20 +4,22 @@
       <ion-card-title>Категории</ion-card-title>
     </template>
     <template #body>
-      <h5>В разработке...</h5>
+      <ComingSoon/>
     </template>
   </BaseLayout>
 </template>
 
 <script>
-import BaseLayout from "@/components/BaseLayout";
+import BaseLayout from "@/components/BaseLayout.vue";
 import {IonCardTitle} from "@ionic/vue";
+import ComingSoon from "@/components/common/ComingSoon.vue";
 
 export default {
   name: "CategoriesList",
   components: {
     BaseLayout,
     IonCardTitle,
+    ComingSoon,
   }
 }
 </script>
