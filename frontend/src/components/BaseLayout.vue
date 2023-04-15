@@ -3,17 +3,15 @@
     <ion-header
       :translucent="false"
     >
-      <ion-toolbar
-        class="container flex"
-      >
+      <ion-toolbar>
         <slot name="main-header">
-          <ion-title>{{ pageTitle }}</ion-title>
+          <ion-title class="container flex">{{ pageTitle }}</ion-title>
         </slot>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-header v-if="head">
+      <ion-header v-if="head" mode="ios">
         <div class="container ion-margin-top">
           <slot name="head"></slot>
         </div>

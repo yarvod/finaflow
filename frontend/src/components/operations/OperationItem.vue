@@ -3,9 +3,9 @@
     <div class="contentWrapper">
       <div class="leftSide">
         <ion-card-subtitle>{{formatDate()}}</ion-card-subtitle>
-        <div class="title">
+        <ion-card-title class="title" mode="ios">
           {{ get_categories_titles() }}
-        </div>
+        </ion-card-title>
         <div
           class="comment"
           v-if="operation.comment"
@@ -14,10 +14,8 @@
         </div>
       </div>
       <div class="rightSide">
-        <ion-chip :color="get_type_color()">
-          {{ (operation.money).toLocaleString('ru') }}
-          {{ currency_choices[operation.currency] }}
-        </ion-chip>
+        <span class="money" :style="get_type_color()">{{ (operation.money).toLocaleString('ru') }}</span>
+        <span class="money" :style="get_type_color()">{{ currency_choices[operation.currency] }}</span>
       </div>
     </div>
   </div>
@@ -25,7 +23,7 @@
 
 <script>
 import {CURRENCY_CHOICES, TYPE_CHOICES} from "@/utils/constants";
-import {IonCardSubtitle, IonChip} from "@ionic/vue";
+import {IonCardSubtitle, IonCardTitle, IonChip} from "@ionic/vue";
 import {dateFilter} from "@/utils/functions";
 
 export default {
@@ -33,6 +31,7 @@ export default {
   components: {
     IonChip,
     IonCardSubtitle,
+    IonCardTitle,
   },
   props: {
     operation: {
@@ -54,9 +53,9 @@ export default {
     },
     get_type_color() {
       if (this.operation.type === 1) {
-        return "danger"
+        return {'--color': '#ed5e64'}
       }
-      return "success"
+      return {'--color': '#5ccc8b'}
     },
     formatDate() {
       return dateFilter(this.operation.date)
@@ -105,7 +104,7 @@ export default {
 
 .title {
   font-family: $base-font;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .comment {
@@ -114,10 +113,6 @@ export default {
   font-size: 12px;
   color: $Gray400;
   word-break: break-all;
-}
-
-ion-chip {
-  cursor: default;
 }
 
 .money {

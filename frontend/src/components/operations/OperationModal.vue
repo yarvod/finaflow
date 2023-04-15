@@ -32,9 +32,15 @@
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Дата</ion-label>
-      <ion-datetime-button v-model="form.date" datetime="date"></ion-datetime-button>
-      <ion-modal :keep-contents-mounted="true">
-        <ion-datetime v-model="form.date" id="date" presentation="date-time" :prefer-wheel="true"></ion-datetime>
+      <ion-datetime-button v-model="form.date" datetime="date" mode="ios"></ion-datetime-button>
+      <ion-modal :keep-contents-mounted="true" mode="ios">
+        <ion-datetime
+          v-model="form.date"
+          id="date"
+          presentation="date-time"
+          :prefer-wheel="true"
+           mode="ios"
+        ></ion-datetime>
       </ion-modal>
     </ion-item>
     <ion-item>
