@@ -21,18 +21,6 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-item ref="type">
-      <ion-label position="stacked">Тип</ion-label>
-      <ion-select
-        :value="form.type"
-        @ionChange="form.type = $event.detail.value"
-        interface="popover"
-        placeholder="Выберете тип"
-      >
-        <IonSelectOption :value="1">Расход</IonSelectOption>
-        <IonSelectOption :value="2">Доход</IonSelectOption>
-      </ion-select>
-    </ion-item>
     <ion-item ref="money">
       <ion-label position="stacked">Сумма</ion-label>
       <ion-input
@@ -69,7 +57,6 @@
         v-model="form.category"
         :options="categories"
         :multiple="false"
-        :default-expand-level="1"
         :show-count="true"
         :open-on-click="true"
         :close-on-select="true"
@@ -101,7 +88,7 @@ import {
   IonDatetime,
   IonDatetimeButton,
   IonTextarea,
-  IonSelect, IonSelectOption,
+  IonSelect, IonSelectOption, actionSheetController,
 } from "@ionic/vue";
 import TreeSelect from 'vue3-treeselect';
 import 'vue3-treeselect/dist/vue3-treeselect.css';
@@ -152,21 +139,35 @@ export default {
     await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
   },
   methods: {
-    async changeType(e) {
-      this.form.category = null;
-      await this.$store.dispatch('getCategories', {query: {type: this.form.type}});
-    },
     cancel() {
       return modalController.dismiss(null, 'cancel');
     },
-    removeOperation() {
-      this.$store.dispatch('deleteOperation', {data: this.operation})
+    async removeOperation() {
+      const actionSheet = await actionSheetController.create({
+        header: 'Вы уверены, удаляем?',
+        buttons: [
+          {
+            text: 'Удалить',
+            role: 'destructive',
+
+          },
+          {
+            text: 'Отменить',
+            role: 'cancel',
+          },
+        ],
+      });
+      await actionSheet.present();
+      const {role} = await actionSheet.onWillDismiss();
+      if (role === 'destructive') {
+        this.$store.dispatch('deleteOperation', {data: this.operation})
         .then(async status => {
           if (status === 204) {
             await this.$store.dispatch('getOperations');
             return modalController.dismiss(null, 'cancel');
           }
         })
+      }
     },
     async saveOperation() {
       this.is_valid = this.validateMoney()

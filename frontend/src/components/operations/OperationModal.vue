@@ -56,7 +56,6 @@
         v-model="form.category"
         :options="categories"
         :multiple="false"
-        :default-expand-level="1"
         :show-count="true"
         :open-on-click="true"
         :close-on-select="true"
