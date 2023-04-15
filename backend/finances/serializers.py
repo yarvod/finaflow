@@ -1,4 +1,4 @@
-from django.utils.timezone import now
+from django.db.models import Q
 from rest_framework import serializers
 
 from common.constants import Currency, OperationType
@@ -15,8 +15,13 @@ class CategorySmallGetSerializer(serializers.ModelSerializer):
         fields = ("id", "label", "children")
 
     def get_children(self, obj):
+        user = None
+        request = self.context.get("request")
+        if request and hasattr(request, "user"):
+            user = request.user
         if obj.children:
-            return self.__class__(obj.children, many=True).data
+            children = obj.children.filter(Q(user__isnull=True) | Q(user=user))
+            return self.__class__(children, many=True).data
         return None
 
     def to_representation(self, instance):
