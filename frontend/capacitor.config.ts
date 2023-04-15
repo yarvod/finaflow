@@ -1,10 +1,16 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import {CapacitorConfig} from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'frontend',
-  webDir: 'dist',
-  bundledWebRuntime: false
+    appId: 'yarvod.finaflow',
+    appName: 'frontend',
+    webDir: 'dist',
+    bundledWebRuntime: false,
+    server: {
+        hostname: "finaflow.ru",
+        iosScheme: "https",
+        androidScheme: "https",
+        url: "https://finaflow.ru"
+    }
 };
 
 export default config;

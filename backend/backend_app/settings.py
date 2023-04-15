@@ -314,8 +314,10 @@ CORS_ALLOWED_ORIGINS = [
     f"http://localhost:8080",
     f"http://localhost:8100",
     f"{HTTP}://{HOST}",
+    f"capacitor://finaflow.ru",
+    f"capacitor://localhost",
 ]
-X_FRAME_OPTIONS = "SAMEORIGIN"
+# X_FRAME_OPTIONS = "SAMEORIGIN"
 
 LOGGING = {
     "version": 1,
