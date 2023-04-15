@@ -6,6 +6,7 @@
 	"server": {
 		"hostname": "finaflow.ru",
 		"iosScheme": "https",
-		"androidScheme": "https"
+		"androidScheme": "https",
+		"url": "https://finaflow.ru"
 	}
 }
