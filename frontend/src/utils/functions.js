@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function isObject (value) {
     return value && typeof value === 'object' && value.constructor === Object;
 }
@@ -18,6 +20,7 @@ export function moneyFilter(value) {
     }
 }
 
+moment.locale('ru')
 export function dateFilter(value) {
   if (value) {
     return moment(String(value)).format('D MMM YYYY')

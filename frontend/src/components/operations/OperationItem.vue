@@ -1,14 +1,10 @@
 <template>
-  <div class="card">
+  <div class="operation-card">
     <div class="contentWrapper">
       <div class="leftSide">
+        <ion-card-subtitle>{{formatDate()}}</ion-card-subtitle>
         <div class="title">
           {{ get_categories_titles() }}
-          <ion-chip
-            :color="get_type_color()"
-          >
-            {{ get_type() }}
-          </ion-chip>
         </div>
         <div
           class="comment"
@@ -18,8 +14,10 @@
         </div>
       </div>
       <div class="rightSide">
-        <span class="money" :style="get_money_color()">{{ (operation.money).toLocaleString('ru') }}</span>
-        <span class="money" :style="get_money_color()">{{ currency_choices[operation.currency] }}</span>
+        <ion-chip :color="get_type_color()">
+          {{ (operation.money).toLocaleString('ru') }}
+          {{ currency_choices[operation.currency] }}
+        </ion-chip>
       </div>
     </div>
   </div>
@@ -27,12 +25,14 @@
 
 <script>
 import {CURRENCY_CHOICES, TYPE_CHOICES} from "@/utils/constants";
-import {IonChip} from "@ionic/vue";
+import {IonCardSubtitle, IonChip} from "@ionic/vue";
+import {dateFilter} from "@/utils/functions";
 
 export default {
   name: "OperationItem",
   components: {
     IonChip,
+    IonCardSubtitle,
   },
   props: {
     operation: {
@@ -52,27 +52,21 @@ export default {
       }
       return "None"
     },
-    get_money_color() {
-      if (this.operation.type === 1) {
-        return {'--color': '#ed5e64'}
-      }
-      return {'--color': '#5ccc8b'}
-    },
-    get_type() {
-      return TYPE_CHOICES[this.operation.type]
-    },
     get_type_color() {
       if (this.operation.type === 1) {
         return "danger"
       }
       return "success"
+    },
+    formatDate() {
+      return dateFilter(this.operation.date)
     }
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.card {
+.operation-card {
   border: $Gray300 1px solid;
   border-radius: 5px;
   padding: 10px;
@@ -101,7 +95,8 @@ export default {
 }
 
 .leftSide {
-
+  display: flex;
+  flex-direction: column;
 }
 
 .rightSide {
@@ -110,7 +105,7 @@ export default {
 
 .title {
   font-family: $base-font;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .comment {
@@ -118,6 +113,7 @@ export default {
   font-family: $base-font;
   font-size: 12px;
   color: $Gray400;
+  word-break: break-all;
 }
 
 ion-chip {
