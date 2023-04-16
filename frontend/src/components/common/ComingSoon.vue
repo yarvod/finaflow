@@ -46,4 +46,9 @@ export default {
   max-width: 350px;
 }
 
+h5 {
+  font-weight: lighter;
+  text-align: center;
+}
+
 </style>

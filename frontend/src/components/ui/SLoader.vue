@@ -1,6 +1,8 @@
 <template>
   <div class="loader">
-    <ion-spinner></ion-spinner>
+    <transition name="fade" mode="out-in" appear>
+      <ion-spinner></ion-spinner>
+    </transition>
   </div>
 </template>
 

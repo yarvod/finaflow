@@ -4,6 +4,12 @@
       <ion-card-title>Все операции</ion-card-title>
     </template>
     <template #body>
+      <div class="dateFilter">
+        <DateFilter
+          @update="getOperations"
+          @date="this.operations_date = $event"
+        />
+      </div>
       <SLoader v-if="loading_operations"/>
       <div v-else-if="operations.length">
         <transition name="fade" mode="out-in" appear>
@@ -16,7 +22,10 @@
           </div>
         </transition>
       </div>
-      <EmptyOperations v-else>
+      <EmptyOperations
+        v-else
+        :date="operations_date"
+      >
         <template #action>
           <ion-button
             @click="openModal"
@@ -37,7 +46,9 @@ import {IonButton, IonCardTitle, IonProgressBar, IonSpinner, modalController} fr
 import OperationItem from "../components/operations/OperationItem.vue";
 import {mapGetters} from "vuex";
 import EmptyOperations from "@/components/operations/EmptyOperations.vue";
-import OperationModal from "@/components/operations/OperationModal";
+import OperationModal from "@/components/operations/OperationModal.vue";
+import DateFilter from "@/components/ui/DateFilter.vue"
+import moment from "moment";
 
 export default {
   name: "OperationsList",
@@ -50,14 +61,25 @@ export default {
     IonCardTitle,
     EmptyOperations,
     IonButton,
+    DateFilter,
+  },
+  data() {
+    return {
+      operations_date: moment().format('MMMM, YYYY'),
+    }
   },
   computed: {
     ...mapGetters(['operations', 'loading_operations'])
   },
   async ionViewWillEnter() {
-    await this.$store.dispatch('getOperations');
+    const date_after = moment().startOf('month').format('YYYY-MM-DD');
+    const date_before = moment().endOf('month').format('YYYY-MM-DD');
+    await this.getOperations(date_after, date_before)
   },
   methods: {
+    async getOperations(date_after, date_before) {
+      await this.$store.dispatch('getOperations', {params: {date_after: date_after, date_before: date_before}});
+    },
     async openModal() {
       const modal = await modalController.create({
         component: OperationModal,
@@ -72,6 +94,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.dateFilter {
+  justify-content: center;
+}
 
 .head {
   display: grid;
@@ -93,56 +119,4 @@ export default {
   font-weight: 400;
   line-height: 12px;
 }
-
-.tableWrapper {
-  margin-top: 20px;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-table {
-  display: block;
-  overflow: auto;
-  white-space: nowrap;
-  padding: 6px;
-}
-
-th {
-  padding: 30px 10px;
-  font-style: normal;
-  color: $Gray500;
-  font-weight: 550;
-  font-size: 16px;
-  line-height: 15px;
-  text-align: left;
-  border-bottom: 1px solid $Gray200;
-}
-
-td {
-  padding: 20px 10px;
-  text-align: left;
-  align-items: center;
-  //border-bottom: 1px solid $Gray200;
-  max-width: 250px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-tbody tr {
-  border-bottom: 1px solid $Gray200;
-
-  &:hover {
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-    transition: all 0.3s ease;
-
-    @media (prefers-color-scheme: dark) {
-      box-shadow: 0 2px 8px rgba(152, 133, 133, 0.33);
-      border-bottom: 1px solid var(--ion-background-color);
-    }
-  }
-}
-
-
 </style>

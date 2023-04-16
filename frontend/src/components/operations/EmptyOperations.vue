@@ -8,7 +8,9 @@
           alt="Alone bird"
         ></ion-img>
         <ion-text class="centered">
-          <h5>У вас еще нет ни одной операции :(</h5>
+          <h5 class="emptyText">
+            У вас еще нет операции за <span class="date">{{ date }}</span>
+          </h5>
           <slot name="action"></slot>
         </ion-text>
       </div>
@@ -25,6 +27,12 @@ export default {
   components: {
     IonText,
     IonImg,
+  },
+  props: {
+    date: {
+      type: String,
+      default: "выбранный период",
+    }
   },
   data() {
     return {
@@ -45,6 +53,15 @@ export default {
 
 .img {
   max-width: 350px;
+}
+
+.emptyText {
+  font-weight: lighter;
+  text-align: center;
+}
+
+.date {
+  font-weight: bolder;
 }
 
 </style>
