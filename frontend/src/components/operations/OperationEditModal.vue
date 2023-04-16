@@ -27,7 +27,7 @@
       <ion-input
         type="number"
         v-model="form.money"
-        placeholder="500"
+        placeholder="0"
       ></ion-input>
       <ion-note slot="error">Введите сумму!</ion-note>
     </ion-item>
@@ -148,7 +148,6 @@ export default {
           {
             text: 'Удалить',
             role: 'destructive',
-
           },
           {
             text: 'Отменить',

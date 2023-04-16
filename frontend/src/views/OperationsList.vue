@@ -72,13 +72,14 @@ export default {
     ...mapGetters(['operations', 'loading_operations'])
   },
   async ionViewWillEnter() {
-    const date_after = moment().startOf('month').format('YYYY-MM-DD');
-    const date_before = moment().endOf('month').format('YYYY-MM-DD');
-    await this.getOperations(date_after, date_before)
+    await this.$store.dispatch('getOperations');
   },
   methods: {
     async getOperations(date_after, date_before) {
-      await this.$store.dispatch('getOperations', {params: {date_after: date_after, date_before: date_before}});
+      if (date_after && date_before) {
+        this.$store.commit('setDatesRange', {date_after: date_after, date_before: date_before});
+      }
+      await this.$store.dispatch('getOperations');
     },
     async openModal() {
       const modal = await modalController.create({

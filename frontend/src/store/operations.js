@@ -1,14 +1,19 @@
 import finance_service from "@/api/finance_service";
+import moment from "moment";
 
 
 const state = {
   operations: [],
   loading_operations: true,
+  date_after: moment().startOf('month').format('YYYY-MM-DD'),
+  date_before: moment().endOf('month').format('YYYY-MM-DD'),
 }
 
 const getters = {
   operations : state => state.operations,
   loading_operations: state => state.loading_operations,
+  date_after: state => state.date_after,
+  date_before: state => state.date_before,
 }
 
 const mutations = {
@@ -17,6 +22,10 @@ const mutations = {
   },
   setLoadingOperations(state, payload) {
     state.loading_operations = payload.loading_operations;
+  },
+  setDatesRange(state, payload) {
+    state.date_after = payload.date_after;
+    state.date_before = payload.date_before;
   },
   ResetOperations(state, payload) {
     state.operations = [];
@@ -27,8 +36,12 @@ const mutations = {
 
 const actions = {
   async getOperations(context, payload) {
-    context.commit('setLoadingOperations', {loading_operations: true})
-    const response = await finance_service.getOperationsList(payload?.params);
+    context.commit('setLoadingOperations', {loading_operations: true});
+    const params = {
+      date_after: context.getters.date_after,
+      date_before: context.getters.date_before,
+    }
+    const response = await finance_service.getOperationsList(params);
     if (response && response.status === 200 && response.data) {
       context.commit('setOperations', {operations: response.data})
     }
