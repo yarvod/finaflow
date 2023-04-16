@@ -1,8 +1,8 @@
 import {CapacitorConfig} from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-    appId: 'yarvod.finaflow',
-    appName: 'frontend',
+    appId: 'A1B2C3D4E5.com.yarvod.finaflow',
+    appName: 'FinaFlow',
     webDir: 'dist',
     bundledWebRuntime: false,
     server: {
