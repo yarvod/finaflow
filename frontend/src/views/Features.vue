@@ -1,7 +1,7 @@
 <template>
   <BaseLayout head>
     <template #head>
-      <ion-card-title>Категории</ion-card-title>
+      <ion-card-title>Фичи</ion-card-title>
     </template>
     <template #body>
       <ComingSoon/>
@@ -15,7 +15,7 @@ import {IonCardTitle} from "@ionic/vue";
 import ComingSoon from "@/components/common/ComingSoon.vue";
 
 export default {
-  name: "CategoriesList",
+  name: "Features",
   components: {
     BaseLayout,
     IonCardTitle,

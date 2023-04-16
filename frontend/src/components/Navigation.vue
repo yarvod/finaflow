@@ -18,9 +18,9 @@
           <ion-label>Добавить</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="categories" href="/categories">
-          <ion-icon :icon="shapesOutline"/>
-          <ion-label>Категории</ion-label>
+        <ion-tab-button tab="features" href="/features">
+          <ion-icon :icon="sparklesOutline"/>
+          <ion-label>Фичи</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="account" href="/account">
@@ -43,7 +43,7 @@ import {
   IonTabs,
   modalController
 } from "@ionic/vue";
-import {addCircleOutline, analyticsOutline, listOutline, personOutline, shapesOutline} from "ionicons/icons";
+import {addCircleOutline, analyticsOutline, listOutline, personOutline, sparklesOutline} from "ionicons/icons";
 import OperationModal from "@/components/operations/OperationModal";
 
 export default {
@@ -62,7 +62,7 @@ export default {
       analyticsOutline: analyticsOutline,
       listOutline: listOutline,
       addCircleOutline: addCircleOutline,
-      shapesOutline: shapesOutline,
+      sparklesOutline: sparklesOutline,
       personOutline: personOutline,
     }
   },

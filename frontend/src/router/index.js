@@ -37,8 +37,8 @@ const routes = [
         },
       },
       {
-        path: 'categories',
-        component: () => import('@/views/CategoriesList.vue'),
+        path: 'features',
+        component: () => import('@/views/Features.vue'),
         props: true,
         meta: {
           requiresAuth: true
