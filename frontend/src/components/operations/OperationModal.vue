@@ -37,8 +37,8 @@
         <ion-datetime
           v-model="form.date"
           id="date"
-          presentation="date-time"
-          :prefer-wheel="true"
+          presentation="date"
+          :prefer-wheel="false"
            mode="ios"
         ></ion-datetime>
       </ion-modal>
@@ -114,7 +114,7 @@ export default {
       form: {
         type: 1,
         money: null,
-        date: new Date().toISOString(),
+        date: new Date().toJSON().slice(0, 10),
         category: null,
         comment: "",
       },
