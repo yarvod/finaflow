@@ -9,6 +9,7 @@
           Закрыть
         </ion-button>
       </ion-buttons>
+      <ion-title>{{ type_display }}</ion-title>
       <ion-buttons slot="end">
         <ion-button
           :strong="true"
@@ -93,6 +94,7 @@ import {
 import TreeSelect from 'vue3-treeselect';
 import 'vue3-treeselect/dist/vue3-treeselect.css';
 import {mapGetters} from "vuex";
+import {TYPE_CHOICES} from "@/utils/constants";
 
 export default {
   name: "OperationEditModal",
@@ -126,6 +128,9 @@ export default {
   },
   computed: {
     ...mapGetters(['categories']),
+    type_display() {
+      return TYPE_CHOICES[this.operation.type]
+    }
   },
   async mounted() {
     this.form = {
@@ -161,12 +166,12 @@ export default {
       const {role} = await actionSheet.onWillDismiss();
       if (role === 'destructive') {
         this.$store.dispatch('deleteOperation', {data: this.operation})
-        .then(async status => {
-          if (status === 204) {
-            await this.$store.dispatch('getOperations');
-            return modalController.dismiss(null, 'cancel');
-          }
-        })
+          .then(async status => {
+            if (status === 204) {
+              await this.$store.dispatch('getOperations');
+              return modalController.dismiss(null, 'cancel');
+            }
+          })
       }
     },
     async saveOperation() {
