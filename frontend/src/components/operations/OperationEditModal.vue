@@ -53,16 +53,11 @@
     </ion-item>
     <div class="item-custom">
       <ion-label position="stacked">Категория</ion-label>
-      <tree-select
-        v-if="this.form.category"
-        v-model="form.category"
+      <TreeSelect
+        v-if="this.form.id"
+        :value="form.category"
         :options="categories"
-        :multiple="false"
-        :show-count="true"
-        :open-on-click="true"
-        :close-on-select="true"
-        :noResultsText="'Не найдено :('"
-        placeholder="Категория"
+        @set_value="this.form.category = $event"
       />
     </div>
     <ion-button
@@ -91,8 +86,7 @@ import {
   IonTextarea,
   IonSelect, IonSelectOption, actionSheetController,
 } from "@ionic/vue";
-import TreeSelect from 'vue3-treeselect';
-import 'vue3-treeselect/dist/vue3-treeselect.css';
+import TreeSelect from "@/components/ui/TreeSelect.vue";
 import {mapGetters} from "vuex";
 import {TYPE_CHOICES} from "@/utils/constants";
 

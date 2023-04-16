@@ -52,15 +52,10 @@
     </ion-item>
     <div class="item-custom">
       <ion-label position="stacked">Категория</ion-label>
-      <tree-select
-        v-model="form.category"
+      <TreeSelect
+        :value="form.category"
         :options="categories"
-        :multiple="false"
-        :show-count="true"
-        :open-on-click="true"
-        :close-on-select="true"
-        :noResultsText="'Не найдено :('"
-        placeholder="Категория"
+        @set_value="this.form.category = $event"
       />
     </div>
   </ion-content>
@@ -79,11 +74,12 @@ import {
   modalController,
   IonDatetime,
   IonDatetimeButton,
-  IonTextarea, IonSegment, IonSegmentButton,
+  IonTextarea,
+  IonSegment,
+  IonSegmentButton,
 } from "@ionic/vue";
-import TreeSelect from 'vue3-treeselect';
-import 'vue3-treeselect/dist/vue3-treeselect.css';
 import {mapGetters} from "vuex";
+import TreeSelect from "@/components/ui/TreeSelect.vue";
 
 export default {
   name: "OperationModal",
