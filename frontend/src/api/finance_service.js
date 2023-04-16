@@ -2,8 +2,8 @@ import Api from "@/api/Api";
 
 
 export default {
-  async getOperationsList() {
-    return await Api().get(`/finances/operation/`)
+  async getOperationsList(params) {
+    return await Api().get(`/finances/operation/`, {params: params})
   },
   async getOperation(operationId) {
     return await Api().get(`/finances/operation/${operationId}/`)
