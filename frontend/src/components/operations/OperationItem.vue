@@ -82,7 +82,7 @@ export default {
   border-radius: 5px;
   padding: 10px;
   width: 100%;
-  margin-top: 10px;
+  margin-bottom: 10px;
   @include respond-to(desktop) {
     transition: all .3s ease;
   }
