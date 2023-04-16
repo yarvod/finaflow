@@ -37,8 +37,8 @@
         <ion-datetime
           v-model="form.date"
           id="date"
-          presentation="date-time"
-          :prefer-wheel="true"
+          presentation="date"
+          :prefer-wheel="false"
           mode="ios"
         ></ion-datetime>
       </ion-modal>

@@ -62,7 +62,7 @@ class OperationListSerializer(serializers.ModelSerializer):
     money = serializers.FloatField()
     currency = serializers.IntegerField()
     category = CategoryGetSerializer()
-    date = serializers.DateTimeField(format="%Y-%m-%dT%H:%MZ")
+    date = serializers.DateField()
     categories_titles = serializers.SerializerMethodField()
 
     class Meta:
@@ -93,7 +93,7 @@ class OperationWriteSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         slug_field="id", queryset=Category.objects.all(), allow_null=True
     )
-    date = serializers.DateTimeField()
+    date = serializers.DateField()
 
     class Meta:
         model = Operation

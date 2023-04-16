@@ -82,7 +82,7 @@ class Operation(models.Model):
         blank=True,
         verbose_name="Категория",
     )
-    date = models.DateTimeField(default=now, verbose_name="Дата")
+    date = models.DateField(default=now, verbose_name="Дата")
 
     class Meta:
         verbose_name = "Операция"
