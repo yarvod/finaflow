@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 import django_filters.rest_framework as filters
 
-from finances.filters import CategoryFilterSet
+from finances.filters import CategoryFilterSet, OperationsFilterSet
 from finances.serializers import (
     OperationListSerializer,
     CategorySmallGetSerializer,
@@ -28,6 +28,8 @@ class CategoryViewSet(ModelViewSet):
 
 class OperationViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = OperationsFilterSet
 
     def get_queryset(self):
         return Operation.objects.filter(user=self.request.user)
