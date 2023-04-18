@@ -1,8 +1,12 @@
-from django.db.models import Q
+from django.db.models import Q, Sum
+from django.db.models.functions import Coalesce
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 import django_filters.rest_framework as filters
 
+from common.constants import OperationType
 from finances.filters import CategoryFilterSet, OperationsFilterSet
 from finances.serializers import (
     OperationListSerializer,
@@ -41,3 +45,10 @@ class OperationViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    @action(detail=False)
+    def analytics(self, request):
+        queryset = self.filter_queryset(self.get_queryset())
+        spent = queryset.filter(type=OperationType.EXPENDITURE).aggregate(spent=Coalesce(Sum("money"), 0.0))
+        earned = queryset.filter(type=OperationType.REVENUE).aggregate(earned=Coalesce(Sum("money"), 0.0))
+        return Response(data={**earned, **spent}, status=200)

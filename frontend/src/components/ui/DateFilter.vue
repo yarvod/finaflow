@@ -22,7 +22,7 @@
 import {IonButton, IonIcon} from "@ionic/vue";
 import {arrowBackCircle, arrowForwardCircle} from "ionicons/icons";
 import moment from "moment";
-
+moment.locale('ru')
 export default {
   name: "DateFilter",
   components: {

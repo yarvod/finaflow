@@ -17,6 +17,9 @@ export default {
   async deleteOperation(operation) {
     return await Api().delete(`/finances/operation/${operation.id}/`)
   },
+  async getAnalytics(params) {
+    return await Api().get(`/finances/analytics/`, {params: params})
+  },
   async getCategoriesList(params) {
     return await Api().get(`/finances/category/`, {params: params})
   },

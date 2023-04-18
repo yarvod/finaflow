@@ -9,7 +9,7 @@
         ></ion-img>
         <ion-text class="centered">
           <h5 class="emptyText">
-            У вас еще нет операции за <span class="date">{{ date }}</span>
+            У вас еще нет операций за <span class="date">{{ date }}</span>
           </h5>
           <slot name="action"></slot>
         </ion-text>

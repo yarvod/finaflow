@@ -9,6 +9,7 @@ module.exports = defineConfig({
         loaderOptions: {
             sass: {
                 additionalData: `
+          @import "@/assets/style/scss/defaults.scss";
           @import "@/assets/style/scss/variables.scss";
           @import "@/assets/style/scss/mixins.scss";
           @import "@/assets/style/scss/transitions.scss";

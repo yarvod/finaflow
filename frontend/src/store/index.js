@@ -3,6 +3,7 @@ import user from "./user";
 import mobile from "./mobile";
 import operations from "./operations";
 import categories from "./categories";
+import analytics from "./analytics";
 
 
 const store = createStore({
@@ -14,6 +15,7 @@ const store = createStore({
       context.commit('ResetUserStore');
       context.commit('ResetOperations');
       context.commit('ResetCategories');
+      context.commit('ResetAnalytics');
     }
   },
   modules: {
@@ -21,6 +23,7 @@ const store = createStore({
     mobile,
     operations,
     categories,
+    analytics,
   },
 })
 

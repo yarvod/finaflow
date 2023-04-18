@@ -8,7 +8,9 @@
           alt="Coming soon"
         ></ion-img>
         <ion-text class="centered">
-          <h5>Раздел в разработке...</h5>
+          <h5>
+            <slot name="text">Раздел в разработке...</slot>
+          </h5>
         </ion-text>
       </div>
     </transition>

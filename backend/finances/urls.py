@@ -14,6 +14,11 @@ urlpatterns = [
         name="operation-update-destroy",
     ),
     path(
+        "analytics/",
+        OperationViewSet.as_view({"get": "analytics"}),
+        name="analytics",
+    ),
+    path(
         "category/",
         CategoryViewSet.as_view({"get": "list", "post": "create"}),
         name="category-list-create",
