@@ -26,7 +26,7 @@
       <ion-input
         type="number"
         v-model="form.money"
-        placeholder="500"
+        placeholder="0"
       ></ion-input>
       <ion-note slot="error">Введите сумму!</ion-note>
     </ion-item>
@@ -51,7 +51,7 @@
       ></ion-textarea>
     </ion-item>
     <div class="item-custom">
-      <ion-label position="stacked">Категория</ion-label>
+      <ion-label position="stacked" class="category-label">Категория</ion-label>
       <TreeSelect
         :value="form.category"
         :options="categories"
@@ -180,6 +180,10 @@ ion-datetime-button {
 .item-custom {
   padding: 10px 20px;
   background-color: var(--ion-item-background)
+}
+
+.category-label {
+  font-size: small;
 }
 
 </style>

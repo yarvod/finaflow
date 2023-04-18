@@ -16,7 +16,7 @@
           <ion-row>
             <ion-col>
               <div class="small-card">
-                <div class="label expenditure">Раход</div>
+                <div class="label expenditure">Расход</div>
                 <div class="expenditure">
                   {{ (analytics.spent).toLocaleString('ru') }} ₽
                 </div>
