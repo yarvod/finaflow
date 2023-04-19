@@ -4,6 +4,8 @@ import router from './router';
 // @ts-ignore
 import store from './store';
 
+import './registerServiceWorker.js';
+
 import '@ionic/vue/css/core.css';
 import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';

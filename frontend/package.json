@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.0.1",
   "private": true,
+  "description": "An Ionic project",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -12,12 +13,12 @@
   "dependencies": {
     "@capacitor/android": "3.9.0",
     "@capacitor/app": "1.1.1",
+    "@capacitor/browser": "1.0.7",
     "@capacitor/core": "3.9.0",
     "@capacitor/haptics": "1.1.4",
     "@capacitor/ios": "3.9.0",
     "@capacitor/keyboard": "1.2.3",
     "@capacitor/status-bar": "1.0.8",
-    "@capacitor/browser": "1.0.7",
     "@ionic/vue": "^6.7.3",
     "@ionic/vue-router": "^6.7.3",
     "axios": "^0.27.2",
@@ -25,6 +26,7 @@
     "core-js": "^3.6.5",
     "ionicons": "^6.0.3",
     "moment": "^2.29.1",
+    "register-service-worker": "^1.7.2",
     "vue": "^3.2.21",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.0.12",
@@ -36,12 +38,12 @@
     "@iconify/vue": "^4.1.0",
     "@vue/cli-plugin-babel": "~5.0.0-rc.1",
     "@vue/cli-plugin-e2e-cypress": "~5.0.0-rc.1",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0-rc.1",
     "@vue/cli-plugin-unit-jest": "~5.0.0-rc.1",
     "@vue/cli-service": "~5.0.0-rc.1",
     "sass": "^1.51.0",
     "sass-loader": "10.1.1",
     "typescript": "^4.3.5"
-  },
-  "description": "An Ionic project"
+  }
 }

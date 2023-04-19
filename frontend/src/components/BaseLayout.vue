@@ -4,6 +4,7 @@
       :translucent="false"
     >
       <ion-toolbar>
+        <PWAPrompt/>
         <slot name="main-header">
           <ion-title class="container flex">{{ pageTitle }}</ion-title>
         </slot>
@@ -41,6 +42,7 @@ import {
 } from '@ionic/vue';
 import {mapGetters} from "vuex";
 import {defineComponent} from "vue";
+import PWAPrompt from "@/components/common/PWAPrompt.vue";
 
 export default defineComponent({
   name: "BaseLayout",
@@ -58,6 +60,7 @@ export default defineComponent({
     IonLabel,
     IonFooter,
     IonIcon,
+    PWAPrompt,
   },
   props: {
     pageTitle: {
