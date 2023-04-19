@@ -26,3 +26,10 @@ export function dateFilter(value) {
     return moment(String(value)).format('D MMM YYYY')
   }
 }
+
+export var groupBy = function(xs, key) {
+  return xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+};

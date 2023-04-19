@@ -11,14 +11,24 @@
         />
       </div>
       <SLoader v-if="loading_operations"/>
-      <div v-else-if="operations.length">
+      <div v-else-if="Object.keys(operations).length">
         <transition name="fade" mode="out-in" appear>
           <div>
-            <OperationItem
-              v-for="operation in operations"
-              :key="operation.id"
-              :operation="operation"
-            />
+            <div
+              v-for="(list, date) in operations"
+              :key="date"
+            >
+              <div class="dateLabel">
+                {{ formatDate(date) }}
+              </div>
+              <div class="groupWrapper">
+                <OperationItem
+                  v-for="operation in list"
+                  :key="operation.id"
+                  :operation="operation"
+                />
+              </div>
+            </div>
           </div>
         </transition>
       </div>
@@ -49,6 +59,7 @@ import EmptyOperations from "@/components/operations/EmptyOperations.vue";
 import OperationModal from "@/components/operations/OperationModal.vue";
 import DateFilter from "@/components/ui/DateFilter.vue"
 import moment from "moment";
+import {dateFilter} from "@/utils/functions";
 
 export default {
   name: "OperationsList",
@@ -89,6 +100,9 @@ export default {
       });
       modal.present();
       const {data, role} = await modal.onWillDismiss();
+    },
+    formatDate(date) {
+      return dateFilter(date);
     },
   },
 }

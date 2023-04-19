@@ -2,7 +2,6 @@
   <div class="operation-card" @click="openModal">
     <div class="contentWrapper">
       <div class="leftSide">
-        <ion-card-subtitle>{{formatDate()}}</ion-card-subtitle>
         <ion-card-title class="title" mode="ios">
           {{ get_categories_titles() }}
         </ion-card-title>
@@ -59,9 +58,6 @@ export default {
       }
       return {'--color': '#5ccc8b'}
     },
-    formatDate() {
-      return dateFilter(this.operation.date)
-    },
     async openModal() {
       const modal = await modalController.create({
         component: OperationEditModal,
@@ -78,8 +74,8 @@ export default {
 
 <style lang="scss" scoped>
 .operation-card {
-  border: $Gray300 1px solid;
-  border-radius: 5px;
+  background-color: $white;
+  border-radius: $BorderRadius;
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
@@ -95,6 +91,15 @@ export default {
       @media (prefers-color-scheme: dark) {
       }
     }
+  }
+
+  &:active {
+    transition: all .1s ease;
+    background-color: $Gray300;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
   }
 }
 

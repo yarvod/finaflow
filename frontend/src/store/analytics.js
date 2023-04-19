@@ -40,7 +40,6 @@ const actions = {
       date_after: context.getters.analytics_date_after,
       date_before: context.getters.analytics_date_before,
     }
-    console.log(params)
     const response = await finance_service.getAnalytics(params);
     if (response && response.status === 200 && response.data) {
       context.commit('setAnalytics', {analytics: response.data})

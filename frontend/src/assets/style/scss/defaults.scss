@@ -1,29 +1,44 @@
 @import 'variables';
 
+.dateLabel {
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: smaller;
+  font-weight: bolder;
+  color: $Gray500;
+}
+
+.groupWrapper {
+  padding: 10px;
+  border-radius: $BorderRadius;
+  background-color: $Base100;
+  margin-bottom: 5px;
+}
+
 .small-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: $Base100;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: $Base100;
+  padding: 10px;
+  margin: 5px;
+  border-radius: $BorderRadius;
 
+  font-weight: bolder;
+  font-size: larger;
+
+  .label {
     font-weight: bolder;
-    font-size: larger;
-
-    .label {
-        font-weight: bolder;
-        font-size: small;
-        color: $Gray700;
-        margin-bottom: 5px;
-    }
+    font-size: small;
+    color: $Gray700;
+    margin-bottom: 5px;
+  }
 }
 
 .expenditure {
-    color: $Expenditure;
+  color: $Expenditure;
 }
 
 .revenue {
-    color: $Revenue;
+  color: $Revenue;
 }

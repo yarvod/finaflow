@@ -1,5 +1,6 @@
 import finance_service from "@/api/finance_service";
 import moment from "moment";
+import {groupBy} from "@/utils/functions";
 
 
 const state = {
@@ -43,7 +44,8 @@ const actions = {
     }
     const response = await finance_service.getOperationsList(params);
     if (response && response.status === 200 && response.data) {
-      context.commit('setOperations', {operations: response.data})
+      const operations = groupBy(response.data, 'date')
+      context.commit('setOperations', {operations: operations})
     }
     context.commit('setLoadingOperations', {loading_operations: false})
     return response?.status
