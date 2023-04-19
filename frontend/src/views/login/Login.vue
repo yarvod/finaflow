@@ -3,7 +3,6 @@
     <template #body>
       <div class="center">
         <form @submit.prevent ref="form">
-          <h3>Вход в систему</h3>
           <ion-item ref="email">
             <ion-label position="floating">Почта</ion-label>
             <ion-input
