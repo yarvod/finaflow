@@ -95,7 +95,7 @@ export default {
 
   &:active {
     transition: all .1s ease;
-    background-color: $Gray300;
+    background-color: $Secondary0;
   }
 
   &:last-of-type {
