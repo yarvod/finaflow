@@ -36,6 +36,7 @@
     <div class="groupWrapper">
       <ion-label position="stacked">Категория</ion-label>
       <TreeSelect
+        v-if="this.form.id"
         :value="form.category"
         :options="categories"
         @set_value="this.form.category = $event"
@@ -177,7 +178,7 @@ export default {
       }
     },
     async saveOperation() {
-      this.is_valid = this.validateMoney()
+      this.is_valid = this.validateMoney && this.validateCategory
       if (this.is_valid) {
         await this.$store.dispatch('updateOperation', {data: this.form})
           .then(async status => {

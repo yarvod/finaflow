@@ -145,7 +145,7 @@ export default {
       return modalController.dismiss(null, 'cancel');
     },
     async confirm() {
-      this.is_valid = this.validateMoney()
+      this.is_valid = this.validateMoney && this.validateCategory
       if (this.is_valid) {
         await this.$store.dispatch('createOperation', {data: this.form})
           .then(async status => {
