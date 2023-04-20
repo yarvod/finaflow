@@ -15,6 +15,15 @@
   margin-bottom: 5px;
 }
 
+.note {
+  font-weight: normal;
+  font-size: smaller;
+
+  &.error {
+    color: $Red300;
+  }
+}
+
 .small-card {
   display: flex;
   flex-direction: column;
@@ -27,6 +36,10 @@
   font-weight: bolder;
   font-size: larger;
 
+  &.white {
+    background: $white
+  }
+
   .label {
     font-weight: bolder;
     font-size: small;
@@ -35,10 +48,39 @@
   }
 }
 
+.input-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: $white;
+  padding: 5px 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: $BorderRadius;
+
+  font-weight: normal;
+  font-size: medium;
+}
+
 .expenditure {
   color: $Expenditure;
 }
 
 .revenue {
   color: $Revenue;
+}
+
+ion-datetime {
+  //--background: #fff1f2;
+  --background-rgb: 255, 241, 242;
+  border-radius: 16px;
+}
+
+
+ion-modal.datetime-modal {
+  --border-radius: 16px;
+}
+
+ion-modal.datetime-modal::part(backdrop) {
+  opacity: 1;
 }

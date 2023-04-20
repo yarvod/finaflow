@@ -32,7 +32,7 @@
 
 <script>
 import Treeselect from 'vue3-treeselect';
-import 'vue3-treeselect/dist/vue3-treeselect.css';
+import '@/assets/style/scss/treeselect.scss';
 
 export default {
   name: "TreeSelect",

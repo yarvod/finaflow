@@ -22,43 +22,46 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-item ref="money">
+    <div class="groupWrapper" ref="money">
       <ion-label position="stacked">Сумма</ion-label>
-      <ion-input
-        type="number"
-        v-model="form.money"
-        placeholder="0"
-      ></ion-input>
-      <ion-note slot="error">Введите сумму!</ion-note>
-    </ion-item>
-    <ion-item>
+      <div class="input-card">
+        <ion-input
+          type="number"
+          v-model="form.money"
+          placeholder="0"
+        ></ion-input>
+      </div>
+      <div v-show="!validateMoney" class="note error">Введите сумму!</div>
+    </div>
+    <div class="groupWrapper">
+      <ion-label position="stacked">Категория</ion-label>
+      <TreeSelect
+        :value="form.category"
+        :options="categories"
+        @set_value="this.form.category = $event"
+      />
+      <div v-show="!validateCategory" class="note error">Выберете категорию!</div>
+    </div>
+    <div class="groupWrapper">
       <ion-label position="stacked">Дата</ion-label>
-      <ion-datetime-button v-model="form.date" datetime="date" mode="ios"></ion-datetime-button>
-      <ion-modal :keep-contents-mounted="true" mode="ios">
+      <ion-datetime-button v-model="form.date" datetime="date"></ion-datetime-button>
+      <ion-modal class="datetime-modal" :keep-contents-mounted="true">
         <ion-datetime
           v-model="form.date"
           id="date"
           presentation="date"
           :prefer-wheel="false"
-          mode="ios"
         ></ion-datetime>
       </ion-modal>
-    </ion-item>
-    <ion-item>
+    </div>
+    <div class="groupWrapper">
       <ion-label position="stacked">Комментарий</ion-label>
-      <ion-textarea
-        v-model="form.comment"
-        placeholder="Комментарий"
-      ></ion-textarea>
-    </ion-item>
-    <div class="item-custom">
-      <ion-label position="stacked">Категория</ion-label>
-      <TreeSelect
-        v-if="this.form.id"
-        :value="form.category"
-        :options="categories"
-        @set_value="this.form.category = $event"
-      />
+      <div class="input-card">
+        <ion-textarea
+          v-model="form.comment"
+          placeholder="Комментарий"
+        ></ion-textarea>
+      </div>
     </div>
     <ion-button
       color="primary"
@@ -122,6 +125,12 @@ export default {
   },
   computed: {
     ...mapGetters(['categories']),
+    validateMoney() {
+      return this.form.money;
+    },
+    validateCategory() {
+      return this.form.category;
+    },
     type_display() {
       return TYPE_CHOICES[this.operation.type]
     }
@@ -177,18 +186,6 @@ export default {
               return modalController.dismiss(null, 'confirm');
             }
           })
-      }
-    },
-    validateMoney() {
-      this.$refs.money.$el.classList.remove('ion-valid');
-      this.$refs.money.$el.classList.remove('ion-invalid');
-
-      if (!this.form.money) {
-        this.$refs.money.$el.classList.add('ion-invalid');
-        return false
-      } else {
-        this.$refs.money.$el.classList.add('ion-valid');
-        return true
       }
     },
   },
