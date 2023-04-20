@@ -6,13 +6,13 @@
       <ion-toolbar>
         <PWAPrompt/>
         <slot name="main-header">
-          <ion-title class="container flex">{{ pageTitle }}</ion-title>
+          <ion-title>{{ pageTitle }}</ion-title>
         </slot>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-header v-if="head" mode="ios">
+      <ion-header v-if="head">
         <div class="container ion-margin-top">
           <slot name="head"></slot>
         </div>
@@ -79,16 +79,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
-.main-head {
-  //--color: white;
-  //--background: var(--base1);
-}
-
-.flex {
-  display: flex;
-  justify-content: space-between;
-}
 
 ion-title {
   white-space: nowrap;
