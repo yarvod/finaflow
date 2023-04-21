@@ -43,7 +43,9 @@
     </div>
     <div class="groupWrapper">
       <ion-label position="stacked">Дата</ion-label>
-      <ion-datetime-button v-model="form.date" datetime="date" mode="ios"></ion-datetime-button>
+      <div class="input-card">
+        <ion-datetime-button v-model="form.date" datetime="date" mode="ios"></ion-datetime-button>
+      </div>
       <ion-modal class="datetime-modal" :keep-contents-mounted="true" mode="ios">
         <ion-datetime
           v-model="form.date"
