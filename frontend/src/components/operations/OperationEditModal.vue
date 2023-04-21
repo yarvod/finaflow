@@ -29,7 +29,6 @@
           type="number"
           v-model="form.money"
           placeholder="0"
-          :autofocus="true"
         ></ion-input>
       </div>
       <div v-show="!validateMoney" class="note error">Введите сумму!</div>
@@ -62,7 +61,6 @@
         <ion-textarea
           v-model="form.comment"
           placeholder="Комментарий"
-          :autofocus="true"
         ></ion-textarea>
       </div>
     </div>
