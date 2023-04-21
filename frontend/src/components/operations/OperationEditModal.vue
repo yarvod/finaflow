@@ -142,7 +142,7 @@ export default {
     this.form = {
       id: this.operation.id,
       type: this.operation.type,
-      category: this.operation.category.id,
+      category: this.operation?.category?.id,
       money: this.operation.money,
       comment: this.operation.comment,
       date: this.operation.date,
