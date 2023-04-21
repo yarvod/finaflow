@@ -27,7 +27,7 @@
         <ion-input
           type="number"
           v-model="form.money"
-          placeholder="0"
+          placeholder="1000"
         ></ion-input>
       </div>
       <div v-show="!validateMoney" class="note error">Введите сумму!</div>
