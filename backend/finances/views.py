@@ -49,6 +49,10 @@ class OperationViewSet(ModelViewSet):
     @action(detail=False)
     def analytics(self, request):
         queryset = self.filter_queryset(self.get_queryset())
-        spent = queryset.filter(type=OperationType.EXPENDITURE).aggregate(spent=Coalesce(Sum("money"), 0.0))
-        earned = queryset.filter(type=OperationType.REVENUE).aggregate(earned=Coalesce(Sum("money"), 0.0))
+        spent = queryset.filter(type=OperationType.EXPENDITURE).aggregate(
+            spent=Coalesce(Sum("money"), 0.0)
+        )
+        earned = queryset.filter(type=OperationType.REVENUE).aggregate(
+            earned=Coalesce(Sum("money"), 0.0)
+        )
         return Response(data={**earned, **spent}, status=200)

@@ -1,43 +1,52 @@
-from hashlib import sha256
-
 import jwt
 from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.tokens import default_token_generator
-from jwt import DecodeError
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
 from rest_framework.validators import UniqueValidator
-from rest_framework_simplejwt.serializers import (
-    TokenRefreshSerializer,
-    TokenObtainPairSerializer,
-)
-from rest_framework_simplejwt.exceptions import TokenError
 
-from authentication.services import (
-    gen_random_string,
-    set_hash_with_ttl,
-    get_user_hash,
-    delete_hash,
-)
+from authentication import services
 from users.models import User
 from users.serializers import UserREADSerializer
 
 
-class CookieTokenObtainSerializer(TokenObtainPairSerializer):
+class PasswordField(serializers.CharField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("style", {})
+
+        kwargs["style"]["input_type"] = "password"
+        kwargs["write_only"] = True
+
+        super().__init__(*args, **kwargs)
+
+
+class CookieTokenObtainSerializer(serializers.Serializer):
+    username_field = User.USERNAME_FIELD
+    token_class = None
+
+    default_error_messages = {
+        "no_active_account": "No active account found with the given credentials"
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields[self.username_field] = serializers.CharField()
+        self.fields["password"] = PasswordField()
+
     @classmethod
     def get_token(cls, user):
-        token = super().get_token(user)
-        rand_str = gen_random_string(32)
-        token["hash"] = sha256(str(f"{user.id};{rand_str}").encode("utf-8")).hexdigest()
-        ttl = int(settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds())
-        set_hash_with_ttl(user_id=str(user.id), my_hash=token["hash"], ttl=ttl)
-        return token
+        access_token = services.generate_access_token(user)
+        refresh_token = services.generate_refresh_token(user)
+        services.set_refresh_token(user_id=user.pk, token=refresh_token)
+        return access_token, refresh_token
 
     def validate(self, data):
-        refresh = self.get_token(data["id"])
-        data["refresh"] = str(refresh)
-        data["access"] = str(refresh.access_token)
+        access_token, refresh_token = self.get_token(data["id"])
+        data["refresh"] = str(refresh_token)
+        data["access"] = str(access_token)
         data["user"] = UserREADSerializer().to_representation(data["id"])
         data.pop("id")
         return data
@@ -57,42 +66,43 @@ class CustomEmailPassSerializer(CookieTokenObtainSerializer):
             raise serializers.ValidationError("No such user")
 
 
-class CookieTokenRefreshSerializer(TokenRefreshSerializer):
+class CookieTokenRefreshSerializer(serializers.Serializer):
+    access = serializers.CharField(read_only=True)
     refresh = serializers.CharField(required=False)
 
     def validate(self, attrs):
         attrs["refresh"] = self.context["request"].COOKIES.get("refresh_token")
-        if attrs["refresh"]:
-            old_refresh = attrs["refresh"]
-            try:
-                old_token = jwt.decode(
-                    old_refresh,
-                    settings.SIMPLE_JWT["SIGNING_KEY"],
-                    algorithms=settings.SIMPLE_JWT["ALGORITHM"],
-                )
-            except DecodeError:
-                raise TokenError("Token not correctly decoded or not found in cookie")
-            if get_user_hash(user_id=old_token["user_id"]) == old_token["hash"]:
-                new_token = self.token_class(old_refresh)
-                data = {"access": str(new_token.access_token)}
-                if settings.SIMPLE_JWT["ROTATE_REFRESH_TOKENS"]:
-                    new_token.set_jti()
-                    new_token.set_exp()
-                    new_token.set_iat()
-                    data["refresh"] = str(new_token)
-                # delete_hash(user_id=old_token['user_id'])
-                new_token["hash"] = old_token["hash"]
-                ttl = int(settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"].total_seconds())
-                set_hash_with_ttl(
-                    user_id=str(new_token["user_id"]),
-                    my_hash=new_token["hash"],
-                    ttl=ttl,
-                )
-                return data
-            else:
-                raise TokenError("No such hash in store")
+        try:
+            payload = jwt.decode(
+                attrs["refresh"], settings.JWT_SECRET, algorithms=["HS256"]
+            )
+        except jwt.ExpiredSignatureError:
+            raise exceptions.AuthenticationFailed(
+                "expired refresh token, please login again."
+            )
+        except jwt.exceptions.DecodeError:
+            raise exceptions.AuthenticationFailed("Token is invalid")
+        user = User.objects.filter(id=payload.get("user_id")).first()
+        if user is None:
+            raise exceptions.AuthenticationFailed("User not found")
+        if not user.is_active:
+            raise exceptions.AuthenticationFailed("User is inactive")
+        if services.get_refresh_token(
+            user_id=payload.get("user_id"), token=attrs["refresh"]
+        ):
+            access_token = services.generate_access_token(user)
+            new_refresh_token = services.generate_refresh_token(user)
+            services.remove_refresh_token(
+                user_id=payload.get("user_id"), token=attrs["refresh"]
+            )
+            services.set_refresh_token(
+                user_id=payload.get("user_id"), token=new_refresh_token
+            )
+            return Response(
+                {"AccessToken": access_token, "RefreshToken": new_refresh_token}
+            )
         else:
-            raise TokenError("No token found in cookie")
+            raise exceptions.AuthenticationFailed("User device not authorized")
 
 
 class RegisterSerializer(serializers.ModelSerializer):

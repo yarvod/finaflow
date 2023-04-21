@@ -5,10 +5,9 @@ from allauth.socialaccount.providers.yandex.views import YandexAuth2Adapter
 from dj_rest_auth.registration.serializers import SocialLoginSerializer
 from dj_rest_auth.registration.views import SocialLoginView
 from django.core.exceptions import BadRequest
-from rest_framework.generics import CreateAPIView
+from rest_framework.exceptions import ValidationError
+from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework_simplejwt.exceptions import TokenError, InvalidToken
-from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
-
 from django.middleware import csrf
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -26,25 +25,23 @@ from .serializers import (
     EmailActivationSerializer,
     EmailSendSerializer,
     ResetPasswordSerializer,
-    EmailSendSerializerWithCreation,
     CheckEmailSerializer,
 )
 
-from .services import delete_hash
-from authentication import tasks
+from authentication import tasks, services
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 debug = logger.debug
 
 
-class LoginView(TokenObtainPairView):
+class LoginView(GenericAPIView):
     permission_classes = (AllowAny,)
     authentication_classes = ()
     serializer_class = CookieTokenObtainSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError as e:
@@ -144,7 +141,9 @@ class LogoutView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
-        delete_hash(user_id=str(request.user.id))
+        result = services.remove_all_tokens(str(request.user.id))
+        if not result:
+            raise ValidationError(code=400, detail="Removing tokens failed")
         response = Response(status=status.HTTP_205_RESET_CONTENT)
         response.delete_cookie(
             key=settings.JWT_AUTH_REFRESH_COOKIE,
@@ -154,18 +153,13 @@ class LogoutView(APIView):
         return response
 
 
-class CookieTokenRefreshView(TokenRefreshView):
+class CookieTokenRefreshView(GenericAPIView):
     authentication_classes = (CustomAuthentication,)
-
-    def get_serializer_class(self):
-        return CookieTokenRefreshSerializer
+    serializer_class = CookieTokenRefreshSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
+        serializer.is_valid(raise_exception=True)
         response = Response(data=serializer.validated_data, status=200)
         set_cookies(response, serializer.validated_data)
         return response
