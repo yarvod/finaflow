@@ -60,10 +60,11 @@
     <div class="groupWrapper">
       <ion-label position="stacked">Комментарий</ion-label>
       <div class="input-card">
-        <ion-textarea
+        <ion-input
+          type="text"
           v-model="form.comment"
           placeholder="Комментарий"
-        ></ion-textarea>
+        ></ion-input>
       </div>
     </div>
     <ion-button
@@ -89,8 +90,9 @@ import {
   modalController,
   IonDatetime,
   IonDatetimeButton,
-  IonTextarea,
-  IonSelect, IonSelectOption, actionSheetController,
+  IonSelect,
+  IonSelectOption,
+  actionSheetController,
 } from "@ionic/vue";
 import TreeSelect from "@/components/ui/TreeSelect.vue";
 import {mapGetters} from "vuex";
@@ -109,7 +111,6 @@ export default {
     IonInput,
     IonDatetime,
     IonDatetimeButton,
-    IonTextarea,
     TreeSelect,
     IonSelect,
     IonSelectOption,

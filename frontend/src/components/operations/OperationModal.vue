@@ -59,10 +59,11 @@
     <div class="groupWrapper">
       <ion-label position="stacked">Комментарий</ion-label>
       <div class="input-card">
-        <ion-textarea
+        <ion-input
+          type="text"
           v-model="form.comment"
           placeholder="Комментарий"
-        ></ion-textarea>
+        ></ion-input>
       </div>
     </div>
   </ion-content>
@@ -81,7 +82,6 @@ import {
   modalController,
   IonDatetime,
   IonDatetimeButton,
-  IonTextarea,
   IonSegment,
   IonSegmentButton,
 } from "@ionic/vue";
@@ -101,7 +101,6 @@ export default {
     IonInput,
     IonDatetime,
     IonDatetimeButton,
-    IonTextarea,
     TreeSelect,
     IonSegment,
     IonSegmentButton,
