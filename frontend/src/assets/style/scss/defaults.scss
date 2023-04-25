@@ -1,5 +1,29 @@
 @import 'variables';
 
+h1 {
+  font-family: $base-font;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+}
+
+h2 {
+  font-family: $base-font;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+}
+
+h3 {
+  font-family: $base-font;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+}
+
 .dateLabel {
   margin-top: 30px;
   margin-bottom: 5px;
