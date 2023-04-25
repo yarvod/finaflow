@@ -24,10 +24,10 @@ module.exports = defineConfig({
   },
   pwa: {
     name: 'FinaFlow',
-    themeColor: '#ffdaac',
+    themeColor: '#f7f7f7',
     msTileColor: '#ffffff',
     iconPaths: {
-      faviconSVG: 'img/icons/favicon.svg',
+      faviconSVG: 'img/icons/safari-pinned-tab.svg',
       favicon32: 'img/icons/favicon-32x32.png',
       favicon16: 'img/icons/favicon-16x16.png',
       appleTouchIcon: 'img/icons/apple-touch-icon-152x152.png',
