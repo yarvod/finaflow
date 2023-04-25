@@ -54,6 +54,20 @@ class CategoryGetSerializer(serializers.ModelSerializer):
         return None
 
 
+class CategoryWriteSerializer(serializers.ModelSerializer):
+    type = serializers.IntegerField(),
+    title = serializers.CharField(),
+    parent = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), allow_null=True)
+
+    class Meta:
+        model = Category
+        fields = (
+            "type",
+            "title",
+            "parent",
+        )
+
+
 class OperationListSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
     user = serializers.UUIDField(source="user_id", read_only=True)

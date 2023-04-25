@@ -12,7 +12,7 @@ from finances.filters import CategoryFilterSet, OperationsFilterSet
 from finances.serializers import (
     OperationListSerializer,
     CategorySmallGetSerializer,
-    OperationWriteSerializer,
+    OperationWriteSerializer, CategoryWriteSerializer,
 )
 from finances.models import Operation, Category
 
@@ -28,7 +28,12 @@ class CategoryViewSet(ModelViewSet):
         ).filter(parent__isnull=True)
 
     def get_serializer_class(self):
+        if self.action in ("update", "create"):
+            return CategoryWriteSerializer
         return CategorySmallGetSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 class OperationViewSet(ModelViewSet):

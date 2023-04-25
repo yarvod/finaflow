@@ -1,25 +1,25 @@
 @import 'variables';
 
-h1 {
+.h1 {
   font-family: $base-font;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: bolder;
   line-height: 1;
   margin: 0;
 }
 
-h2 {
+.h2 {
   font-family: $base-font;
   font-size: 23px;
-  font-weight: 700;
+  font-weight: bolder;
   line-height: 1;
   margin: 0;
 }
 
-h3 {
+.h3 {
   font-family: $base-font;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: bolder;
   line-height: 1;
   margin: 0;
 }
@@ -58,7 +58,7 @@ h3 {
   border-radius: $BorderRadius;
 
   font-weight: bolder;
-  font-size: larger;
+  font-size: medium;
 
   &.white {
     background: $white

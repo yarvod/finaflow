@@ -8,18 +8,21 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <div class="groupWrapper category">
-                <h3>
+              <div
+                class="groupWrapper category"
+                @click="openCategoriesModal"
+              >
+                <div class="h3">
                   Категории
-                </h3>
+                </div>
                 <ion-icon :icon="icons.shapesOutline" size="large"/>
               </div>
             </ion-col>
             <ion-col>
               <div class="groupWrapper export">
-                <h3>
+                <div class="h3">
                   Экспорт
-                </h3>
+                </div>
                 <ion-icon :icon="icons.shareOutline" size="large"/>
               </div>
             </ion-col>
@@ -27,17 +30,17 @@
           <ion-row>
             <ion-col size="8">
               <div class="groupWrapper regular">
-                <h3>
+                <div class="h3">
                   Регулярные платежи
-                </h3>
+                </div>
                 <ion-icon :icon="icons.syncCircleOutline" size="large"/>
               </div>
             </ion-col>
             <ion-col>
               <div class="groupWrapper debt">
-                <h3>
+                <div class="h3">
                   Долги
-                </h3>
+                </div>
                 <ion-icon :icon="icons.cashOutline" size="large"/>
               </div>
             </ion-col>
@@ -45,9 +48,9 @@
           <ion-row>
             <ion-col size="6">
               <div class="groupWrapper friends">
-                <h3>
+                <div class="h3">
                   Пригласить друзей
-                </h3>
+                </div>
                 <ion-icon :icon="icons.peopleOutline" size="large"/>
               </div>
             </ion-col>
@@ -60,9 +63,10 @@
 
 <script>
 import BaseLayout from "@/components/BaseLayout.vue";
-import {IonCardTitle, IonCol, IonGrid, IonIcon, IonRow} from "@ionic/vue";
+import {IonCardTitle, IonCol, IonGrid, IonIcon, IonRow, modalController} from "@ionic/vue";
 import ComingSoon from "@/components/common/ComingSoon.vue";
 import {shapesOutline, shareOutline, syncCircleOutline, cashOutline, peopleOutline} from "ionicons/icons";
+import CategoriesModal from "@/components/categories/CategoriesModal.vue";
 
 export default {
   name: "Features",
@@ -70,6 +74,7 @@ export default {
     BaseLayout,
     IonCardTitle,
     ComingSoon,
+    CategoriesModal,
     IonIcon,
     IonCol,
     IonRow,
@@ -85,7 +90,18 @@ export default {
         peopleOutline: peopleOutline,
       },
     }
-  }
+  },
+  methods: {
+    async openCategoriesModal() {
+      const modal = await modalController.create({
+        component: CategoriesModal,
+        presentingElement: this.presentingElement,
+        canDismiss: true,
+      });
+      await modal.present();
+      const {data, role} = await modal.onWillDismiss();
+    },
+  },
 }
 </script>
 

@@ -118,7 +118,7 @@ export default {
         money: null,
         date: new Date().toJSON().slice(0, 10),
         category: null,
-        comment: "",
+        comment: null,
       },
       is_valid: false,
     }
