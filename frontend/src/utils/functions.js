@@ -39,6 +39,6 @@ export function getMonthName(monthNumber) {
   date.setMonth(monthNumber - 1);
 
   return date.toLocaleString('ru-RU', {
-    month: 'long',
+    month: 'short',
   });
 }

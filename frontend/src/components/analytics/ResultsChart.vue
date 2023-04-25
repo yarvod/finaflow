@@ -1,5 +1,7 @@
 <template>
-  <Bar :data="bar_data" :options="options"/>
+  <div class="groupWrapper">
+    <Bar :data="bar_data" :options="options"/>
+  </div>
 </template>
 
 <script>
@@ -27,7 +29,7 @@ export default {
     return {
       options: {
         responsive: true,
-        maintainAspectRatio: true
+        maintainAspectRatio: false
       },
     }
   },
@@ -56,6 +58,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.groupWrapper {
+  min-height: 350px;
+}
 
 </style>

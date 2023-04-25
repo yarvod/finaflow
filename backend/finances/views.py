@@ -1,5 +1,6 @@
 from django.db.models import Q, Sum, F
 from django.db.models.functions import Coalesce
+from django.utils.timezone import now
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -59,7 +60,7 @@ class OperationViewSet(ModelViewSet):
 
     @action(detail=False)
     def results(self, request):
-        queryset = self.get_queryset()
+        queryset = self.get_queryset().filter(date__year=now().year)
         months = list(range(1, 13))
         spent = (
             queryset.filter(type=OperationType.EXPENDITURE)
@@ -85,4 +86,7 @@ class OperationViewSet(ModelViewSet):
             next((item["total"] for item in spent if item["month"] == month), 0)
             for month in months
         ]
-        return Response(status=200, data=dict(spent=format_spent, earned=format_earned, labels=months))
+        return Response(
+            status=200,
+            data=dict(spent=format_spent, earned=format_earned, labels=months),
+        )

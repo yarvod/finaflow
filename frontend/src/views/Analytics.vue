@@ -18,7 +18,7 @@
               <div class="small-card">
                 <div class="label expenditure">Расход</div>
                 <div class="expenditure">
-                  {{ (analytics.spent).toLocaleString('ru') }} &#8381
+                  {{ (analytics.spent).toLocaleString('ru') }} руб
                 </div>
               </div>
             </ion-col>
@@ -26,7 +26,7 @@
               <div class="small-card">
                 <div class="label">Доход</div>
                 <div class="revenue">
-                  {{ (analytics.earned).toLocaleString('ru') }} &#8381
+                  {{ (analytics.earned).toLocaleString('ru') }} руб
                 </div>
               </div>
             </ion-col>
@@ -35,12 +35,12 @@
         <!--        <ComingSoon>-->
         <!--          <template #text>Делаем аналитику!</template>-->
         <!--        </ComingSoon>-->
-      </div>
-      <SLoader v-if="loading_results"/>
-      <div v-else-if="results.spent">
-        <transition name="fade" mode="out-in" appear>
-          <ResultsChart/>
-        </transition>
+        <SLoader v-if="loading_results"/>
+        <div v-else-if="results.spent">
+          <transition name="fade" mode="out-in" appear>
+            <ResultsChart/>
+          </transition>
+        </div>
       </div>
       <EmptyOperations
         v-else
