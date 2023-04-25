@@ -64,10 +64,12 @@
 
 .expenditure {
   color: $Expenditure;
+  font-family: $base-font;
 }
 
 .revenue {
   color: $Revenue;
+  font-family: $base-font;
 }
 
 ion-datetime {
