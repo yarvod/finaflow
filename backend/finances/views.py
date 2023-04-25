@@ -1,4 +1,4 @@
-from django.db.models import Q, Sum
+from django.db.models import Q, Sum, F
 from django.db.models.functions import Coalesce
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -49,6 +49,40 @@ class OperationViewSet(ModelViewSet):
     @action(detail=False)
     def analytics(self, request):
         queryset = self.filter_queryset(self.get_queryset())
-        spent = queryset.filter(type=OperationType.EXPENDITURE).aggregate(spent=Coalesce(Sum("money"), 0.0))
-        earned = queryset.filter(type=OperationType.REVENUE).aggregate(earned=Coalesce(Sum("money"), 0.0))
+        spent = queryset.filter(type=OperationType.EXPENDITURE).aggregate(
+            spent=Coalesce(Sum("money"), 0.0)
+        )
+        earned = queryset.filter(type=OperationType.REVENUE).aggregate(
+            earned=Coalesce(Sum("money"), 0.0)
+        )
         return Response(data={**earned, **spent}, status=200)
+
+    @action(detail=False)
+    def results(self, request):
+        queryset = self.get_queryset()
+        months = list(range(1, 13))
+        spent = (
+            queryset.filter(type=OperationType.EXPENDITURE)
+            .annotate(month=F("date__month"))
+            .values("month")
+            .annotate(total=Sum("money"))
+            .values("month", "total")
+            .order_by("month")
+        )
+        earned = (
+            queryset.filter(type=OperationType.REVENUE)
+            .annotate(month=F("date__month"))
+            .values("month")
+            .annotate(total=Sum("money"))
+            .values("month", "total")
+            .order_by("month")
+        )
+        format_earned = [
+            next((item["total"] for item in earned if item["month"] == month), 0)
+            for month in months
+        ]
+        format_spent = [
+            next((item["total"] for item in spent if item["month"] == month), 0)
+            for month in months
+        ]
+        return Response(status=200, data=dict(spent=format_spent, earned=format_earned, labels=months))

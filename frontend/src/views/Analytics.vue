@@ -32,9 +32,15 @@
             </ion-col>
           </ion-row>
         </transition>
-        <ComingSoon>
-          <template #text>Делаем аналитику!</template>
-        </ComingSoon>
+        <!--        <ComingSoon>-->
+        <!--          <template #text>Делаем аналитику!</template>-->
+        <!--        </ComingSoon>-->
+      </div>
+      <SLoader v-if="loading_results"/>
+      <div v-else-if="results.spent">
+        <transition name="fade" mode="out-in" appear>
+          <ResultsChart/>
+        </transition>
       </div>
       <EmptyOperations
         v-else
@@ -51,6 +57,7 @@ import DateFilter from "@/components/ui/DateFilter.vue";
 import EmptyOperations from "@/components/operations/EmptyOperations.vue";
 import SLoader from "@/components/ui/SLoader.vue";
 import ComingSoon from "@/components/common/ComingSoon.vue";
+import ResultsChart from "@/components/analytics/ResultsChart.vue";
 import moment from "moment";
 import {mapGetters} from "vuex";
 
@@ -66,6 +73,7 @@ export default {
     IonRow,
     IonCol,
     ComingSoon,
+    ResultsChart,
   },
   data() {
     return {
@@ -73,10 +81,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['analytics', 'loading_analytics'])
+    ...mapGetters(['analytics', 'loading_analytics', 'results', 'loading_results'])
   },
   async ionViewWillEnter() {
     await this.$store.dispatch('getAnalytics');
+    await this.$store.dispatch('getResults');
   },
   methods: {
     async getAnalytics(date_after, date_before) {

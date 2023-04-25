@@ -4,6 +4,7 @@ import mobile from "./mobile";
 import operations from "./operations";
 import categories from "./categories";
 import analytics from "./analytics";
+import results from "./results";
 
 
 const store = createStore({
@@ -24,6 +25,7 @@ const store = createStore({
     operations,
     categories,
     analytics,
+    results,
   },
 })
 

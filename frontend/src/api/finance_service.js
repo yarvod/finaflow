@@ -20,6 +20,9 @@ export default {
   async getAnalytics(params) {
     return await Api().get(`/finances/analytics/`, {params: params})
   },
+  async getResults() {
+    return await Api().get(`/finances/results/`)
+  },
   async getCategoriesList(params) {
     return await Api().get(`/finances/category/`, {params: params})
   },
