@@ -23,11 +23,13 @@
   <ion-content>
     <div class="h2 title">Категории</div>
     <div
-      class="small-card"
+      class="small-card hover"
       v-for="category in categories"
       :key="category.id"
     >
-      {{ category.label }}
+      <div>
+        {{ category.label }} <span v-if="category?.children?.length">({{category.children.length}})</span>
+      </div>
     </div>
   </ion-content>
 </template>

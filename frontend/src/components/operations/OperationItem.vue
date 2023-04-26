@@ -1,5 +1,5 @@
 <template>
-  <div class="operation-card" @click="openModal">
+  <div class="operation-card hover" @click="openModal">
     <div class="contentWrapper">
       <div class="leftSide">
         <ion-card-title class="title" mode="ios">
@@ -79,19 +79,6 @@ export default {
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
-  @include respond-to(desktop) {
-    transition: all .3s ease;
-  }
-
-  &:hover {
-    @include respond-to(desktop) {
-      cursor: pointer;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(31, 34, 42, .05), 0 2px 6px rgba(31, 34, 42, .02), 0 0 1px rgba(31, 34, 42, .02);
-      @media (prefers-color-scheme: dark) {
-      }
-    }
-  }
 
   &:active {
     transition: all .1s ease;
