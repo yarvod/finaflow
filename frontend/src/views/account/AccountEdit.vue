@@ -33,7 +33,7 @@
               <ion-label position="stacked">Телефон</ion-label>
               <ion-input
                   v-model="form.phone_number"
-                  type="tel"
+                  inputmode="tel"
                   :max-length="11"
               />
             </ion-item>
