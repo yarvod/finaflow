@@ -9,7 +9,7 @@
           <ion-row>
             <ion-col>
               <div
-                class="groupWrapper category"
+                class="groupWrapper hover category"
                 @click="openCategoriesModal"
               >
                 <div class="h3">
@@ -19,7 +19,7 @@
               </div>
             </ion-col>
             <ion-col>
-              <div class="groupWrapper export">
+              <div class="groupWrapper hover export">
                 <div class="h3">
                   Экспорт
                 </div>
@@ -29,7 +29,7 @@
           </ion-row>
           <ion-row>
             <ion-col size="8">
-              <div class="groupWrapper regular">
+              <div class="groupWrapper hover regular">
                 <div class="h3">
                   Регулярные платежи
                 </div>
@@ -37,7 +37,7 @@
               </div>
             </ion-col>
             <ion-col>
-              <div class="groupWrapper debt">
+              <div class="groupWrapper hover debt">
                 <div class="h3">
                   Долги
                 </div>
@@ -47,7 +47,7 @@
           </ion-row>
           <ion-row>
             <ion-col size="6">
-              <div class="groupWrapper friends">
+              <div class="groupWrapper hover friends">
                 <div class="h3">
                   Пригласить друзей
                 </div>
@@ -110,18 +110,6 @@ export default {
 .groupWrapper {
   color: $white;
   min-height: 50px;
-
-  @include respond-to(desktop) {
-    transition: all .3s ease;
-  }
-
-  &:hover {
-    @include respond-to(desktop) {
-      cursor: pointer;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(31, 34, 42, .05), 0 2px 6px rgba(31, 34, 42, .02), 0 0 1px rgba(31, 34, 42, .02);
-    }
-  }
 
   &:active {
     transition: all .1s ease;
