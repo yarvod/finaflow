@@ -26,7 +26,7 @@
       <div class="input-card">
         <ion-input
           type="number"
-          inputmode="numeric"
+          inputmode="decimal"
           v-model="form.money"
           placeholder="1000"
         ></ion-input>
