@@ -12,7 +12,8 @@ from finances.filters import CategoryFilterSet, OperationsFilterSet
 from finances.serializers import (
     OperationListSerializer,
     CategorySmallGetSerializer,
-    OperationWriteSerializer, CategoryWriteSerializer,
+    OperationWriteSerializer,
+    CategoryWriteSerializer,
 )
 from finances.models import Operation, Category
 

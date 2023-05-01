@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "storages",
     "drf_api_logger",
+    "drf_yasg",
     "users",
     "authentication",
     "common",

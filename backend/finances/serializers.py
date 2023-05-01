@@ -55,9 +55,11 @@ class CategoryGetSerializer(serializers.ModelSerializer):
 
 
 class CategoryWriteSerializer(serializers.ModelSerializer):
-    type = serializers.IntegerField(),
-    title = serializers.CharField(),
-    parent = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), allow_null=True)
+    type = (serializers.IntegerField(),)
+    title = (serializers.CharField(),)
+    parent = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(), allow_null=True
+    )
 
     class Meta:
         model = Category
