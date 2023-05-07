@@ -27,14 +27,26 @@
 
 .h1-tab {
   font-family: $base-font;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: bolder;
   line-height: 1;
   margin: 0;
   color: $Gray;
 
+  @include respond-to(desktop) {
+    transition: all .3s ease;
+  }
+
   &.active {
     color: $black;
+    font-size: 28px;
+  }
+
+  &:hover {
+    @include respond-to(desktop) {
+      cursor: pointer;
+      color: $black;
+    }
   }
 }
 

@@ -3,14 +3,14 @@
     <template #head>
       <div class="inline-flex">
         <div
-          class="h1-tab clickable"
+          class="h1-tab"
           :class="{active: tab === 1}"
           @click="tab = 1"
         >
           Аналитика
         </div>
         <div
-          class="h1-tab clickable ml10"
+          class="h1-tab ml10"
           :class="{active: tab === 2}"
           @click="tab = 2"
         >
