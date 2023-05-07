@@ -32,10 +32,7 @@
   line-height: 1;
   margin: 0;
   color: $Gray;
-
-  @include respond-to(desktop) {
-    transition: all .3s ease;
-  }
+  transition: all .3s ease;
 
   &.active {
     color: $black;
