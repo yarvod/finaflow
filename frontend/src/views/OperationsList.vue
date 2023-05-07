@@ -18,7 +18,7 @@
               v-for="(list, date) in operations"
               :key="date"
             >
-              <div class="underGroupLabel inline-flex">
+              <div class="underGroupLabel inline-flex space-between">
                 {{ formatDate(date) }}
                 <div>
                   <span

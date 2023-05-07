@@ -25,6 +25,19 @@
   margin: 0;
 }
 
+.h1-tab {
+  font-family: $base-font;
+  font-size: 28px;
+  font-weight: bolder;
+  line-height: 1;
+  margin: 0;
+  color: $Gray;
+
+  &.active {
+    color: $black;
+  }
+}
+
 .underGroupLabel {
   margin-top: 30px;
   margin-bottom: 5px;
@@ -36,8 +49,25 @@
 .inline-flex {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+
+  &.space-between {
+    justify-content: space-between;
+  }
+}
+
+.ml {
+  &5 {
+    margin-left: 5px;
+  }
+
+  &10 {
+    margin-left: 10px;
+  }
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .groupWrapper {

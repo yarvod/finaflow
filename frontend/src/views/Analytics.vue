@@ -1,40 +1,64 @@
 <template>
   <BaseLayout head>
     <template #head>
-      <ion-card-title>Аналитика</ion-card-title>
+      <div class="inline-flex">
+        <div
+          class="h1-tab clickable"
+          :class="{active: tab === 1}"
+          @click="tab = 1"
+        >
+          Аналитика
+        </div>
+        <div
+          class="h1-tab clickable ml10"
+          :class="{active: tab === 2}"
+          @click="tab = 2"
+        >
+          Итоги
+        </div>
+      </div>
     </template>
     <template #body>
-      <div class="dateFilter">
-        <DateFilter
-          @update="getAnalytics"
-          @date="this.analytics_date = $event"
+      <div v-if="tab === 1">
+        <div class="dateFilter">
+          <DateFilter
+            @update="getAnalytics"
+            @date="this.analytics_date = $event"
+          />
+        </div>
+        <SLoader v-if="loading_analytics"/>
+        <div v-else-if="analytics.spent || analytics.earned">
+          <transition name="fade" mode="out-in" appear>
+            <ion-row>
+              <ion-col>
+                <div class="small-card">
+                  <div class="label expenditure">Расход</div>
+                  <div class="expenditure">
+                    {{ (analytics.spent).toLocaleString('ru') }} руб
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="small-card">
+                  <div class="label">Доход</div>
+                  <div class="revenue">
+                    {{ (analytics.earned).toLocaleString('ru') }} руб
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </transition>
+          <ComingSoon>
+            <template #text>Скоро больше аналитики!</template>
+          </ComingSoon>
+        </div>
+        <EmptyOperations
+          v-else
+          :date="analytics_date"
         />
       </div>
-      <SLoader v-if="loading_analytics"/>
-      <div v-else-if="analytics.spent || analytics.earned">
-        <transition name="fade" mode="out-in" appear>
-          <ion-row>
-            <ion-col>
-              <div class="small-card">
-                <div class="label expenditure">Расход</div>
-                <div class="expenditure">
-                  {{ (analytics.spent).toLocaleString('ru') }} руб
-                </div>
-              </div>
-            </ion-col>
-            <ion-col>
-              <div class="small-card">
-                <div class="label">Доход</div>
-                <div class="revenue">
-                  {{ (analytics.earned).toLocaleString('ru') }} руб
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
-        </transition>
-        <!--        <ComingSoon>-->
-        <!--          <template #text>Делаем аналитику!</template>-->
-        <!--        </ComingSoon>-->
+      <div v-if="tab === 2">
+        <br>
         <SLoader v-if="loading_results"/>
         <div v-else-if="results.spent">
           <transition name="fade" mode="out-in" appear>
@@ -42,10 +66,6 @@
           </transition>
         </div>
       </div>
-      <EmptyOperations
-        v-else
-        :date="analytics_date"
-      />
     </template>
   </BaseLayout>
 </template>
@@ -78,6 +98,7 @@ export default {
   data() {
     return {
       analytics_date: moment().format('MMMM, YYYY'),
+      tab: 1,
     }
   },
   computed: {
