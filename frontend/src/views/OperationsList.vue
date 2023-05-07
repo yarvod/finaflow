@@ -18,8 +18,21 @@
               v-for="(list, date) in operations"
               :key="date"
             >
-              <div class="dateLabel">
+              <div class="underGroupLabel inline-flex">
                 {{ formatDate(date) }}
+                <div>
+                  <span
+                    v-if="resultMoney(2, list)"
+                  >
+                    Доход: {{resultMoney(2, list).toLocaleString('ru')}}
+                  </span>
+                  <span
+                    class="resultMoneyMargin"
+                    v-if="resultMoney(1, list)"
+                  >
+                    Расход: {{resultMoney(1, list).toLocaleString('ru')}}
+                  </span>
+                </div>
               </div>
               <div class="groupWrapper">
                 <OperationItem
@@ -104,6 +117,9 @@ export default {
     formatDate(date) {
       return dateFilter(date);
     },
+    resultMoney(type, list) {
+      return list.filter(item => item.type === type).reduce((n, {money}) => n + money, 0)
+    },
   },
 }
 </script>
@@ -133,5 +149,9 @@ export default {
   font-size: 12px;
   font-weight: 400;
   line-height: 12px;
+}
+
+.resultMoneyMargin {
+  margin-left: 5px;
 }
 </style>

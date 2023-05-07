@@ -25,12 +25,19 @@
   margin: 0;
 }
 
-.dateLabel {
+.underGroupLabel {
   margin-top: 30px;
   margin-bottom: 5px;
   font-size: smaller;
   font-weight: bolder;
   color: $Gray500;
+}
+
+.inline-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .groupWrapper {
