@@ -9,6 +9,8 @@ ion-button {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    width: 100%;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -27,8 +29,4 @@ ion-button {
     .container {
         width: 1170px;
     }
-}
-
-h4 {
-    word-break: break-word;
 }

@@ -27,6 +27,7 @@
     "ionicons": "^6.0.3",
     "moment": "^2.29.1",
     "register-service-worker": "^1.7.2",
+    "swiper": "^9.2.4",
     "vue": "^3.2.21",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.0.12",

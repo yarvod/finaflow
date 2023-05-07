@@ -4,69 +4,78 @@
       <div class="inline-flex">
         <div
           class="h1-tab"
-          :class="{active: tab === 1}"
-          @click="tab = 1"
+          :class="{active: tab === 0}"
+          @click="swiper.slideTo(0)"
         >
           Аналитика
         </div>
         <div
           class="h1-tab ml10"
-          :class="{active: tab === 2}"
-          @click="tab = 2"
+          :class="{active: tab === 1}"
+          @click="swiper.slideTo(1)"
         >
           Итоги
         </div>
       </div>
     </template>
     <template #body>
-      <div v-if="tab === 1">
-        <div class="dateFilter">
-          <DateFilter
-            @update="getAnalytics"
-            @date="this.analytics_date = $event"
-          />
-        </div>
-        <SLoader v-if="loading_analytics"/>
-        <div v-else-if="analytics.spent || analytics.earned">
-          <transition name="fade" mode="out-in" appear>
-            <ion-row>
-              <ion-col>
-                <div class="small-card">
-                  <div class="label expenditure">Расход</div>
-                  <div class="expenditure">
-                    {{ (analytics.spent).toLocaleString('ru') }} руб
-                  </div>
-                </div>
-              </ion-col>
-              <ion-col>
-                <div class="small-card">
-                  <div class="label">Доход</div>
-                  <div class="revenue">
-                    {{ (analytics.earned).toLocaleString('ru') }} руб
-                  </div>
-                </div>
-              </ion-col>
-            </ion-row>
-          </transition>
-          <ComingSoon>
-            <template #text>Скоро больше аналитики!</template>
-          </ComingSoon>
-        </div>
-        <EmptyOperations
-          v-else
-          :date="analytics_date"
-        />
-      </div>
-      <div v-if="tab === 2">
-        <br>
-        <SLoader v-if="loading_results"/>
-        <div v-else-if="results.spent">
-          <div class="h3">За 2023 год</div>
-          <transition name="fade" mode="out-in" appear>
-            <ResultsChart/>
-          </transition>
-        </div>
-      </div>
+      <Swiper
+        @slideChange="slideChange"
+        @swiper="onSwiper"
+      >
+        <SwiperSlide>
+          <div class="fullSize">
+            <div class="dateFilter">
+              <DateFilter
+                @update="getAnalytics"
+                @date="this.analytics_date = $event"
+              />
+            </div>
+            <SLoader v-if="loading_analytics"/>
+            <div v-else-if="analytics.spent || analytics.earned">
+              <transition name="fade" mode="out-in" appear>
+                <ion-row>
+                  <ion-col>
+                    <div class="small-card">
+                      <div class="label expenditure">Расход</div>
+                      <div class="expenditure">
+                        {{ (analytics.spent).toLocaleString('ru') }} руб
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col>
+                    <div class="small-card">
+                      <div class="label">Доход</div>
+                      <div class="revenue">
+                        {{ (analytics.earned).toLocaleString('ru') }} руб
+                      </div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </transition>
+              <ComingSoon>
+                <template #text>Скоро больше аналитики!</template>
+              </ComingSoon>
+            </div>
+            <EmptyOperations
+              v-else
+              :date="analytics_date"
+            />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div class="fullSize">
+            <br>
+            <SLoader v-if="loading_results"/>
+            <div v-else-if="results.spent">
+              <div class="h3">За 2023 год</div>
+              <transition name="fade" mode="out-in" appear>
+                <ResultsChart/>
+              </transition>
+            </div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
     </template>
   </BaseLayout>
 </template>
@@ -81,6 +90,10 @@ import ComingSoon from "@/components/common/ComingSoon.vue";
 import ResultsChart from "@/components/analytics/ResultsChart.vue";
 import moment from "moment";
 import {mapGetters} from "vuex";
+import {Swiper, SwiperSlide} from 'swiper/vue';
+
+import 'swiper/css';
+import '@ionic/vue/css/ionic-swiper.css';
 
 export default {
   name: "Analytics.vue",
@@ -95,11 +108,14 @@ export default {
     IonCol,
     ComingSoon,
     ResultsChart,
+    Swiper,
+    SwiperSlide,
   },
   data() {
     return {
       analytics_date: moment().format('MMMM, YYYY'),
-      tab: 1,
+      tab: 0,
+      swiper: null,
     }
   },
   computed: {
@@ -116,6 +132,12 @@ export default {
       }
       await this.$store.dispatch('getAnalytics');
     },
+    onSwiper(swiper) {
+      this.swiper = swiper;
+    },
+    slideChange() {
+      this.tab = this.swiper.activeIndex;
+    },
   },
 }
 </script>
@@ -124,6 +146,11 @@ export default {
 
 .dateFilter {
   justify-content: center;
+}
+
+.swiper .swiper-slide {
+  text-align: start;
+  height: auto;
 }
 
 </style>
