@@ -61,6 +61,7 @@
         <br>
         <SLoader v-if="loading_results"/>
         <div v-else-if="results.spent">
+          <div class="h3">За 2023 год</div>
           <transition name="fade" mode="out-in" appear>
             <ResultsChart/>
           </transition>
