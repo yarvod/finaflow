@@ -10,7 +10,7 @@
           Аналитика
         </div>
         <div
-          class="h1-tab ml10"
+          class="h1-tab ml15"
           :class="{active: tab === 1}"
           @click="swiper.slideTo(1)"
         >

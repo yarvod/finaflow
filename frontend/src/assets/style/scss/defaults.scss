@@ -36,13 +36,14 @@
 
   &.active {
     color: $black;
-    font-size: 28px;
+    transform: scale(1.077);
   }
 
   &:hover {
     @include respond-to(desktop) {
       cursor: pointer;
       color: $black;
+      transform: scale(1.077);
     }
   }
 }
@@ -77,6 +78,14 @@
 
   &10 {
     margin-left: 10px;
+  }
+
+  &15 {
+    margin-left: 15px;
+  }
+
+  &20 {
+    margin-left: 20px;
   }
 }
 
