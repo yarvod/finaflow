@@ -66,7 +66,7 @@ class OperationViewSet(ModelViewSet):
 
     @action(detail=False)
     def results(self, request):
-        queryset = self.get_queryset().filter(date__year=now().year)
+        queryset = self.filter_queryset(self.get_queryset())
         months = list(range(1, 13))
         spent = (
             queryset.filter(type=OperationType.EXPENDITURE)

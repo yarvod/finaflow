@@ -29,7 +29,8 @@
             <div class="dateFilter">
               <DateFilter
                 @update="getAnalytics"
-                @date="this.analytics_date = $event"
+                @date="analytics_date = $event"
+                change_period="month"
               />
             </div>
             <SLoader v-if="loading_analytics"/>
@@ -66,10 +67,15 @@
         </SwiperSlide>
         <SwiperSlide>
           <div class="fullSize">
-            <br>
+            <div class="dateFilter">
+              <DateFilter
+                @update="getResults"
+                @date="results_date = $event"
+                change_period="year"
+              />
+            </div>
             <SLoader v-if="loading_results"/>
             <div v-else-if="results.spent">
-              <div class="h3">За 2023 год</div>
               <transition name="fade" mode="out-in" appear>
                 <ResultsChart/>
               </transition>
@@ -117,6 +123,7 @@ export default {
   data() {
     return {
       analytics_date: moment().format('MMMM, YYYY'),
+      results_date: moment().format('YYYY'),
       tab: 0,
       segment: 1,
       swiper: null,
@@ -135,6 +142,13 @@ export default {
         this.$store.commit('setAnalyticsDatesRange', {date_after: date_after, date_before: date_before});
       }
       await this.$store.dispatch('getAnalytics');
+    },
+    async getResults(date_after, date_before) {
+      console.log(date_after, date_before)
+      if (date_after && date_before) {
+        this.$store.commit('setResultsDatesRange', {date_after: date_after, date_before: date_before});
+      }
+      await this.$store.dispatch('getResults');
     },
     onSwiper(swiper) {
       this.swiper = swiper;

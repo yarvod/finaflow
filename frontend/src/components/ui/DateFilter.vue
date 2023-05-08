@@ -2,7 +2,7 @@
   <div class="dateFilter">
     <ion-button
       fill="clear"
-      @click="sub_month"
+      @click="sub"
     >
       <ion-icon slot="icon-only" :icon="icons.arrowBackCircle"></ion-icon>
     </ion-button>
@@ -11,7 +11,7 @@
     </div>
     <ion-button
       fill="clear"
-      @click="add_month"
+      @click="add"
     >
       <ion-icon slot="icon-only" :icon="icons.arrowForwardCircle"></ion-icon>
     </ion-button>
@@ -22,12 +22,19 @@
 import {IonButton, IonIcon} from "@ionic/vue";
 import {arrowBackCircle, arrowForwardCircle} from "ionicons/icons";
 import moment from "moment";
+
 moment.locale('ru')
 export default {
   name: "DateFilter",
   components: {
     IonButton,
     IonIcon,
+  },
+  props: {
+    change_period: {
+      type: String,
+      default: 'month',
+    }
   },
   data() {
     return {
@@ -40,23 +47,34 @@ export default {
   },
   computed: {
     date_format() {
-      return moment(this.date).format('MMMM, YYYY')
+      if (this.change_period === 'month') {
+        return moment(this.date).format('MMMM, YYYY')
+      }
+      return moment(this.date).format('YYYY')
     },
     date_after() {
-      return moment(this.date).startOf('month').format('YYYY-MM-DD');
+      return moment(this.date).startOf(this.change_period).format('YYYY-MM-DD');
     },
     date_before() {
-      return moment(this.date).endOf('month').format('YYYY-MM-DD');
+      return moment(this.date).endOf(this.change_period).format('YYYY-MM-DD');
     },
   },
   methods: {
-    async add_month() {
-      this.date = new Date(this.date.setMonth(this.date.getMonth() + 1));
+    async add() {
+      if (this.change_period === 'month') {
+        this.date = new Date(this.date.setMonth(this.date.getMonth() + 1));
+      } else {
+        this.date = new Date(this.date.setFullYear(this.date.getFullYear() + 1));
+      }
       this.$emit('date', this.date_format);
       await this.$emit('update', this.date_after, this.date_before);
     },
-    async sub_month() {
-      this.date = new Date(this.date.setMonth(this.date.getMonth() - 1));
+    async sub() {
+      if (this.change_period === 'month') {
+        this.date = new Date(this.date.setMonth(this.date.getMonth() - 1));
+      } else {
+        this.date = new Date(this.date.setFullYear(this.date.getFullYear() - 1));
+      }
       this.$emit('date', this.date_format);
       await this.$emit('update', this.date_after, this.date_before);
     }
