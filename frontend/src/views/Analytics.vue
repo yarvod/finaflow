@@ -77,7 +77,27 @@
             <SLoader v-if="loading_results"/>
             <div v-else-if="results.spent">
               <transition name="fade" mode="out-in" appear>
-                <ResultsChart/>
+                <div>
+                  <ion-row class="ion-justify-content-between">
+                    <ion-col>
+                      <div class="small-card">
+                        <div class="label expenditure">Расходы</div>
+                        <div class="expenditure">
+                          {{ (results.total_spent).toLocaleString('ru') }} руб
+                        </div>
+                      </div>
+                    </ion-col>
+                    <ion-col>
+                      <div class="small-card">
+                        <div class="label">Доходы</div>
+                        <div class="revenue">
+                          {{ (results.total_earned).toLocaleString('ru') }} руб
+                        </div>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  <ResultsChart/>
+                </div>
               </transition>
             </div>
           </div>
@@ -169,6 +189,15 @@ export default {
 .swiper .swiper-slide {
   text-align: start;
   height: auto;
+}
+
+ion-col {
+  &:first-of-type {
+    padding-left: 0;
+  }
+  &:last-of-type {
+    padding-right: 0;
+  }
 }
 
 </style>

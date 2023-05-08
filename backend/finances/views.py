@@ -68,6 +68,12 @@ class OperationViewSet(ModelViewSet):
     def results(self, request):
         queryset = self.filter_queryset(self.get_queryset())
         months = list(range(1, 13))
+        total_spent = queryset.filter(type=OperationType.EXPENDITURE).aggregate(
+            spent=Coalesce(Sum("money"), 0.0)
+        )
+        total_earned = queryset.filter(type=OperationType.REVENUE).aggregate(
+            earned=Coalesce(Sum("money"), 0.0)
+        )
         spent = (
             queryset.filter(type=OperationType.EXPENDITURE)
             .annotate(month=F("date__month"))
@@ -93,22 +99,24 @@ class OperationViewSet(ModelViewSet):
             for month in months
         ]
         indexes_to_drop = [
-            i for i, earned, spent in zip(range(12), format_earned, format_spent)
+            i
+            for i, earned, spent in zip(range(12), format_earned, format_spent)
             if earned == 0 and spent == 0
         ]
         format_earned = [
-            money for i, money in enumerate(format_earned)
-            if i not in indexes_to_drop
+            money for i, money in enumerate(format_earned) if i not in indexes_to_drop
         ]
         format_spent = [
-            money for i, money in enumerate(format_spent)
-            if i not in indexes_to_drop
+            money for i, money in enumerate(format_spent) if i not in indexes_to_drop
         ]
-        months = [
-            month for i, month in enumerate(months)
-            if i not in indexes_to_drop
-        ]
+        months = [month for i, month in enumerate(months) if i not in indexes_to_drop]
         return Response(
             status=200,
-            data=dict(spent=format_spent, earned=format_earned, labels=months),
+            data=dict(
+                spent=format_spent,
+                earned=format_earned,
+                labels=months,
+                total_spent=total_spent.get("spent", 0),
+                total_earned=total_earned.get("earned", 0),
+            ),
         )
