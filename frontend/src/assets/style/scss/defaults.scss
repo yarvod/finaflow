@@ -133,6 +133,24 @@
   }
 }
 
+.operation-segment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+  margin: 5px;
+
+  font-weight: bolder;
+  font-size: medium;
+
+  .label {
+    font-weight: bolder;
+    font-size: small;
+    color: $Gray700;
+    margin-bottom: 5px;
+  }
+}
+
 .input-card {
   display: flex;
   flex-direction: column;

@@ -34,24 +34,24 @@
             <SLoader v-if="loading_analytics"/>
             <div v-else-if="analytics.spent || analytics.earned">
               <transition name="fade" mode="out-in" appear>
-                <ion-row>
-                  <ion-col>
-                    <div class="small-card">
+                <ion-segment v-model="segment">
+                  <ion-segment-button :value="1">
+                    <div class="operation-segment">
                       <div class="label expenditure">Расход</div>
                       <div class="expenditure">
                         {{ (analytics.spent).toLocaleString('ru') }} руб
                       </div>
                     </div>
-                  </ion-col>
-                  <ion-col>
-                    <div class="small-card">
+                  </ion-segment-button>
+                  <ion-segment-button :value="2">
+                    <div class="operation-segment">
                       <div class="label">Доход</div>
                       <div class="revenue">
                         {{ (analytics.earned).toLocaleString('ru') }} руб
                       </div>
                     </div>
-                  </ion-col>
-                </ion-row>
+                  </ion-segment-button>
+                </ion-segment>
               </transition>
               <ComingSoon>
                 <template #text>Скоро больше аналитики!</template>
@@ -82,7 +82,7 @@
 
 <script>
 import BaseLayout from "@/components/BaseLayout.vue";
-import {IonCardTitle, IonCol, IonGrid, IonRow} from "@ionic/vue";
+import {IonCardTitle, IonCol, IonGrid, IonRow, IonSegment, IonSegmentButton} from "@ionic/vue";
 import DateFilter from "@/components/ui/DateFilter.vue";
 import EmptyOperations from "@/components/operations/EmptyOperations.vue";
 import SLoader from "@/components/ui/SLoader.vue";
@@ -110,11 +110,14 @@ export default {
     ResultsChart,
     Swiper,
     SwiperSlide,
+    IonSegment,
+    IonSegmentButton,
   },
   data() {
     return {
       analytics_date: moment().format('MMMM, YYYY'),
       tab: 0,
+      segment: 1,
       swiper: null,
     }
   },
