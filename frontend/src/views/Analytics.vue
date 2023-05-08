@@ -3,7 +3,7 @@
     <template #head>
       <div class="inline-flex">
         <div
-          class="h1-tab"
+          class="h1-tab ml5"
           :class="{active: tab === 0}"
           @click="swiper.slideTo(0)"
         >
@@ -22,6 +22,7 @@
       <Swiper
         @slideChange="slideChange"
         @swiper="onSwiper"
+        :space-between="10"
       >
         <SwiperSlide>
           <div class="fullSize">
