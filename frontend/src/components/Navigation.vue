@@ -23,9 +23,9 @@
           <ion-label>Фичи</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="account" href="/account">
-          <ion-icon :icon="personOutline"/>
-          <ion-label>Профиль</ion-label>
+        <ion-tab-button tab="more" href="/more">
+          <ion-icon :icon="ellipsisHorizontalOutline"/>
+          <ion-label>Еще</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -43,7 +43,7 @@ import {
   IonTabs,
   modalController
 } from "@ionic/vue";
-import {addCircleOutline, analyticsOutline, listOutline, personOutline, sparklesOutline} from "ionicons/icons";
+import {addCircleOutline, analyticsOutline, listOutline, ellipsisHorizontalOutline, sparklesOutline} from "ionicons/icons";
 import OperationModal from "@/components/operations/OperationModal";
 
 export default {
@@ -63,7 +63,7 @@ export default {
       listOutline: listOutline,
       addCircleOutline: addCircleOutline,
       sparklesOutline: sparklesOutline,
-      personOutline: personOutline,
+      ellipsisHorizontalOutline: ellipsisHorizontalOutline,
     }
   },
   ionViewWillEnter() {

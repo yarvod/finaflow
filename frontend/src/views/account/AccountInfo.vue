@@ -1,13 +1,21 @@
 <template>
   <base-layout>
+    <template #main-header>
+      <div class="container">
+        <ion-title>FinaFlow</ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+      </div>
+    </template>
     <template #body>
       <ion-card>
         <ion-card-header class="head">
           <ion-card-title>Профиль</ion-card-title>
           <div>
             <ion-button
-               router-link="/account_edit"
-               router-direction="forward"
+              router-link="/account_edit"
+              router-direction="forward"
             >
               Изменить
             </ion-button>
@@ -21,8 +29,8 @@
                 <b>Имя: </b> <span>{{ user.first_name }}</span>
               </div>
               <ion-button
-                  v-if="!user.first_name"
-                  @click="$router.push({name: 'account_edit'})"
+                v-if="!user.first_name"
+                @click="$router.push({name: 'account_edit'})"
               >
                 Добавить
               </ion-button>
@@ -32,9 +40,9 @@
                 <b>Фамилия: </b> <span>{{ user.last_name }}</span>
               </div>
               <ion-button
-                  class="col"
-                  v-if="!user.last_name"
-                  @click="$router.push({name: 'account_edit'})"
+                class="col"
+                v-if="!user.last_name"
+                @click="$router.push({name: 'account_edit'})"
               >
                 Добавить
               </ion-button>
@@ -49,9 +57,9 @@
                 <b>Телефон: </b> <span>{{ user.phone_number }}</span>
               </div>
               <ion-button
-                  class="col"
-                  v-if="!user.phone_number"
-                  @click="$router.push({name: 'account_edit'})"
+                class="col"
+                v-if="!user.phone_number"
+                @click="$router.push({name: 'account_edit'})"
               >
                 Добавить
               </ion-button>
@@ -59,9 +67,9 @@
           </ion-list>
         </ion-card-content>
         <ion-button
-            class="ion-margin-horizontal"
-            @click="LogOut"
-            color="danger"
+          class="ion-margin-horizontal"
+          @click="LogOut"
+          color="danger"
         >
           Выйти
         </ion-button>
@@ -74,7 +82,18 @@
 <script>
 import {mapGetters} from "vuex";
 import BaseLayout from "@/components/BaseLayout.vue";
-import {IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonItem, IonList} from "@ionic/vue";
+import {
+  IonBackButton,
+  IonButton,
+  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonItem,
+  IonList,
+  IonTitle
+} from "@ionic/vue";
 
 export default {
   name: "AccountInfo",
@@ -87,6 +106,9 @@ export default {
     IonCardTitle,
     IonCardContent,
     IonItem,
+    IonTitle,
+    IonButtons,
+    IonBackButton,
   },
   data() {
     return {}

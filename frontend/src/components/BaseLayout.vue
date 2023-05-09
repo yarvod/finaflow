@@ -4,7 +4,6 @@
       :translucent="false"
     >
       <ion-toolbar>
-        <PWAPrompt/>
         <slot name="main-header">
           <ion-title>{{ pageTitle }}</ion-title>
         </slot>

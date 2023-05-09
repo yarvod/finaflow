@@ -45,23 +45,32 @@ const routes = [
         },
       },
       {
-        path: 'account',
-        component: () => import('@/views/account/AccountInfo.vue'),
-        props: true,
-        meta: {
-          requiresAuth: true
-        },
-      },
-      {
-        name: 'account_edit',
-        path: 'account_edit',
-        component: () => import('@/views/account/AccountEdit.vue'),
+        path: 'more',
+        component: () => import('@/views/More.vue'),
         props: true,
         meta: {
           requiresAuth: true
         },
       },
     ],
+  },
+  {
+    name: 'account',
+    path: '/account',
+    component: () => import('@/views/account/AccountInfo.vue'),
+    props: true,
+    meta: {
+      requiresAuth: true,
+    }
+  },
+  {
+    name: 'account_adit',
+    path: '/account_edit',
+    component: () => import('@/views/account/AccountEdit.vue'),
+    props: true,
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: '/login',
