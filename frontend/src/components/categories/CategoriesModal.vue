@@ -23,7 +23,7 @@
   <ion-content>
     <div class="h2 title">Категории</div>
     <div
-      class="small-card hover"
+      class="small-card hover mb5"
       v-for="category in categories"
       :key="category.id"
     >

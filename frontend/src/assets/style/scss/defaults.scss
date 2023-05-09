@@ -89,6 +89,24 @@
   }
 }
 
+.mb {
+  &5 {
+    margin-bottom: 5px;
+  }
+
+  &10 {
+    margin-bottom: 10px;
+  }
+
+  &15 {
+    margin-bottom: 15px;
+  }
+
+  &20 {
+    margin-bottom: 20px;
+  }
+}
+
 .clickable {
   cursor: pointer;
 }
