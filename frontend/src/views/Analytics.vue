@@ -66,7 +66,7 @@
                         :key="expenditure.category_id"
                       >
                         <div class="h3">{{ expenditure.category }}</div>
-                        <p class="expenditure">{{ (expenditure.total).toLocaleString('ru') }} руб</p>
+                        <div class="expenditure">{{ (expenditure.total).toLocaleString('ru') }} руб</div>
                       </div>
                     </div>
                   </div>
@@ -79,7 +79,7 @@
                         :key="revenue.category_id"
                       >
                         <div class="h3">{{ revenue.category }}</div>
-                        <p class="revenue">{{ (revenue.total).toLocaleString('ru') }} руб</p>
+                        <div class="revenue">{{ (revenue.total).toLocaleString('ru') }} руб</div>
                       </div>
                     </div>
                   </div>
