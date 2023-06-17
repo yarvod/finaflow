@@ -1,4 +1,4 @@
-from django.db.models import Q, Sum, F
+from django.db.models import Q, Sum, F, Subquery
 from django.db.models.functions import Coalesce
 from django.utils.timezone import now
 from rest_framework.decorators import action
@@ -62,7 +62,78 @@ class OperationViewSet(ModelViewSet):
         earned = queryset.filter(type=OperationType.REVENUE).aggregate(
             earned=Coalesce(Sum("money"), 0.0)
         )
-        return Response(data={**earned, **spent}, status=200)
+
+        expenditure_analytics = []
+        expenditure_query = queryset.filter(type=OperationType.EXPENDITURE)
+        for category in Category.objects.filter(
+            user=request.user, type=OperationType.EXPENDITURE, parent__isnull=True
+        ):
+            parent_total = 0
+            parent_expenditure = expenditure_query.filter(category=category)
+            if parent_expenditure.exists():
+                parent_total = (
+                    parent_expenditure.aggregate(total=Coalesce(Sum("money"), 0.0))
+                    .get("total", 0)
+                )
+
+            children_total = 0
+            children_expenditure = expenditure_query.filter(category__parent=category)
+            if children_expenditure.exists():
+                children_total = (
+                    children_expenditure.aggregate(total=Coalesce(Sum("money"), 0.0))
+                    .get("total", 0)
+                )
+            print(children_expenditure.aggregate(total=Coalesce(Sum("money"), 0.0)))
+
+            if parent_total > 0 or children_total > 0:
+                expenditure_analytics.append(
+                    {
+                        "category": category.title,
+                        "category_id": category.id,
+                        "total": parent_total + children_total,
+                    }
+                )
+
+        revenue_analytics = []
+        revenue_query = queryset.filter(type=OperationType.REVENUE)
+        for category in Category.objects.filter(
+            user=request.user, type=OperationType.REVENUE, parent__isnull=True
+        ):
+            parent_total = 0
+            parent_revenue = revenue_query.filter(category=category)
+            if parent_revenue.exists():
+                parent_total = (
+                    parent_revenue.aggregate(total=Coalesce(Sum("money"), 0.0))
+                    .get("total", 0)
+                )
+
+            children_total = 0
+            children_revenue = revenue_query.filter(category__parent=category)
+            if children_revenue.exists():
+                children_total = (
+                    children_revenue.aggregate(total=Coalesce(Sum("money"), 0.0))
+                    .get("total", 0)
+                )
+
+            if parent_total > 0 or children_total > 0:
+                revenue_analytics.append(
+                    {
+                        "category": category.title,
+                        "category_id": category.id,
+                        "total": parent_total + children_total,
+                    }
+                )
+
+        revenue_analytics.sort(key=lambda x: x.get("total", 0), reverse=True)
+        expenditure_analytics.sort(key=lambda x: x.get("total", 0), reverse=True)
+
+        data = {
+            "spent": spent.get("spent"),
+            "earned": earned.get("earned"),
+            "spent_by_category": expenditure_analytics,
+            "earned_by_category": revenue_analytics,
+        }
+        return Response(data=data, status=200)
 
     @action(detail=False)
     def results(self, request):

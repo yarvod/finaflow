@@ -55,9 +55,36 @@
                   </ion-segment-button>
                 </ion-segment>
               </transition>
-              <ComingSoon>
-                <template #text>Скоро больше аналитики!</template>
-              </ComingSoon>
+              <transition name="fade" mode="out-in" appear>
+                <div>
+                  <div v-if="segment === '1'" class="groupWrapper mt15">
+                    <EmptyOperations v-if="!analytics?.spent_by_category?.length"/>
+                    <div v-else>
+                      <div
+                        class="card hover"
+                        v-for="expenditure in analytics.spent_by_category"
+                        :key="expenditure.category_id"
+                      >
+                        <div class="h3">{{ expenditure.category }}</div>
+                        <p class="expenditure">{{ (expenditure.total).toLocaleString('ru') }} руб</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-if="segment === '2'" class="groupWrapper mt15">
+                    <EmptyOperations v-if="!analytics?.earned_by_category?.length"/>
+                    <div v-else>
+                      <div
+                        class="card hover"
+                        v-for="revenue in analytics.earned_by_category"
+                        :key="revenue.category_id"
+                      >
+                        <div class="h3">{{ revenue.category }}</div>
+                        <p class="revenue">{{ (revenue.total).toLocaleString('ru') }} руб</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </transition>
             </div>
             <EmptyOperations
               v-else
@@ -145,7 +172,7 @@ export default {
       analytics_date: moment().format('MMMM, YYYY'),
       results_date: moment().format('YYYY'),
       tab: 0,
-      segment: 1,
+      segment: '1',
       swiper: null,
     }
   },
@@ -195,9 +222,17 @@ ion-col {
   &:first-of-type {
     padding-left: 0;
   }
+
   &:last-of-type {
     padding-right: 0;
   }
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 </style>

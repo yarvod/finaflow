@@ -219,6 +219,23 @@
   font-size: medium;
 }
 
+.card {
+  background-color: $white;
+  border-radius: $BorderRadius;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+
+  &:active {
+    transition: all .1s ease;
+    background-color: $Secondary0;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
 .expenditure {
   color: $Expenditure;
   font-family: $base-font;
