@@ -83,7 +83,6 @@ class OperationViewSet(ModelViewSet):
                     children_expenditure.aggregate(total=Coalesce(Sum("money"), 0.0))
                     .get("total", 0)
                 )
-            print(children_expenditure.aggregate(total=Coalesce(Sum("money"), 0.0)))
 
             if parent_total > 0 or children_total > 0:
                 expenditure_analytics.append(
