@@ -9,14 +9,14 @@ class CategoryAdmin(admin.ModelAdmin):
         "title",
         "type",
         "parent",
+        "user",
     )
     list_filter = ("type",)
+    search_fields = ("title", "user", "parent")
 
 
 @admin.register(Operation)
 class OperationAdmin(admin.ModelAdmin):
-    list_display = ("type", "category", "money", "date", "comment")
-    list_filter = (
-        "type",
-        "category",
-    )
+    list_display = ("type", "category", "user", "money", "date", "comment")
+    list_filter = ("type",)
+    search_fields = ("category", "user", "comment", "money")

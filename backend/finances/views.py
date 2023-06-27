@@ -71,18 +71,16 @@ class OperationViewSet(ModelViewSet):
             parent_total = 0
             parent_expenditure = expenditure_query.filter(category=category)
             if parent_expenditure.exists():
-                parent_total = (
-                    parent_expenditure.aggregate(total=Coalesce(Sum("money"), 0.0))
-                    .get("total", 0)
-                )
+                parent_total = parent_expenditure.aggregate(
+                    total=Coalesce(Sum("money"), 0.0)
+                ).get("total", 0)
 
             children_total = 0
             children_expenditure = expenditure_query.filter(category__parent=category)
             if children_expenditure.exists():
-                children_total = (
-                    children_expenditure.aggregate(total=Coalesce(Sum("money"), 0.0))
-                    .get("total", 0)
-                )
+                children_total = children_expenditure.aggregate(
+                    total=Coalesce(Sum("money"), 0.0)
+                ).get("total", 0)
 
             if parent_total > 0 or children_total > 0:
                 expenditure_analytics.append(
@@ -101,18 +99,16 @@ class OperationViewSet(ModelViewSet):
             parent_total = 0
             parent_revenue = revenue_query.filter(category=category)
             if parent_revenue.exists():
-                parent_total = (
-                    parent_revenue.aggregate(total=Coalesce(Sum("money"), 0.0))
-                    .get("total", 0)
-                )
+                parent_total = parent_revenue.aggregate(
+                    total=Coalesce(Sum("money"), 0.0)
+                ).get("total", 0)
 
             children_total = 0
             children_revenue = revenue_query.filter(category__parent=category)
             if children_revenue.exists():
-                children_total = (
-                    children_revenue.aggregate(total=Coalesce(Sum("money"), 0.0))
-                    .get("total", 0)
-                )
+                children_total = children_revenue.aggregate(
+                    total=Coalesce(Sum("money"), 0.0)
+                ).get("total", 0)
 
             if parent_total > 0 or children_total > 0:
                 revenue_analytics.append(
