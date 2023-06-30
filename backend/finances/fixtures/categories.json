@@ -8,30 +8,6 @@
   },
   {
     "model": "finances.category",
-    "pk": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c1",
-    "fields": {
-      "title": "Дома",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b1"
-    }
-  },
-  {
-    "model": "finances.category",
-    "pk": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c2",
-    "fields": {
-      "title": "Забегаловки",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b1"
-    }
-  },
-  {
-    "model": "finances.category",
-    "pk": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6c3",
-    "fields": {
-      "title": "На работе",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b1"
-    }
-  },
-  {
-    "model": "finances.category",
     "pk": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b2",
     "fields": {
       "title": "Дом"
@@ -39,57 +15,9 @@
   },
   {
     "model": "finances.category",
-    "pk": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6d1",
-    "fields": {
-      "title": "Аренда",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b2"
-    }
-  },
-  {
-    "model": "finances.category",
-    "pk": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6d2",
-    "fields": {
-      "title": "Бытовые",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b2"
-    }
-  },
-  {
-    "model": "finances.category",
     "pk": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b3",
     "fields": {
       "title": "Автомобиль"
-    }
-  },
-  {
-    "model": "finances.category",
-    "pk": "cbb90f7d-9dbb-44c8-90ae-e83b77e9a79d",
-    "fields": {
-      "title": "Топливо",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b3"
-    }
-  },
-  {
-    "model": "finances.category",
-    "pk": "cac11c42-6f09-48d4-870c-52c69c8fab3d",
-    "fields": {
-      "title": "Страховка",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b3"
-    }
-  },
-  {
-    "model": "finances.category",
-    "pk": "5f8fbcdb-7b00-4781-a242-483a5f5fefcf",
-    "fields": {
-      "title": "Обслуживание",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b3"
-    }
-  },
-  {
-    "model": "finances.category",
-    "pk": "e4fb0437-e1cc-40c3-9d0f-1ed491cfcbd2",
-    "fields": {
-      "title": "Остальное",
-      "parent": "3b0f8cec-a19a-420d-a2ac-56acd4aaf6b3"
     }
   },
   {
