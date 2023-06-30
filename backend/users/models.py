@@ -20,6 +20,10 @@ class CustomUserManager(UserManager):
 
 
 class User(AbstractUser):
+    class Meta:
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
+
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, unique=True, editable=False
     )
@@ -34,9 +38,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["username", "first_name", "last_name"]
 
     def __str__(self):
-        return f"User(id={self.id}, email={self.email})"
-
-    __repr__ = __str__
+        if self.email:
+            return f"{self.email}"
+        return f"{self.id}"
 
 
 class CustomGroup(Group):

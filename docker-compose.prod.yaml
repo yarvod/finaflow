@@ -8,7 +8,7 @@ volumes:
 
 services:
   postgres:
-    image: ghcr.io/yarvod/finaflow/finaflow-postgres:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-postgres:${TAG:-latest}
     deploy:
       restart_policy:
         window: 10s
@@ -29,7 +29,7 @@ services:
       - web
 
   backend:
-    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:${TAG:-latest}
     deploy:
       replicas: 1
       restart_policy:
@@ -58,7 +58,7 @@ services:
       - web
 
   celery:
-    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:${TAG:-latest}
     deploy:
       restart_policy:
         condition: on-failure
@@ -75,7 +75,7 @@ services:
       - web
 
   redis:
-    image: ghcr.io/yarvod/finaflow/finaflow-redis:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-redis:${TAG:-latest}
     deploy:
       restart_policy:
         window: 5s
@@ -90,7 +90,7 @@ services:
       - web
 
   web:
-    image: ghcr.io/yarvod/finaflow/finaflow-web:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-web:${TAG:-latest}
     deploy:
       replicas: 1
       restart_policy:

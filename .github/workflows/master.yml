@@ -67,52 +67,27 @@ jobs:
         id: backend_rebuild
         name: Backend -- build and push
         run: |
-          docker build backend/ -t ghcr.io/yarvod/finaflow/finaflow-backend:latest
-          docker push ghcr.io/yarvod/finaflow/finaflow-backend:latest
+          docker build backend/ -t ghcr.io/yarvod/finaflow/finaflow-backend:${GITHUB_REF##*/}
+          docker push ghcr.io/yarvod/finaflow/finaflow-backend:${GITHUB_REF##*/}
           echo "backend_rebuilt=true" >> $GITHUB_OUTPUT
 
       - if: needs.check.outputs.web == 'true'
         name: Frontend -- build and push
         run: |
-          docker build frontend/ -t ghcr.io/yarvod/finaflow/finaflow-web:latest
-          docker push ghcr.io/yarvod/finaflow/finaflow-web:latest
+          docker build frontend/ -t ghcr.io/yarvod/finaflow/finaflow-web:${GITHUB_REF##*/}
+          docker push ghcr.io/yarvod/finaflow/finaflow-web:${GITHUB_REF##*/}
 
       - if: needs.check.outputs.redis == 'true'
         name: Redis -- build and push
         run: |
-          docker build redis/ -t ghcr.io/yarvod/finaflow/finaflow-redis:latest
-          docker push ghcr.io/yarvod/finaflow/finaflow-redis:latest
+          docker build redis/ -t ghcr.io/yarvod/finaflow/finaflow-redis:${GITHUB_REF##*/}
+          docker push ghcr.io/yarvod/finaflow/finaflow-redis:${GITHUB_REF##*/}
 
       - if: needs.check.outputs.postgres == 'true'
         name: Postgres -- build and push
         run: |
-          docker build postgres/ -t ghcr.io/yarvod/finaflow/finaflow-postgres:latest
-          docker push ghcr.io/yarvod/finaflow/finaflow-postgres:latest
-
-#  test:
-#    runs-on: ubuntu-latest
-#    needs: build
-#    environment:
-#      name: finaflow-env
-#    steps:
-#      - name: Chekout Repository
-#        uses: actions/checkout@v3
-#        with:
-#          fetch-depth: 2
-#      - name: Create env file
-#        run: |
-#          touch .env
-#          echo REDIS_HOST=${{ secrets.REDIS_HOST }} >> .env
-#          echo REDIS_PORT=${{ secrets.REDIS_PORT }} >> .env
-#          echo REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} >> .env
-#      - name: Log in to Registry
-#        run: echo ${{ secrets.GITHUB }} | docker login ghcr.io -u yarvod --password-stdin
-#      - if: needs.build.outputs.backend_rebuilt == 'true'
-#        name: Run compose
-#        run: docker-compose up -d backend redis
-#      - if: needs.build.outputs.backend_rebuilt == 'true'
-#        name: Test backend
-#        run: docker exec finaflow-backend python manage.py test
+          docker build postgres/ -t ghcr.io/yarvod/finaflow/finaflow-postgres:${GITHUB_REF##*/}
+          docker push ghcr.io/yarvod/finaflow/finaflow-postgres:${GITHUB_REF##*/}
 
   deploy:
     runs-on: ubuntu-latest

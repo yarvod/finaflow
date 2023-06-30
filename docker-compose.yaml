@@ -9,7 +9,7 @@ volumes:
 services:
   postgres:
     container_name: finaflow-postgres
-    image: ghcr.io/yarvod/finaflow/finaflow-postgres:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-postgres:${TAG:-latest}
     build:
       context: postgres
     env_file:
@@ -21,7 +21,7 @@ services:
     restart: always
 
   backend:
-    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:${TAG:-latest}
     build:
       context: backend
     container_name: finaflow-backend
@@ -39,7 +39,7 @@ services:
     command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_django"]
 
   celery:
-    image: ghcr.io/yarvod/finaflow/finaflow-backend:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-backend:${TAG:-latest}
     build:
       context: backend
     container_name: finaflow-celery
@@ -55,7 +55,7 @@ services:
     command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_celery"]
 
   redis:
-    image: ghcr.io/yarvod/finaflow/finaflow-redis:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-redis:${TAG:-latest}
     container_name: finaflow-redis
     build:
       context: ./redis
@@ -68,7 +68,7 @@ services:
     restart: always
 
   web:
-    image: ghcr.io/yarvod/finaflow/finaflow-web:latest
+    image: ghcr.io/yarvod/finaflow/finaflow-web:${TAG:-latest}
     container_name: finaflow-web
     restart: unless-stopped
     env_file:

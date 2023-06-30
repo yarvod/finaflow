@@ -10,6 +10,12 @@
           </div>
         </div>
       </div>
+      <a href="https://finaflow.ru/admin/">
+        <div class="small-card mb5 mt20 hover" v-if="user.is_superuser">
+          <ion-icon :icon="hammerOutline" size="large"/>
+          <div class="ml10">Админ панель</div>
+        </div>
+      </a>
       <ComingSoon>
         <template #text>Скоро больше возможностей!</template>
       </ComingSoon>
@@ -21,7 +27,7 @@
 import BaseLayout from "@/components/BaseLayout.vue";
 import ComingSoon from "@/components/common/ComingSoon.vue";
 import {mapGetters} from "vuex";
-import {personOutline} from "ionicons/icons";
+import {personOutline, hammerOutline} from "ionicons/icons";
 import {IonIcon} from "@ionic/vue";
 
 export default {
@@ -34,6 +40,7 @@ export default {
   data() {
     return {
       personOutline: personOutline,
+      hammerOutline: hammerOutline,
     }
   },
   computed: {
@@ -41,7 +48,7 @@ export default {
   },
   async ionViewWillEnter() {
     await this.$store.dispatch('getMe')
-  }
+  },
 }
 </script>
 
@@ -57,6 +64,11 @@ export default {
   font-weight: normal;
   font-size: 12px;
   align-self: end;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
 }
 
 </style>
