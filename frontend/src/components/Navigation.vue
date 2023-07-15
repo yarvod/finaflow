@@ -66,17 +66,13 @@ export default {
       ellipsisHorizontalOutline: ellipsisHorizontalOutline,
     }
   },
-  ionViewWillEnter() {
-    this.presentingElement = this.$refs.page.$el;
-  },
   methods: {
     async openModal() {
       const modal = await modalController.create({
         component: OperationModal,
-        presentingElement: this.presentingElement,
         canDismiss: true,
       });
-      modal.present();
+      await modal.present();
       const {data, role} = await modal.onWillDismiss();
     },
   },

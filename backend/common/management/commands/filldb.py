@@ -24,7 +24,7 @@ class Command(BaseCommand):
         c3, _ = Category.objects.update_or_create(title="Обучение", user=u1)
         o1, _ = Operation.objects.update_or_create(
             user=u1,
-            title="Шаурма",
+            comment="Шаурма",
             defaults=dict(
                 type=OperationType.EXPENDITURE,
                 category=c1,
