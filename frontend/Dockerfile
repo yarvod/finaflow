@@ -1,4 +1,4 @@
-FROM node:alpine as BUILD_STAGE
+FROM node:18-alpine as BUILD_STAGE
 WORKDIR /app
 COPY package.json .
 COPY . .
@@ -8,7 +8,7 @@ ENV TZ=Europe/Moscow
 RUN npm run build
 
 
-FROM nginx:alpine
+FROM nginx:1.22.0-alpine
 RUN apk add --no-cache esh openssl
 COPY nginx-entrypoint.sh .
 COPY default.conf.esh /etc/nginx/
