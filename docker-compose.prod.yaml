@@ -23,8 +23,8 @@ services:
       - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     networks:
       - web
 
@@ -57,22 +57,22 @@ services:
     networks:
       - web
 
-  celery:
-    image: ghcr.io/yarvod/finaflow/finaflow-backend:${TAG:-latest}
-    deploy:
-      restart_policy:
-        condition: on-failure
-    env_file:
-      - .env
-    volumes:
-      - ./backend/:/app/
-    depends_on:
-      - backend
-      - postgres
-      - redis
-    command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_celery"]
-    networks:
-      - web
+#  celery:
+#    image: ghcr.io/yarvod/finaflow/finaflow-backend:${TAG:-latest}
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
+#    env_file:
+#      - .env
+#    volumes:
+#      - ./backend/:/app/
+#    depends_on:
+#      - backend
+#      - postgres
+#      - redis
+#    command: ["./wait-for-postgres.sh", "--", "sh", "entrypoint.sh", "run_celery"]
+#    networks:
+#      - web
 
   redis:
     image: ghcr.io/yarvod/finaflow/finaflow-redis:${TAG:-latest}
@@ -82,8 +82,8 @@ services:
         condition: on-failure
     env_file:
       - .env
-    ports:
-      - "6379:6379"
+    expose:
+      - "6379"
     volumes:
       - redis:/data
     networks:

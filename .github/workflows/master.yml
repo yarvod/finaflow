@@ -96,7 +96,7 @@ jobs:
       name: finaflow-env
     steps:
       - name: Restart services
-        uses: appleboy/ssh-action@v1.03
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
