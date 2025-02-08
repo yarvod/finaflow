@@ -62,6 +62,12 @@
                     <div v-else>
                       <div
                         class="card hover"
+                      >
+                        <div class="h4">В среднем в день</div>
+                        <div class="expenditure">{{ mean_day_spent().toLocaleString('ru') }} руб</div>
+                      </div>
+                      <div
+                        class="card hover"
                         v-for="expenditure in analytics.spent_by_category"
                         :key="expenditure.category_id"
                       >
@@ -73,6 +79,12 @@
                   <div v-if="segment === '2'" class="groupWrapper mt15">
                     <EmptyOperations v-if="!analytics?.earned_by_category?.length"/>
                     <div v-else>
+                      <div
+                        class="card hover"
+                      >
+                        <div class="h4">В среднем в день</div>
+                        <div class="expenditure">{{ mean_day_earned().toLocaleString('ru') }} руб</div>
+                      </div>
                       <div
                         class="card hover"
                         v-for="revenue in analytics.earned_by_category"
@@ -203,6 +215,12 @@ export default {
     slideChange() {
       this.tab = this.swiper.activeIndex;
     },
+    mean_day_spent() {
+      return analytics.spent / moment().day()
+    },
+    mean_day_earned() {
+      return analytics.earned / moment().day()
+    }
   },
 }
 </script>
