@@ -216,10 +216,10 @@ export default {
       this.tab = this.swiper.activeIndex;
     },
     mean_day_spent() {
-      return analytics.spent / moment().day()
+      return this.analytics.spent / moment().day()
     },
     mean_day_earned() {
-      return analytics.earned / moment().day()
+      return this.analytics.earned / moment().day()
     }
   },
 }
