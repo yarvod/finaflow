@@ -219,7 +219,7 @@ export default {
       return this.analytics.spent / moment().day()
     },
     mean_day_earned() {
-      return this.analytics.earned / moment().day()
+      return this.analytics.earned / moment().daysInMonth()
     }
   },
 }
