@@ -83,7 +83,7 @@
                         class="card hover"
                       >
                         <div class="h4">В среднем в день</div>
-                        <div class="expenditure">{{ mean_day_earned().toLocaleString('ru') }} руб</div>
+                        <div class="revenue">{{ mean_day_earned().toLocaleString('ru') }} руб</div>
                       </div>
                       <div
                         class="card hover"
