@@ -216,7 +216,7 @@ export default {
       this.tab = this.swiper.activeIndex;
     },
     mean_day_spent() {
-      return this.analytics.spent / moment().day()
+      return this.analytics.spent / moment().date()
     },
     mean_day_earned() {
       return this.analytics.earned / moment().daysInMonth()
